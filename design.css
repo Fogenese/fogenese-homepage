@@ -5,6 +5,14 @@
 }
 body {background-color:pink;}
 
+h1 {font-size: 4rem;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #b0ffff;
+   }
+    
 .box {
     width: 300px;
     height: 200px;
@@ -15,5 +23,16 @@ body {background-color:pink;}
     position: absolute;
     top: 50px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    opacity: 0;
+    transform: translateY(50px);
+    animation:fadeInUp 1s ease-out forwards;　　 
+}
+    @keyframes fadeInUp {
+    0% {
+    opacity: 0;
+    transform: translateY(50px); }
+    100% {
+    opacity: 1;
+    transform: translateY(px); }
+    }
 }
