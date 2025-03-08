@@ -1,6 +1,6 @@
 body {background-color:pink;}
 
-#box {
+.box {
     width: 300px;
     height: 200px;
     background-color: 40a6ff;
