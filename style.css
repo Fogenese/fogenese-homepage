@@ -7,7 +7,6 @@ body {background-color: #ffdddd;}
 
 h1 {font-size: 7rem;
     position: absolute;
-    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     text-shadow: 10px 10px 2px #000;
@@ -28,8 +27,8 @@ h2 {font-size: 6rem;
         border-radius: 50%;
         border: 5px solid white;
         color: white;
-        position: absolute;
-        top: 285px;
+        position: relative;
+        top: 200px;
         display: flex;
         justify-content: center;
         align-items: center;
