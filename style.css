@@ -72,8 +72,7 @@ h2 {font-size: 6rem;
     height: 400px;
     border: 10px solid white;
     border-radius: 20px;
-    background:
-      url(1740490522252.jpg) no-repeat center top,  linear-gradient(to bottom, transparent 50%, #a0ddff 50%);
+    background: url(1740490522252.jpg) no-repeat center top,  linear-gradient(to bottom, transparent 50%, #a0ddff 50%);
     background-size: 100% 50%, 100% 100%;
     background-position: top;
     padding: 20px;
@@ -114,7 +113,9 @@ h2 {font-size: 6rem;
 .hidden-box p{
     font-size:6rem;
     font-style: italic;
-    position: relative;
+    position: absolute;
+    bottom: 60px;
+    left: 120px;
 }
 .under-line {
      width: 600px;
