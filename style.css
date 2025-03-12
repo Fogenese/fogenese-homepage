@@ -8,6 +8,7 @@ body {background-color: #ffdddd;
 
 h1 {font-size: 7rem;
     position: absolute;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     text-shadow: 10px 10px 2px #000;
@@ -20,7 +21,7 @@ h2 {font-size: 6rem;
 }
 #line {border: 5px solid white;
        color: #ffdddd;
-       position: relative;
+       position: absolute;
        top: 150px;
 }
 .icon {width: 100px;
