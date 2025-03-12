@@ -68,9 +68,9 @@ h2 {font-size: 6rem;
     background-color: orange;
 }
 .content.active {max-height: 600px;}
-#content1 {transform: translateY(300px);}
-#content2 {transform: translateY(400px);}
-#content3 {transform: translateY(500px);}
+#content1
+#content2
+#content3
 .box {
     width: 900px;
     height: 400px;
