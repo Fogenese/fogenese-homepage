@@ -67,8 +67,8 @@ h2 {font-size: 6rem;
 }
 .content.active {max-height: 600px;}
 #content1 {transform: translateY(0px);}
-#content2 {transform: translateY(0px);}
-#content3 {transform: translateY(0px);}
+#content2 {transform: translateY(200px);}
+#content3 {transform: translateY(400px);}
 .box {
     width: 900px;
     height: 400px;
