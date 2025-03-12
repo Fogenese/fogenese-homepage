@@ -9,7 +9,7 @@ body {background-color: #ffdddd;
 h1 {font-size: 7rem;
     position: relative;
     margin-top: 20px;
-    left: 50%;
+    margin-left: 50%;
     transform: translateX(-50%);
     text-shadow: 10px 10px 2px #000;
     color: #a0ddff;
@@ -22,13 +22,12 @@ h2 {font-size: 6rem;
 #line {border: 5px solid white;
        color: #ffdddd;
        position: relative;
-       margin-top: 10px;
+       margin-top: 30px;
 }
 .icons {width: auto;
         height: 100px;
         position: relative;
-        margin-top: 100px;
-        margin-bottom: 100px; 
+        margin: 30px auto;
 }
 .icon {width: 100px;
        height: 100px;
