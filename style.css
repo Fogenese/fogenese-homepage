@@ -19,7 +19,8 @@ h2 {font-size: 6rem;
 }
 #line {border: 5px solid white;
        color: #ffdddd;
-       transform: translateY(500%)
+       position: relative;
+       top: 100px;
 }
 .icon {width: 100px;
         height: 100px;
