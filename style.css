@@ -21,7 +21,7 @@ h2 {font-size: 6rem;
 #line {border: 5px solid white;
        color: #ffdddd;
        position: relative;
-       top: 100px;
+       top: 150px;
 }
 .icon {width: 100px;
         height: 100px;
@@ -29,7 +29,7 @@ h2 {font-size: 6rem;
         border: 5px solid white;
         color: white;
         position: absolute;
-        top: 200px;
+        top: 250px;
         display: flex;
         justify-content: center;
         align-items: center;
