@@ -8,7 +8,7 @@ body {background-color: #ffdddd;
 
 h1 {font-size: 7rem;
     position: absolute;
-    top: 10%;
+    margin-top: 20px;
     left: 50%;
     transform: translateX(-50%);
     text-shadow: 10px 10px 2px #000;
@@ -21,16 +21,16 @@ h2 {font-size: 6rem;
 }
 #line {border: 5px solid white;
        color: #ffdddd;
-       position: absolute;
-       top: 150px;
+       position: relative;
+       top: 0px;
 }
 .icon {width: 100px;
         height: 100px;
         border-radius: 50%;
         border: 5px solid white;
         color: white;
-        position: absolute;
-        top: 250px;
+        position: relative;
+        top: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -86,15 +86,15 @@ h2 {font-size: 6rem;
         top: 330px;
 }
 #box1 {
-    top: 300px;
+    top: 0px;
     animation: fadeInUp 0.5s ease-out forwards;
 }
 #box2 {
-    top: 400px;
+    top: 0px;
     animation: fadeInUp 1s ease-out forwards;
 }
 #box3 {
-    top: 500px;
+    top: 0px;
     animation: fadeInUp 1.5s ease-out forwards;
 }
     @keyframes fadeInUp {
