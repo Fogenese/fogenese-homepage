@@ -3,7 +3,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {background-color: #ffdddd;}
+body {background-color: #ffdddd;
+      white-space: nowrap;}
 
 h1 {font-size: 7rem;
     position: absolute;
@@ -27,7 +28,7 @@ h2 {font-size: 6rem;
         border-radius: 50%;
         border: 5px solid white;
         color: white;
-        position: relative;
+        position: absolute;
         top: 200px;
         display: flex;
         justify-content: center;
