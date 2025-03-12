@@ -113,8 +113,7 @@ h2 {font-size: 6rem;
 .hidden-box p{
     font-size:6rem;
     font-style: italic;
-    padding-top: 160px;
-    padding-left: 160px;
+    position: relative;
 }
 .under-line {
      width: 600px;
