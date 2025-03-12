@@ -66,7 +66,7 @@ h2 {font-size: 6rem;
     transform: translateX(-100px);
     transition: max-height 1s ease;
 }
-.content.active {max-height: 600px;
+.content.active {max-height: 600px;}
 .box {
     width: 900px;
     height: 400px;
