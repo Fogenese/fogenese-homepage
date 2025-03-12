@@ -64,11 +64,12 @@ h2 {font-size: 6rem;
     overflow: hidden;
     max-height: 0;
     transition: max-height 1s ease;
+    position: relative;
 }
 .content.active {max-height: 600px;}
-#content1 {transform: translateY(0px);}
-#content2 {transform: translateY(200px);}
-#content3 {transform: translateY(400px);}
+#content1 {top: 0px;}
+#content2 {top: 200px;}
+#content3 {top: 400px;}
 .box {
     width: 900px;
     height: 400px;
