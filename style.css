@@ -8,9 +8,7 @@ body {background-color: #ffdddd;
 
 h1 {font-size: 7rem;
     position: relative;
-    margin-top: 20px;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    margin: 20px 50% auto;
     text-shadow: 10px 10px 2px #000;
     color: #a0ddff;
 }
@@ -83,7 +81,7 @@ h2 {font-size: 6rem;
     padding: 20px;
     opacity: 0;
     position: relative;
-    left: 50px;
+    margin: auto auto;
 }
 .box p {font-size: 2.5rem;
         position: absolute;
