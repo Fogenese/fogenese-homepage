@@ -63,7 +63,7 @@ h2 {font-size: 6rem;
 .content {
     overflow: hidden;
     max-height: 0;
-    transform: translateX(-100px);
+    transform: translateX(100px);
     transition: max-height 1s ease;
 }
 .content.active {max-height: 600px;}
