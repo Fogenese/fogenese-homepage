@@ -8,7 +8,7 @@ body {background-color: #ffdddd;
 
 h1 {font-size: 7rem;
     position: relative;
-    padding: 20px auto;
+    margin: 20px auto;
     text-shadow: 10px 10px 2px #000;
     color: #a0ddff;
 }
@@ -65,6 +65,7 @@ h2 {font-size: 6rem;
     max-height: 0;
     transform: translateX(-100px);
     transition: max-height 1s ease;
+    background-color: orange;
 }
 .content.active {max-height: 600px;}
 #content1 {transform: translateY(300px);}
