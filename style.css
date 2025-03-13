@@ -91,10 +91,10 @@ h2 {font-size: 6rem;
 #box1 {
     animation: fadeInUp 0.5s ease-out forwards;
 }
-#box2 {top: 200px;
+#box2 {
     animation: fadeInUp 1s ease-out forwards;
 }
-#box3 {top: 400px;
+#box3 {
     animation: fadeInUp 1.5s ease-out forwards;
 }
     @keyframes fadeInUp {
