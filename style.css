@@ -65,6 +65,7 @@ h2 {font-size: 6rem;
     max-height: 0;
     transition: max-height 1s ease;
     position: relative;
+    margin-bottom: 200px;
 }
 .content.active {max-height: 600px;}
 #content1 {top: 0px;}
