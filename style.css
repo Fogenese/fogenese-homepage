@@ -82,7 +82,7 @@ h2 {font-size: 6rem;
     padding: 20px;
     opacity: 0;
     position: relative;
-    margin: auto auto;
+    margin: 0 auto;
 }
 .box p {font-size: 2.5rem;
         position: absolute;
