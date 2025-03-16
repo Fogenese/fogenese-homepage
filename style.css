@@ -25,7 +25,10 @@ h2 {font-size: 6rem;
 }
 .icons {width: auto;
         height: 100px;
-        background-color: orange;
+        display: flex;
+        flex-direction: row;
+        align-items:center;
+        gap: 200px;
         position: relative;
         margin: 30px auto;
 }
@@ -34,20 +37,17 @@ h2 {font-size: 6rem;
        border-radius: 50%;
        border: 5px solid white;
        color: white;
-       position: absolute;
        display: flex;
        justify-content: center;
        align-items: center;
 }
 #xicon {background-color: black;
-        left: 250px;
 }
 #xicon a {font-size: 4.5em;
           text-decoration: none;
           color: white;
 }
 #gdicon {background-color: #90c028;
-         left: 450px;
 }
 #gdicon a {font-size: 4em;
           text-decoration: none;
@@ -56,7 +56,6 @@ h2 {font-size: 6rem;
 #zdicon {background-image: url(Screenshot_20250309-155600~2.png);
          background-size: contain;
          background-position: center;
-         left: 650px;
 }
 #zdicon a {font-size: 4em;
            color: transparent;
