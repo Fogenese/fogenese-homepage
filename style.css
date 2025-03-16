@@ -95,12 +95,12 @@ h2 {font-size: 6rem;
     transform: translateY(0px); }
     }
 .content {
+    width: 700px;
     overflow: hidden;
     max-height: 0;
     transition: max-height 1s ease;
     position: relative;
-    displey: flex;
-    justify-content: center;
+    margin: auto auto;
     margin-bottom: 200px;
 }
 .content.active {max-height: 600px;}
@@ -108,7 +108,6 @@ h2 {font-size: 6rem;
     width: 800px;
     height: 300px;
     position: relative;
-    left: 100px;
 }
 .hidden-box p{
     font-size:6rem;
@@ -133,14 +132,13 @@ h2 {font-size: 6rem;
      border: 10px solid white;
      position: absolute;
      bottom: 0px;
-     left: 100px;
+     left: 60px;
      transform: skewX(-30deg)
 }
 .vertical-line {
     width: 60px;
     height: 600px;
     position: absolute;
-    left: 140px;
     background: linear-gradient(to right, white 50%, #a0ddff 50%);
 }
 .subtitle{
