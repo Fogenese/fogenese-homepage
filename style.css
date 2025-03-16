@@ -60,14 +60,6 @@ h2 {font-size: 6rem;
            color: transparent;
            text-decoration: none;
 }
-.content {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 1s ease;
-    position: relative;
-    margin-bottom: 200px;
-}
-.content.active {max-height: 600px;}
 .box {
     width: 900px;
     height: 400px;
@@ -102,6 +94,16 @@ h2 {font-size: 6rem;
     opacity: 1;
     transform: translateY(0px); }
     }
+.content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 1s ease;
+    position: relative;
+    displey: flex;
+    justify-content: center;
+    margin-bottom: 200px;
+}
+.content.active {max-height: 600px;}
 .hidden-box {
     width: 800px;
     height: 300px;
