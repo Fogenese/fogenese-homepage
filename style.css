@@ -25,6 +25,7 @@ h2 {font-size: 6rem;
 }
 .icons {width: auto;
         height: 100px;
+        background-color: orange;
         position: relative;
         margin: 30px auto;
 }
