@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {background-color: #ffdddd;
+body {background-color: #ffeeee;
       white-space: nowrap;}
 
 h1 {font-size: 7rem;
@@ -16,11 +16,10 @@ h1 {font-size: 7rem;
 h2 {font-size: 6rem;
     font-style: italic;
     position: relative;
-    top: 200px;
+    top: 55%;
 }
 #line {border: 5px solid white;
-       color: #ffdddd;
-       position: relative;
+       display: none
        margin-top: 30px;
 }
 .icons {width: auto;
@@ -28,7 +27,6 @@ h2 {font-size: 6rem;
         display: flex;
         justify-content: center;
         gap: 100px;
-        position: relative;
         margin: 30px auto;
 }
 .icon {width: 100px;
@@ -40,25 +38,27 @@ h2 {font-size: 6rem;
        justify-content: center;
        align-items: center;
 }
-#xicon {background-color: black;
+#xicon {background-color: black;}
+#xicon a {
+    font-size: 4.5em;
+    text-decoration: none;
+    color: white;
 }
-#xicon a {font-size: 4.5em;
-          text-decoration: none;
-          color: white;
+#gdicon {background-color: #90c028;}
+#gdicon a {
+    font-size: 4em;
+    text-decoration: none;
+    color: white;
 }
-#gdicon {background-color: #90c028;
+#zdicon {
+    background-image: url(Screenshot_20250309-155600~2.png);
+    background-size: contain;
+    background-position: center;
 }
-#gdicon a {font-size: 4em;
-          text-decoration: none;
-          color: white;
-}
-#zdicon {background-image: url(Screenshot_20250309-155600~2.png);
-         background-size: contain;
-         background-position: center;
-}
-#zdicon a {font-size: 4em;
-           color: transparent;
-           text-decoration: none;
+#zdicon a {
+    font-size: 4em;
+    color: transparent;
+    text-decoration: none;
 }
 .box {
     width: 900px;
@@ -68,38 +68,31 @@ h2 {font-size: 6rem;
     background: url(1740490522252.jpg) no-repeat center top,  linear-gradient(to bottom, transparent 50%, #a0ddff 50%);
     background-size: 100% 50%, 100% 100%;
     background-position: top;
+    position: relative;
     padding: 20px;
     opacity: 0;
-    position: relative;
     margin: 0 auto;
 }
 .box p {font-size: 2.5rem;
         position: absolute;
-        top: 330px;
+        bottom: 5%;
 }
-#box1 {
-    animation: fadeInUp 0.5s ease-out forwards;
-}
-#box2 {
-    animation: fadeInUp 1s ease-out forwards;
-}
-#box3 {
-    animation: fadeInUp 1.5s ease-out forwards;
-}
-    @keyframes fadeInUp {
+#box1 {animation: fadeInUp 0.5s ease-out forwards;}
+#box2 {animation: fadeInUp 1s ease-out forwards;}
+#box3 {animation: fadeInUp 1.5s ease-out forwards;}
+@keyframes fadeInUp {
     0% {
-    opacity: 0;
-    transform: translateY(400px); }
+        opacity: 0;
+        transform: translateY(400px); }
     100% {
-    opacity: 1;
-    transform: translateY(0px); }
-    }
+        opacity: 1;
+        transform: translateY(0px); }
+}
 .content {
     width: 700px;
     overflow: hidden;
     max-height: 0;
     transition: max-height 1s ease;
-    position: relative;
     margin: auto auto;
     margin-bottom: 200px;
 }
@@ -158,3 +151,30 @@ h2 {font-size: 6rem;
     font-size: 3rem;
     margin: auto auto;
 }
+table {
+    width: auto;
+    border-spacing: 0;
+    font-size: 3rem;
+    border: 5px solid white;
+    border-radius: 20px;
+    margin: 10px auto;
+    overflow: hidden;
+}
+th, td {
+    padding: 20px;
+    text-align: center;
+    background-clip: padding-box;
+}
+th {
+    border: 2px solid #000;
+    background-color: #a0ddff;
+    font-weight: bold;
+}
+td {
+    border: 1px solid #000;
+    background-color: #cfeeff;
+}
+tr:first-child th {border-top: none;}
+tr:last-child td {border-bottom: none;}
+th:first-child, td:first-child {border-left: none;}
+th:last-child, td:last-child {border-right: none;}
