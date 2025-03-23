@@ -65,23 +65,27 @@ h2 {font-size: 6rem;
     height: 400px;
     border: 10px solid white;
     border-radius: 20px;
-    background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%);
-    background-size: 100% 50%, 100% 100%;
-    background-position: top;
     position: relative;
     padding: 20px;
     opacity: 0;
     margin: 0 auto;
 }
 .box p {font-size: 2.5rem;
-        position: absolute;
+        position: relative;
         bottom: 5%;
 }
 #box1 {animation: fadeInUp 0.5s ease-out forwards;
-      background: url(Screenshot_20250322-105445~2.png) no-repeat center top;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(Screenshot_20250323-161009~3.png) no-repeat;
+       background-size: 100% 100%, 100% 70%;
 }
-#box2 {animation: fadeInUp 1s ease-out forwards;}
-#box3 {animation: fadeInUp 1.5s ease-out forwards;}
+#box2 {animation: fadeInUp 1s ease-out forwards;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url() no-repeat;
+       background-size: 100% 100%, 100% 70%;
+}
+#box3 {animation: fadeInUp 1.5s ease-out forwards;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url() no-repeat;
+       background-size: 100% 100%, 100% 70%;
+}
 @keyframes fadeInUp {
     0% {
         opacity: 0;
