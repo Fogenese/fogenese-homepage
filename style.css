@@ -5,7 +5,6 @@
 }
 body {background-color: #ffeeee;
       white-space: nowrap;}
-
 h1 {font-size: 7rem;
     position: relative;
     text-align: center;
@@ -109,14 +108,14 @@ h2 {font-size: 6rem;
     height: 300px;
     position: relative;
 }
-.hidden-box p{
+.hidden-box p {
     font-size:6rem;
     font-style: italic;
     position: absolute;
     bottom: 60px;
     left: 120px;
 }
-.hidden-box a{
+.hidden-box a {
     font-size:6rem;
     font-style: italic;
     position: absolute;
@@ -141,22 +140,31 @@ h2 {font-size: 6rem;
     position: absolute;
     background: linear-gradient(to right, white 50%, #a0ddff 50%);
 }
-.subtitle{
+.chapter {
     width: 900px;
-    font-size: 5rem;
+    font-size: 4.5rem;
     background-color: #ffd060;
     color: #374a55;
     border: 5px solid white;
     transform: skewX(-20deg);
     margin: auto auto;
-    margin-top: 30px;
+    margin-top: 40px;
+    padding: 10px;
 }
-.text-box{
+.section {
+    width: 850px;
+    font-size: 4rem;
+    border-left: 10px solid #ff6666;
+    border-bottom: 5px solid #ff6666;
+    margin: 10px auto;
+}
+.text-box {
     width: 800px;
     white-space: normal;
     color: #333333;
     font-size: 3rem;
     margin: auto auto;
+    margin-bottom: 30px;
 }
 table {
     width: auto;
