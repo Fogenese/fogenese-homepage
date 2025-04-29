@@ -1,0 +1,34 @@
+<DOCTYPE html>
+<html lang=ja>
+<head>
+  <meta charset="UTF-8">
+  <title>辞書</title>
+  <link rel=stylesheet href="style.css">
+</head>
+<body class="dic">
+  <h1 id="title"></h1>
+  <div id="line">a</div>
+  <button onclick="setLang('fg')">穂語</button>
+  <button onclick="setLang('yj')">裕語</button>
+  <button onclick="setLang('kl')">嘉語</button>
+  <div id="dicboxes">
+    <div class="dicbox" id="wordbox">
+      <div id="detail">
+        <div class="info" id="spell"></div>
+        <div class="info" id="mean"></div>
+        <div class="info" id="qualis"></div>
+        <div class="info" id="pron"></div>
+        <div class="info" id="infl"></div>
+        <div class="info" id="origin"></div>
+        <div class="info" id="usage"></div>
+        <table id="inflectionTable"></table>
+      </div>
+      
+    </div>
+    <div class="dicbox" id="suggestbox">
+      <input type="text" id="search" placeholder="単語を検索" />
+      <div id="suggest"></div>
+    </div>
+  </div>
+</body>
+<script src="script.js"></script>
