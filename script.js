@@ -292,7 +292,7 @@ function calcInflYjNoun(word,toi) {
   let stem = '';
   let end = '';
 
-  if (word.length = 2 && word[word.length - 1] === 'l') {
+  if (word.length === 2 && word[word.length - 1] === 'l') {
     stem = word.slice(0,-1);
 } else if (word.length > 2 && word[word.length - 2] !== 'j') {
     stem = word.slice(0,-3);
@@ -619,6 +619,7 @@ function loadDic(lang) {
     const search = document.getElementById('search');
     const suggest = document.getElementById('suggest');
     const word = document.getElementById('word');
+    const detail = document.getElementById('detail');
     const count = document.createElement('p');
     count.textContent = `現在の語数: ${data.length}`;
 
