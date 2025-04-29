@@ -1,0 +1,10 @@
+[
+  { "word": "bu", "mean": "〜できる", "qualis": "助動副辞" , "usage": "実心や助動副辞の連用形に後接し、可能の意味を表す。" },
+  { "word": "bo", "mean": "物" , "qualis": "格体" , "origin": "日本語「物」"},
+  { "word": "ceo", "mean": "車" , "qualis": "格体" , "origin": "中国語「车(chē)」+格体着尾辞「-o」"},
+  { "word": "dai", "mean": "大きい", "qualis": "飾定" , "origin": "日本語「大」" },
+  { "word": "gubo", "mean": "友達" , "qualis": "格体" , "origin": "「gu(〜と一緒に)」+「bo(もの)」" },
+  { "word": "layo", "mean": "光" , "qualis": "格体" , "origin": "音象徴「l(内なる力)」+「y(不思議さ)」+格体着尾辞「-o」" },
+  { "word": "teku", "mean": "歩く", "qualis": "実心" , "origin": "擬声語「てくてく」" },
+  { "word": "xi", "mean": "〜した", "qualis": "助動副辞" , "usage": "実心や助動副辞の連用形に後接し、過去時制を表す。" }
+]

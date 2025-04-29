@@ -1,0 +1,14 @@
+[  
+  { "word": "al", "mean": "私,話し手" , "qualis": "人称代格体" },
+    { "word": "amel", "mean": "私たち,私とあなた" , "qualis": "人称代格体" },
+  { "word": "caby", "mean": "与える" , "qualis": "実心" },
+  { "word": "cehm", "mean": "土地,地面" , "qualis": "格体" },
+  { "word": "em", "mean": "あなた,聞き手" , "qualis": "人称代格体" },
+  { "word": "gwez", "mean": "生きる,生きている" , "qualis": "実心" },
+  { "word": "kan", "mean": "音" , "qualis": "格体" },
+  { "word": "mesw", "mean": "食べる", "qualis": "実心" },
+  { "word": "peik", "mean": "肉", "qualis": "格体" },
+  { "word": "ow", "mean": "彼" , "qualis": "人称代格体" },
+  { "word": "oy", "mean": "彼女" , "qualis": "人称代格体" },
+  { "word": "to", "mean": "〜した" , "qualis": "実心離頭辞", "usage": "実心または法離頭辞の前に置かれ、過去時制を表す。" }
+]
