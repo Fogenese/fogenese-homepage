@@ -504,7 +504,7 @@ function calcInflYjAdj(word,toi) {
   table.innerHTML = '';
 
   const prefix = word.slice(0,-2);
-  const stem = word.slice(1,-1);
+  const stem = word.slice(-2,-1);
   const forms = {
     '原級':   [['','','x'],['','','f'],['','','s']],
     '比較級':   [['l','','x'],['j','','f'],['i','','s']],
