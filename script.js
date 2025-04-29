@@ -230,6 +230,19 @@ function calcPronKl(word) {
   }
   return `/${phoneme}/ [${phonetic}]`
 }
+function estmPos(qualis) {
+  if (qualis.includes('格体')) {
+    return 'noun';
+  } else if (qualis.includes('実心')) {
+    return 'verb';
+  } else if (qualis.includes('飾定')) {
+    return 'adj';
+  } else if (qualis.includes('助動')) {
+    return 'axlv';
+  } else if (qualis.includes('離')) {
+    return 'dfx'
+  }
+}
 function estmInfl(word,pos,lang) {
   if (lang === 'fg') {
     if (pos === 'verb' || (pos === 'axlv' && word.slice(-1) === 'u')) {
