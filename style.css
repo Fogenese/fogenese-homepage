@@ -4,7 +4,8 @@
     box-sizing: border-box;
 }
 body {background-color: #ffeeee;
-      white-space: nowrap;}
+      white-space: nowrap;
+}
 h1 {font-size: 7rem;
     position: relative;
     text-align: center;
@@ -17,7 +18,7 @@ h2 {font-size: 6rem;
     position: relative;
     top: 55%;
 }
-#line {border: 5px solid white;
+#line {border: 5px solid #fff;
        color: #ffeeee;
        margin-top: 30px;
 }
@@ -31,7 +32,7 @@ h2 {font-size: 6rem;
 .icon {width: 100px;
        height: 100px;
        border-radius: 50%;
-       border: 5px solid white;
+       border: 5px solid #fff;
        color: white;
        display: flex;
        justify-content: center;
@@ -128,7 +129,7 @@ h2 {font-size: 6rem;
      width: 600px;
      height: 50px;
      background-color: #ffd060;
-     border: 10px solid white;
+     border: 10px solid #fff;
      position: absolute;
      bottom: 0px;
      left: 60px;
@@ -138,14 +139,14 @@ h2 {font-size: 6rem;
     width: 60px;
     height: 600px;
     position: absolute;
-    background: linear-gradient(to right, white 50%, #a0ddff 50%);
+    background: linear-gradient(to right, #fff 50%, #a0ddff 50%);
 }
 .chapter {
     width: 900px;
     font-size: 4.5rem;
     background-color: #ffd060;
     color: #374a55;
-    border: 5px solid white;
+    border: 5px solid #fff;
     transform: skewX(-20deg);
     margin: auto auto;
     margin-top: 40px;
@@ -166,11 +167,28 @@ h2 {font-size: 6rem;
     margin: auto auto;
     margin-bottom: 30px;
 }
+.sentence{
+    width: 80%;
+    border-radius: 20px;
+    background-color: #fff6f6;
+    font-size: 3rem;
+    text-align: center;
+    box-shadow: 0px 0px 10px 10px #cfeeff;
+    padding: 20px;
+    margin: 40px auto;
+    overflow: hidden;
+}
+.dic .sentence {
+    width: 90%;
+    height: 100px;
+    font-size: 2rem;
+    padding: 0;
+}
 table {
     width: auto;
     border-spacing: 0;
-    font-size: 2rem;
-    border: 5px solid white;
+    font-size: 35px;
+    border: 5px solid #fff;
     border-radius: 20px;
     margin: 10px auto;
     overflow: hidden;
@@ -179,6 +197,7 @@ th, td {
     padding: 20px;
     text-align: center;
     background-clip: padding-box;
+    white-space: nowrop;
 }
 th {
     border: 2px solid #000;
@@ -189,7 +208,91 @@ td {
     border: 1px solid #000;
     background-color: #cfeeff;
 }
-tr:first-child th {border-top: none;}
-tr:last-child td {border-bottom: none;}
+tr:first-child th, tr:first-child td {border-top: none;}
+tr:last-child th, tr:last-child td {border-bottom: none;}
 th:first-child, td:first-child {border-left: none;}
 th:last-child, td:last-child {border-right: none;}
+#dicboxes {
+    display: flex;
+}
+.dicbox {
+    position: relative;
+    height: 1500px;
+    border: 5px solid #ffdddd;
+    margin-left: 3%;
+    overflow: auto;
+}
+#suggest p {
+    margin-top: 30px;
+    color: #555353;
+}
+#wordbox {
+    width: 60%;
+}
+#suggestbox {
+    width: 30%;
+}
+#search {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+}
+#suggest {
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+.word {font-size: 60px;}
+.word.noun {color: #f05fdf;}
+.word.verb {color: #25a6e5;}
+.word.adj {color: #17ab39;}
+.word.axlv {color: #95A53A;}
+.word.dfx {color: #70AD47;}
+button {
+    width: 100px;
+    height: 50px;
+    position: relative;
+    left: 30%;
+    font-size: 40px;
+}
+#detail {
+    border: 5px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px;
+    display: none;
+}
+.info {width: 100%;
+       background-color: #cfeeff;
+       border-bottom: 1px solid #000;
+       font-size: 40px;
+       padding: 30px;
+       overflow: auto;
+}
+#spell {
+    background-color: #ffd060;
+    border-bottom: 5px solid white;
+    text-align: center;
+    font-size: 60px;
+}
+#origin, #usage {font-size:25px;}
+#inflectiontable {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+}
+#inflectiontable th, td {
+    padding: 15px;
+}
+.info a {
+    text-decoration: none;
+    color: #000;
+}
