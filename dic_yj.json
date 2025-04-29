@@ -29,6 +29,7 @@
   { "word": "vjl", "mean": "聞こえる,聞く", "qualis": "両向実心", "origin": "英語「bell(鐘)」" },
   { "word": "vjljk", "mean": "耳,マイク", "qualis": "普通格体", "origin": "「vjl(見る)」+格体化着尾辞「jk」" },
   { "word": "xjl", "mean": "見える,見る", "qualis": "両向実心" },
-  { "word": "xjljk", "mean": "目,カメラ", "qualis": "普通格体", "origin": "「xjl(見る)」+格体化着尾辞「jk」" }
+  { "word": "xjljk", "mean": "目,カメラ", "qualis": "普通格体", "origin": "「xjl(見る)」+格体化着尾辞「jk」" },
   { "word": "xl", "mean": "私たち", "qualis": "人称代格体" },
+  { "word": "zrljf", "mean": "馬鹿げた,滑稽な", "qualis": "飾定", "origin": "英語「zany(滑稽な)」" }
 ]
