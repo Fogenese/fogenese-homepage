@@ -239,8 +239,12 @@ function estmPos(qualis) {
     return 'adj';
   } else if (qualis.includes('助動')) {
     return 'axlv';
+  } else if (qualis.includes('着')) {
+    return 'nfx'
   } else if (qualis.includes('離')) {
     return 'dfx'
+  } else if (qualis.includes('非能')) {
+    return 'xfic'
   }
 }
 function estmInfl(word,pos,lang) {
