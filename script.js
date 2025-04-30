@@ -7,10 +7,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const lang = params.get('lang');
   if (lang) {
-    loadDic(lang);
+    setLang(lang);
   }
 });
-let lang = 'fg';
 const head = {
   fg: '穂語辞書',
   yj: '裕語辞書',
