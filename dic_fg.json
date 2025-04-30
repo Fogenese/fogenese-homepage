@@ -1,10 +1,18 @@
 [
-  { "word": "bu", "mean": "〜できる", "qualis": "助動副辞" , "usage": "実心や助動副辞の連用形に後接し、可能の意味を表す。" },
-  { "word": "bo", "mean": "物" , "qualis": "格体" , "origin": "日本語「物」"},
-  { "word": "ceo", "mean": "車" , "qualis": "格体" , "origin": "中国語「车(chē)」+格体着尾辞「-o」"},
-  { "word": "dai", "mean": "大きい", "qualis": "飾定" , "origin": "日本語「大」" },
-  { "word": "gubo", "mean": "友達" , "qualis": "格体" , "origin": "「gu(〜と一緒に)」+「bo(もの)」" },
-  { "word": "layo", "mean": "光" , "qualis": "格体" , "origin": "音象徴「l(内なる力)」+「y(不思議さ)」+格体着尾辞「-o」" },
-  { "word": "teku", "mean": "歩く", "qualis": "実心" , "origin": "擬声語「てくてく」" },
-  { "word": "xi", "mean": "〜した", "qualis": "助動副辞" , "usage": "実心や助動副辞の連用形に後接し、過去時制を表す。" }
+  { "word": "afoi", "mean": "おはよう", "qualis": "非能", "origin": "「a(御)」+「foi(早い)」", "usage": "朝その日の初対面での挨拶として使う。" },
+  { "word": "ahowidai", "mean": "おめでとう", "qualis": "非能", "origin": "「a(御)」+「howu(愛でる)」+「dai(大きい)」", "usage": "他人を祝って使う。" },
+  { "word": "ai", "mean": "〜だろう", "qualis": "助動副辞", "usage": "実心、飾定、助動副辞の連用形に後接し、推量を表す。" },
+  { "word": "aku", "mean": "悪", "qualis": "普通格体", "origin": "日本語「悪」", "usage": "悪い存在を指す。悪い行為は「akui(悪い)」の連用形が指す。" },
+  { "word": "akuaha", "mean": "よろしく", "qualis": "非能", "origin": "「akui(悪い)」+「hi(〜ない)」", "usage": "他人への依頼や他人との協力で使う。" },
+  { "word": "akui", "mean": "悪い", "qualis": "飾定", "origin": "「aku(悪)」+飾定化着尾辞「-i」", "usage": "連用形は悪い行為を指す。悪い存在は「aku(悪)」が指す。" },
+  { "word": "ao", "mean": "〜さん,〜様", "qualis": "格格離尾辞", "usage": "目上の人に対する敬称。敬意の度合いは関係ない。" },
+  { "word": "asimi", "mean": "お休み", "qualis": "非能", "origin": "「a(御)」+「simu(休む)」", "usage": "眠る前の別れの挨拶として使う。" },
+  { "word": "bu", "mean": "〜できる", "qualis": "助動副辞", "usage": "実心、助動副辞の連用形に後接し、可能の意味を表す。" },
+  { "word": "bo", "mean": "物", "qualis": "格体", "origin": "日本語「物」"},
+  { "word": "ceo", "mean": "車", "qualis": "格体", "origin": "中国語「车(chē)」+格体化着尾辞「-o」"},
+  { "word": "dai", "mean": "大きい", "qualis": "飾定", "origin": "日本語「大」" },
+  { "word": "gubo", "mean": "友達" , "qualis": "格体", "origin": "「gu(〜と一緒に)」+「bo(もの)」" },
+  { "word": "layo", "mean": "光" , "qualis": "格体", "origin": "音象徴「l(内なる力)」+「y(不思議さ)」+格体着尾辞「-o」" },
+  { "word": "teku", "mean": "歩く", "qualis": "実心", "origin": "擬声語「てくてく」" },
+  { "word": "xi", "mean": "〜した", "qualis": "助動副辞", "usage": "実心や助動副辞の連用形に後接し、過去時制を表す。" }
 ]
