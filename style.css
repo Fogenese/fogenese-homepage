@@ -254,7 +254,9 @@ th:last-child, td:last-child {border-right: none;}
 .word.verb {color: #25a6e5;}
 .word.adj {color: #17ab39;}
 .word.axlv {color: #95A53A;}
+.word.nfx {color: #ED7D31;}
 .word.dfx {color: #70AD47;}
+.word.xfic {color: #8D8D8D;}
 button {
     width: 100px;
     height: 50px;
