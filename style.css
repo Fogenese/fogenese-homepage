@@ -103,7 +103,7 @@ h2 {font-size: 6rem;
     margin: auto auto;
     margin-bottom: 200px;
 }
-.content.active {max-height: 600px;}
+.content.active {max-height: 900px;}
 .hidden-box {
     width: 800px;
     height: 300px;
@@ -122,7 +122,7 @@ h2 {font-size: 6rem;
     position: absolute;
     bottom: 60px;
     left: 120px;
-    color: black;
+    color: #000;
     text-decoration: none;
 }
 .under-line {
@@ -137,7 +137,7 @@ h2 {font-size: 6rem;
 }
 .vertical-line {
     width: 60px;
-    height: 600px;
+    height: 900px;
     position: absolute;
     background: linear-gradient(to right, #fff 50%, #a0ddff 50%);
 }
