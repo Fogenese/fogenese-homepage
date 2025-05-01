@@ -19,7 +19,7 @@
   { "word": "benu", "mean": "勉強する,学ぶ", "qualis": "内向実心,外向実心", "origin": "日本語「勉」" },
   { "word": "beu", "mean": "くれる", "qualis": "外向実心,助動副辞", "usage": "実心、助動副辞の連用形に後接し、自発的な受取を表す。" },
   { "word": "biyu", "mean": "伸びる", "qualis": "内向実心", "origin": "擬声語「ビヨーン」" },
-  { "word": "biyui", "mean": "長い", "qualis": "飾定", "origin": "「biyu(伸びる)」+飾定化着尾辞「-i」", },
+  { "word": "biyui", "mean": "長い", "qualis": "飾定", "origin": "「biyu(伸びる)」+飾定化着尾辞「-i」" },
   { "word": "bo", "mean": "物", "qualis": "格体", "origin": "日本語「物」"},
   { "word": "botu", "mean": "暮れる", "qualis": "内向実心", "origin": "日本語「没」から。" },
   { "word": "botui", "mean": "暗い", "qualis": "飾定", "origin": "「botu(暮れる)」+飾定化着尾辞「-i」", "usage": "日が沈み空が暗い事を指す。単純な暗さは「jixei(暗い)」が指す。" },
