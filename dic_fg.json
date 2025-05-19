@@ -56,7 +56,7 @@
   { "word": "coko", "mean": "刃,ハサミ", "qualis": "普通格体", "origin": "「coku(切れる)」+格体化着尾辞「-o」" },
   { "word": "coku", "mean": "切れる,切断する", "qualis": "内向実心", "origin": "音象徴「c(鋭さ)」+「k(硬さ)」" },
   { "word": "cowu", "mean": "向く", "qualis": "内向実心", "origin": "「co(方向)」+「-wu(-する)」" },
-  { "word": "cu", "mean": "〜れる,〜られる", "qualis": "助動副辞" "usage": "実心,助動副辞の連用形に後接し、受動態にする。" },
+  { "word": "cu", "mean": "〜れる,〜られる", "qualis": "助動副辞", "usage": "実心,助動副辞の連用形に後接し、受動態にする。" },
   { "word": "culu", "mean": "吸い込む,啜る", "qualis": "外向実心", "origin": "擬声語「チュルチュル」" },
   { "word": "cura", "mean": "顔,面", "qualis": "普通格体", "origin": "日本語「面(ツラ)」" },
   { "word": "curawu", "mean": "会う,対面する,直面する", "qualis": "内向実心", "origin": "「cura(顔)」+「-wu(-する)」" },
