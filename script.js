@@ -13,12 +13,14 @@ window.addEventListener('DOMContentLoaded', () => {
 const head = {
   fg: '穂語辞書',
   yj: '裕語辞書',
-  kl: '嘉語辞書'
+  kl: '嘉語辞書',
+  pp: '唇語辞書'
 }
 const pronFuncs = {
   fg: calcPronFg,
   yj: calcPronYj,
-  kl: calcPronKl
+  kl: calcPronKl,
+  pp: calcPronPp
 }
 function setLang(selectedLang) {
   lang = selectedLang;
@@ -34,6 +36,7 @@ function showDetail(item) {
   const infl = document.getElementById('infl');
   const origin = document.getElementById('origin');
   const usage = document.getElementById('usage');
+  const relation = document.getElementById('relation');
   const table = document.getElementById('inflectionTable');
 
   spell.textContent = `${item.word}`;
@@ -61,9 +64,34 @@ function showDetail(item) {
   }
   if (item.usage) {
     usage.style.display = 'block';
-    usage.textContent = `用法: ${item.usage}`;
+    usage.textContent = `用法: `;
+    usage.appendChild(parseCont(item.usage,dicData));
   } else {
     usage.style.display = 'none';
+  }
+  const relatedItem = dicData.filter(entry => {
+    if (entry.word === item.word) return false;
+    const pattern = new RegExp(`「${item.word}\\(`);
+    return (entry.origin && pattern.test(entry.origin)) || (entry.usage && pattern.test(entry.usage));
+  });
+  if (relatedItem.length > 0) {
+    relation.style.display = 'block';
+    relation.textContent = '関連語: ';
+    relatedItem.forEach(entry => {
+      const link = document.createElement('a');
+      link.href = '#';
+      link.textContent = entry.word;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showDetail(entry);
+      });
+      const meaningText = document.createElement('span');
+      meaningText.textContent = `(${entry.mean})`;
+      relation.appendChild(link);
+      relation.appendChild(meaningText);
+    });
+  } else {
+    relation.style.display = 'none';
   }
   table.style.display = 'table';
   if (lang === 'fg') {
@@ -235,6 +263,16 @@ function calcPronKl(word) {
     }
   }
   return `/${phoneme}/ [${phonetic}]`
+}
+function calcPronPp(word) {
+  const map = {
+    p:'p',ê:'e˥',ē:'e˩',ë:'ɘ˩',î:'i˥',ī:'i˩',ï:'ɨ˩',ô:'o˥',ō:'o˩',û:'u˥',ū:'u˩'
+  }
+    const phonetic = word
+    .split('')
+    .map(char => map[char] || '?')
+    .join('');
+  return `[${phonetic}]`
 }
 function estmPos(qualis) {
   if (qualis.includes('格体')) {
