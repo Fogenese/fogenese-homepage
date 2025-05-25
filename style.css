@@ -33,7 +33,7 @@ h2 {font-size: 6rem;
        height: 100px;
        border-radius: 50%;
        border: 5px solid #fff;
-       color: white;
+       color: #fff;
        display: flex;
        justify-content: center;
        align-items: center;
@@ -42,13 +42,13 @@ h2 {font-size: 6rem;
 #xicon a {
     font-size: 4.5em;
     text-decoration: none;
-    color: white;
+    color: #fff;
 }
 #gdicon {background-color: #90c028;}
 #gdicon a {
     font-size: 4em;
     text-decoration: none;
-    color: white;
+    color: #fff;
 }
 #zdicon {
     background-image: url(Screenshot_20250309-155600~2.png);
@@ -63,7 +63,7 @@ h2 {font-size: 6rem;
 .box {
     width: 900px;
     height: 400px;
-    border: 10px solid white;
+    border: 10px solid #fff;
     border-radius: 20px;
     position: relative;
     padding: 20px;
@@ -182,7 +182,7 @@ h2 {font-size: 6rem;
     width: 90%;
     height: auto;
     font-size: 2rem;
-    padding: 0;
+    padding: 10px;
 }
 table {
     width: auto;
@@ -280,7 +280,7 @@ button {
 }
 #spell {
     background-color: #ffd060;
-    border-bottom: 5px solid white;
+    border-bottom: 5px solid #fff;
     text-align: center;
     font-size: 60px;
 }
