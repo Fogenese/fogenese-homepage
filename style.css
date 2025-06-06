@@ -159,14 +159,16 @@ h2 {font-size: 6rem;
     border-bottom: 5px solid #ff6666;
     margin: 10px auto;
 }
-.text-box {
+.text {
     width: 800px;
     white-space: normal;
-    color: #333333;
-    font-size: 3rem;
     margin: auto auto;
     margin-bottom: 30px;
 }
+.text p{
+    color: #333333;
+    font-size: 3rem;
+    margin-bottom: 30px;
 .sentence{
     width: 80%;
     border-radius: 20px;
@@ -250,13 +252,13 @@ th:last-child, td:last-child {border-right: none;}
     text-align: center;
 }
 .word {font-size: 60px;}
-.word.noun {color: #f05fdf;}
-.word.verb {color: #25a6e5;}
-.word.adj {color: #17ab39;}
-.word.axlv {color: #95A53A;}
-.word.nfx {color: #ED7D31;}
-.word.dfx {color: #70AD47;}
-.word.xfic {color: #8D8D8D;}
+.noun {color: #f05fdf;}
+.verb {color: #25a6e5;}
+.adj {color: #17ab39;}
+.axlv {color: #95A53A;}
+.nfx {color: #ED7D31;}
+.dfx {color: #70AD47;}
+.xfic {color: #8D8D8D;}
 button {
     width: 100px;
     height: 50px;
