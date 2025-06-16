@@ -235,14 +235,13 @@ th:last-child, td:last-child {border-right: none;}
 }
 #wordbox {
     width: 60%;
-    height: 1500px;
-    marigin-left: 3%;
+    height: 1700px;
+    margin-left: 3%;
 }
 #suggestbox {
     width: 30%;
-    height: 1500px;
-    marigin-left: 3%;
-    
+    height: 1700px;
+    margin-left: 3%;
 }
 #search {
     width: 100%;
