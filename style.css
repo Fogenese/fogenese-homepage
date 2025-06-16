@@ -224,7 +224,7 @@ th:last-child, td:last-child {border-right: none;}
 #dicboxes {
     display: flex;
 }
-.dicbox {
+.container {
     position: relative;
     border: 5px solid #ffdddd;
     overflow: auto;
