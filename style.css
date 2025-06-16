@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {background-color: #ffeeee;
+body {background-color: #fff5f5;
       white-space: nowrap;
 }
 h1 {font-size: 7rem;
@@ -18,6 +18,12 @@ h2 {font-size: 6rem;
     position: relative;
     top: 55%;
 }
+h3 {font-size: 4rem;
+    font-style: italic;
+    marigin: 10px auto;
+    color: #6b93aa;
+    text-align: center;
+   }
 #line {border: 5px solid #fff;
        color: #ffeeee;
        margin-top: 30px;
@@ -110,14 +116,14 @@ h2 {font-size: 6rem;
     position: relative;
 }
 .hidden-box p {
-    font-size:6rem;
+    font-size: 6rem;
     font-style: italic;
     position: absolute;
     bottom: 60px;
     left: 120px;
 }
 .hidden-box a {
-    font-size:6rem;
+    font-size: 6rem;
     font-style: italic;
     position: absolute;
     bottom: 60px;
@@ -173,7 +179,7 @@ h2 {font-size: 6rem;
 .sentence{
     width: 80%;
     border-radius: 20px;
-    background-color: #fff6f6;
+    background-color: #fffcfc;
     font-size: 3rem;
     text-align: center;
     box-shadow: 0px 0px 10px 10px #cfeeff;
@@ -193,7 +199,7 @@ table {
     font-size: 35px;
     border: 5px solid #fff;
     border-radius: 20px;
-    margin: 10px auto;
+    margin: 30px auto;
     overflow: hidden;
 }
 th, td {
@@ -220,9 +226,7 @@ th:last-child, td:last-child {border-right: none;}
 }
 .dicbox {
     position: relative;
-    height: 1500px;
     border: 5px solid #ffdddd;
-    margin-left: 3%;
     overflow: auto;
 }
 #suggest p {
@@ -231,9 +235,14 @@ th:last-child, td:last-child {border-right: none;}
 }
 #wordbox {
     width: 60%;
+    height: 1500px;
+    marigin-left: 3%;
 }
 #suggestbox {
     width: 30%;
+    height: 1500px;
+    marigin-left: 3%;
+    
 }
 #search {
     width: 100%;
@@ -256,16 +265,26 @@ th:last-child, td:last-child {border-right: none;}
 .noun {color: #f05fdf;}
 .verb {color: #25a6e5;}
 .adj {color: #17ab39;}
-.axlv {color: #95A53A;}
-.nfx {color: #ED7D31;}
-.dfx {color: #70AD47;}
-.xfic {color: #8D8D8D;}
+.axlv {color: #95a53a;}
+.nfx {color: #ef7d31;}
+.dfx {color: #70ad47;}
+.xfic {color: #8d8d8d;}
+.cml {color: #f59500;}
 button {
-    width: 100px;
+    width: 120px;
     height: 50px;
-    position: relative;
-    left: 30%;
     font-size: 40px;
+    background: #ffe7b0;
+    border-radius: 5px;
+    align-items: center;
+}
+.buttons {
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top 20px;
 }
 #detail {
     border: 5px solid #fff;
@@ -274,12 +293,13 @@ button {
     margin: 10px;
     display: none;
 }
-.info {width: 100%;
-       background-color: #cfeeff;
-       border-bottom: 1px solid #000;
-       font-size: 40px;
-       padding: 30px;
-       overflow: auto;
+.info {
+    width: 100%;
+    background-color: #cfeeff;
+    border-bottom: 1px solid #000;
+    font-size: 40px;
+    padding: 30px;
+    overflow: auto;
 }
 #spell {
     background-color: #ffd060;
@@ -287,7 +307,7 @@ button {
     text-align: center;
     font-size: 60px;
 }
-#origin, #usage {font-size:25px;}
+#origin, #usage, #relation {font-size:25px;}
 #inflectiontable {
     position: absolute;
     left: 50%;
@@ -300,4 +320,39 @@ button {
 .info a {
     text-decoration: none;
     color: #000;
+}
+#analyze {
+    width: 600px;
+    height: 300px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+    padding: 5px;
+    font-size: 20px;
+    vertical-align: top;
+    display: block;
+}
+#analyzing {
+    width: 90%;
+    height: 500px;
+    margin: 30px auto;
+}
+#analyzed {
+    width: 90%;
+    height: auto;
+    margin: 10px auto;
+}
+#analyzer {
+    width: auto;
+    padding: 2px;
+    marigin: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+}
+#analysis {
+    font-size: 25px !important;
 }
