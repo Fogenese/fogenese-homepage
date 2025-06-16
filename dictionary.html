@@ -8,12 +8,14 @@
 <body class="dic">
   <h1 id="title"></h1>
   <div id="line">a</div>
-  <button onclick="setLang('fg')">穂語</button>
-  <button onclick="setLang('yj')">裕語</button>
-  <button onclick="setLang('kl')">嘉語</button>
-  <button onclick="setLang('pp')">唇語</button>
+  <div class="buttons">
+    <button onclick="setLang('fg')">穂語</button>
+    <button onclick="setLang('yj')">裕語</button>
+    <button onclick="setLang('kl')">嘉語</button>
+    <button onclick="setLang('pp')">唇語</button>
+  </div>
   <div id="dicboxes">
-    <div class="dicbox" id="wordbox">
+    <div class="container" id="wordbox">
       <div id="detail">
         <div class="info" id="spell"></div>
         <div class="info" id="mean"></div>
