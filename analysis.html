@@ -1,0 +1,28 @@
+<DOCTYPE html>
+<html lang=ja>
+<head>
+  <meta charset="UTF-8">
+  <title>穂語文解析</title>
+  <link rel=stylesheet href="style.css">
+</head>
+<body>
+  <h1 id="title1"></h1>
+  <div id="line">a</div>
+  <div class="buttons">
+    <button class="buttons" onclick="setLang('fg')">穂語</button>
+    <button class="buttons" onclick="setLang('yj')">裕語</button>
+    <button class="buttons" onclick="setLang('kl')">嘉語</button>
+    <button class="buttons" onclick="setLang('pp')">唇語</button>
+  </div>
+  <div id="dicboxes">
+    <div class="container" id="analyzing">
+      <textarea type="text" id="analyze"></textarea>
+      <button id="analyzer" onclick="analyze(document.getElementById('analyze').value)">解析開始</button>
+    </div>
+  </div>
+  <div class="container" id="analyzed">
+    <h3>解析結果</h3>
+    <table id="analysis"></table>
+  </div>
+<script src="script.js"></script>
+</body>
