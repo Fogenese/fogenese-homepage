@@ -161,6 +161,9 @@ function calcPronYj(word) {
   const map6 = {
     ɑ:'ɑ',æ:'æ',e:'e',f:'f',i:'i',ʒ:'ʒ',k:'k',l:'l',r:'ɾ',s:'s',t:'t',u:'ɯ',v:'v',ʃ:'ʃ',z:'z'
   }
+  const map7 = {
+    ʒ:'a',ʃ:'a',r:'a'
+  }
   const chars = word.split('');
   let phoneme = '';
   let phonetic = '';
@@ -210,7 +213,7 @@ function calcPronYj(word) {
       phonetic += map4[pair];
       j += 2;
     } else {
-      if (map5[current] && (map2[figure[j + 1]] || figure[j + 1] === 'u' || j === figure.length - 1)) {
+      if (map5[current] && (map2[figure[j + 1]] || map7[figure[j + 1]] || figure[j + 1] === 'u' || j === figure.length - 1)) {
         phonetic += map5[current];
         j += 1;
       } else {
@@ -682,7 +685,7 @@ function loadDic(lang) {
     const word = document.getElementById('word');
     const detail = document.getElementById('detail');
     const count = document.createElement('p');
-    count.textContent = `現在の語数: ${data.length}`;
+    count.textContent = `現在の見出し語数: ${data.length}`;
 
     search.value = '';
     suggest.innerHTML = '';
