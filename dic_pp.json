@@ -1,7 +1,7 @@
 [
   { "word": "pêpïpô", "mean": "作る,創造する", "qualis": "外向実心" },
   { "word": "pêpō", "mean": "0,レイ,ゼロ", "qualis": "数格体", "origin": "英語「zero(0)」の影響？", "usage": "桁取りとしても使う。例えば10は「pîpî(1)」と合わせて「pîpî pêpō」。" },
-  { "word": "pēpï", "mean": "無〜", "qualis": "格格着頭辞", "origin": "", "usage": "" },
+  { "word": "pēpï", "mean": "無〜", "qualis": "格格着頭辞" },
   { "word": "pēpë", "mean": "彼,彼女,それ,そっち", "qualis": "代格体" },
   { "word": "pēpô", "mean": "何", "qualis": "普通格体" },
   { "word": "pë", "mean": "〜な", "qualis": "質洛離尾辞,質潒離尾辞", "usage": "程度に度合いを持つ(グラデーションがある)本辞を連格または連象化する。" },
@@ -39,6 +39,6 @@
   { "word": "pūpô", "mean": "〜している", "qualis": "実実離尾辞", "usage": "実心に後接し、継続相を表す。" },
   { "word": "pūpôpë", "mean": "親", "qualis": "普通格体" },
   { "word": "pūpôpë pëpîpō", "mean": "母音", "qualis": "普通格体", "origin": "「pūpôpë(親)」+「pëpîpō(音)」" },
-  { "word": "pūpūpô", "mean": "歩く", "qualis": "内向実心" }
+  { "word": "pūpūpô", "mean": "歩く", "qualis": "内向実心" },
   { "word": "pūpūpô", "mean": "歩行", "qualis": "普通格体" }
 ]
