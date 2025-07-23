@@ -195,7 +195,11 @@ function calcPronYj(word) {
         }
       } else {
         if (i === 0 && (map2[chars[i + 1]] || current === 'i')) {
-          phoneme += map3[current] || '?!';
+          if (map3[current]) {
+            phoneme += map3[current] || '?!';
+          } else {
+            phoneme += map2[current] || '♪';
+          }
           i += 1;
         } else {
           phoneme += map1[current] || '?';
