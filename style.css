@@ -57,7 +57,7 @@ h3 {font-size: 4rem;
     color: #fff;
 }
 #zdicon {
-    background-image: url(Screenshot_20250309-155600~2.png);
+    background-image: url(zpdic_image.png);
     background-size: contain;
     background-position: center;
 }
@@ -81,11 +81,11 @@ h3 {font-size: 4rem;
         bottom: 5%;
 }
 #box1 {animation: fadeInUp 0.5s ease-out forwards;
-       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(Screenshot_20250323-161009~3.png) no-repeat;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(textbook_image.png) no-repeat;
        background-size: 100% 100%, 100% 70%;
 }
 #box2 {animation: fadeInUp 1s ease-out forwards;
-       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url() no-repeat;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(dictionary_image.png) no-repeat;
        background-size: 100% 100%, 100% 70%;
 }
 #box3 {animation: fadeInUp 1.5s ease-out forwards;
