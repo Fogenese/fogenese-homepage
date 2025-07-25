@@ -6,7 +6,7 @@ contents[index].classList.toggle('active');
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const lang = params.get('lang');
-  const word = parms.get('word');
+  const word = params.get('word');
   if (lang) {
     setLang(lang);
   }
