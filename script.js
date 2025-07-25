@@ -11,8 +11,15 @@ window.addEventListener('DOMContentLoaded', () => {
     setLang(lang);
   }
   if (word) {
-    const item = dicData.find(entry => entry.word === word);
-    if (item) {showDetail(item);}
+    const checkReady = setInterval(() => {
+      if (window.dicData) {
+        const item = dicData.find(entry => entry.word === word);
+        if (item) {
+          showDetail(item);
+        }
+        clearInterval(checkReady);
+      }
+    }, 100);
   }
 });
 const head = {
