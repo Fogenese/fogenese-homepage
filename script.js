@@ -291,11 +291,13 @@ function estmPos(qualis) {
   } else if (qualis.includes('助動')) {
     return 'axlv';
   } else if (qualis.includes('着')) {
-    return 'nfx'
+    return 'nfx';
   } else if (qualis.includes('離')) {
-    return 'dfx'
+    return 'dfx';
   } else if (qualis.includes('非能')) {
-    return 'xfic'
+    return 'xfic';
+  } else if (qualis.includes('連象')) {
+    return 'cml';
   }
 }
 function estmInfl(word,pos,lang) {
