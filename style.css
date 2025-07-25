@@ -289,7 +289,6 @@ button {
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin-top 20px;
 }
 #detail {
     border: 5px solid #fff;
