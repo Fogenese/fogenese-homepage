@@ -6,8 +6,13 @@ contents[index].classList.toggle('active');
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const lang = params.get('lang');
+  const word = parms.get('word');
   if (lang) {
     setLang(lang);
+  }
+  if (word) {
+    const item = dicData.find(entry => entry.word === word);
+    if (item) {showDetail(item);}
   }
 });
 const head = {
