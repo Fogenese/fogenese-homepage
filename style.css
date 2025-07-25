@@ -262,7 +262,7 @@ th:last-child, td:last-child {border-right: none;}
 }
 #suggestcontainer {
     width: 100%;
-    height: 1440px;
+    height: 1650px;
     margin-top: 10px;
     overflow: auto;
 }
