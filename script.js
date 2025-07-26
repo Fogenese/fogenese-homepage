@@ -696,6 +696,7 @@ function loadDic() {
   .then(res => res.json())
   .then(data => {
     window.dicData = data;
+    return data;
     const search = document.getElementById('search');
     const suggest = document.getElementById('suggest');
     const word = document.getElementById('word');
@@ -740,6 +741,5 @@ function loadDic() {
         });
       }
     });
-    return data;
   });
 }
