@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
           console.warn('単語が見つかりません:', word);
         }
-      }
+      } else {alert('dicDataがないよーん');}
     });
   }
 });
