@@ -740,5 +740,6 @@ function loadDic() {
         });
       }
     });
+    return data;
   });
 }
