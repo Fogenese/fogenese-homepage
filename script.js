@@ -3,23 +3,22 @@ const contents =
 document.querySelectorAll('.content');
 contents[index].classList.toggle('active');
 }
+let lang = '';
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
-  const lang = params.get('lang');
+  const selectedlang = params.get('lang');
   const word = params.get('word');
-  if (lang) {
-    setLang(lang);
-  }
-  if (word) {
-    const checkReady = setInterval(() => {
-      if (window.dicData) {
+   if (selectedlang) {
+    setLang(selectedlang).then(() => {
+      if (word && window.dicData) {
         const item = dicData.find(entry => entry.word === word);
         if (item) {
           showDetail(item);
+        } else {
+          console.warn('単語が見つかりません:', word);
         }
-        clearInterval(checkReady);
       }
-    }, 100);
+    });
   }
 });
 const head = {
@@ -37,7 +36,7 @@ const pronFuncs = {
 function setLang(selectedLang) {
   lang = selectedLang;
 document.getElementById('title').textContent = head[lang];
-  loadDic(lang);
+  return loadDic();
 }
 function showDetail(item) {
   const detail = document.getElementById('detail');
@@ -56,7 +55,7 @@ function showDetail(item) {
   qualis.textContent = `属性: ${item.qualis}`;
   const pronounce = pronFuncs[lang](item.word);
   pron.textContent = `発音: ${pronounce}`;
-  const toi = estmInfl(item.word,estmPos(item.qualis),lang);
+  const toi = estmInfl(item.word,estmPos(item.qualis));
   if (toi) {
     infl.style.display = 'block';
     infl.textContent = `屈折型: ${toi}型`;
@@ -312,7 +311,7 @@ function estmPos(qualis) {
     return 'cml';
   }
 }
-function estmInfl(word,pos,lang) {
+function estmInfl(word,pos) {
   if (lang === 'fg') {
     if (pos === 'verb' || (pos === 'axlv' && word.slice(-1) === 'u')) {
       return '三段';
@@ -645,7 +644,6 @@ function calcInflYjAdj(word,toi) {
     table.appendChild(row);
   }
 }
-let dicData = null;
 function parseCont(meaningText,data) {
   const container = document.createElement('span');
 
@@ -693,11 +691,11 @@ function parseCont(meaningText,data) {
   });
   return container;
 }
-function loadDic(lang) {
+function loadDic() {
   fetch(`dic_${lang}.json`)
   .then(res => res.json())
   .then(data => {
-    dicData = data;
+    window.dicData = data;
     const search = document.getElementById('search');
     const suggest = document.getElementById('suggest');
     const word = document.getElementById('word');
