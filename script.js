@@ -4,6 +4,8 @@ document.querySelectorAll('.content');
 contents[index].classList.toggle('active');
 }
 let lang = '';
+let shownWord = '';
+let wordIndex = '';
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const selectedlang = params.get('lang');
@@ -122,6 +124,13 @@ function showDetail(item) {
   } else {
     table.innerHTML = '';
     table.style.display = 'none';
+  }
+  shownWord = item.word;
+  const matches = dicData.filter(entry => entry.word === shownWord);
+  if (matches.length === 1) {
+    wordIndex = '';
+  } else if (matches.length > 1) {
+    wordIndex = '-' + matches.findIndex(entry => entry.mean === item.mean && entry.qualis === item.qualis);
   }
 }
 function calcPronFg(word) {
