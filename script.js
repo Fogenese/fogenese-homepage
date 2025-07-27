@@ -706,7 +706,7 @@ function parseCont(meaningText,data) {
   return container;
 }
 function loadDic() {
-  fetch(`dic_${lang}.json`)
+  return fetch(`dic_${lang}.json`)
   .then(res => res.json())
   .then(data => {
     window.dicData = data;
