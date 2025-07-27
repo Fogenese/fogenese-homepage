@@ -325,6 +325,13 @@ button {
     text-decoration: none;
     color: #000;
 }
+#shareWord {
+    width: 250px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10%;
+}
 #analyze {
     width: 600px;
     height: 300px;
