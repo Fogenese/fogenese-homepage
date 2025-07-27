@@ -10,14 +10,18 @@ window.addEventListener('DOMContentLoaded', () => {
   const word = params.get('word');
    if (selectedlang) {
     setLang(selectedlang).then(() => {
-      if (word && window.dicData) {
-        const item = dicData.find(entry => entry.word === word);
+      if (word) {
+        const parts = word.split('-')
+        const spell = parts[0];
+        const index = parseInt(parts[1] || '0');
+        const matches = dicData.filter(entry => entry.word === spell);
+        const item = matches[index];
         if (item) {
           showDetail(item);
         } else {
-          console.warn('単語が見つかりません:', word);
+          alert('単語が見つかりませんでした。');
         }
-      } else {alert('dicDataがないよーん');}
+      }
     });
   }
 });
@@ -40,6 +44,7 @@ document.getElementById('title').textContent = head[lang];
 }
 function showDetail(item) {
   const detail = document.getElementById('detail');
+  detail.style.display = 'block';
   const spell = document.getElementById('spell');
   const mean = document.getElementById('mean');
   const qualis = document.getElementById('qualis');
@@ -696,7 +701,6 @@ function loadDic() {
   .then(res => res.json())
   .then(data => {
     window.dicData = data;
-    return data;
     const search = document.getElementById('search');
     const suggest = document.getElementById('suggest');
     const word = document.getElementById('word');
@@ -731,8 +735,7 @@ function loadDic() {
           meanElm.textContent = item.mean;
 
           result.addEventListener('click', () => {
-            showDetail(item)
-            detail.style.display = 'block';
+            showDetail(item);
           });
           suggest.appendChild(result);
           result.appendChild(wordElm);
@@ -741,5 +744,16 @@ function loadDic() {
         });
       }
     });
+    return data;
   });
+}
+function shareWord () {
+  const url = `https://fogenese.github.io/fogenese-homepage/dictionary.html?lang=${lang}&word=${shownWord}${wordIndex}`;
+  navigator.clipboard.writeText(url)
+    .then(() => {
+      alert("URLをコピーしました！");
+    })
+    .catch(err => {
+      alert("コピーに失敗しました: " + err);
+    });
 }
