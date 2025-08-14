@@ -96,6 +96,8 @@ function showDetail(item) {
     relation.style.display = 'block';
     relation.textContent = '関連語: ';
     relatedItem.forEach(entry => {
+      const bracket = document.createElement('span');
+      bracket.textContent = '「';
       const link = document.createElement('a');
       link.href = '#';
       link.textContent = entry.word;
@@ -104,13 +106,15 @@ function showDetail(item) {
         showDetail(entry);
       });
       const meaningText = document.createElement('span');
-      meaningText.textContent = `(${entry.mean})`;
+      meaningText.textContent = `(${entry.mean})」`;
+      relation.appendChild(bracket);
       relation.appendChild(link);
       relation.appendChild(meaningText);
     });
   } else {
     relation.style.display = 'none';
   }
+  table.innerHTML = '';
   table.style.display = 'table';
   if (lang === 'fg') {
     calcInflFg(item.word,toi);
@@ -122,7 +126,6 @@ function showDetail(item) {
   } else if (lang === 'yj' && estmPos(item.qualis) === 'adj') {
     calcInflYjAdj(item.word,toi);
   } else {
-    table.innerHTML = '';
     table.style.display = 'none';
   }
   shownWord = item.word;
@@ -187,7 +190,7 @@ function calcPronYj(word) {
     ɑ:'ɑ',æ:'æ',e:'e',f:'f',i:'i',ʒ:'ʒ',k:'k',l:'l',r:'ɾ',s:'s',t:'t',u:'ɯ',v:'v',ʃ:'ʃ',z:'z'
   }
   const map7 = {
-    ʒ:'a',ʃ:'a',r:'a'
+    ʒ:'a',ʃ:'a',r:'a',l:'a'
   }
   const chars = word.split('');
   let phoneme = '';
@@ -348,7 +351,6 @@ function estmInfl(word,pos) {
 }
 function calcInflFg(word,toi) {
    const table = document.getElementById('inflectionTable');
-  table.innerHTML = '';
   const stem = word.slice(0, -1);
   let inflect = {};
   if (toi === '三段') {
@@ -447,7 +449,6 @@ function insertAffix(word,affix) {
 }
 function calcInflYjVerb(word,toi) {
   const table =  document.getElementById('inflectionTable');
-  table.innerHTML = '';
 
   let stem = '';
   let forms = {};
@@ -596,7 +597,6 @@ function calcInflYjVerb(word,toi) {
 }
 function calcInflYjAdj(word,toi) {
   const table =  document.getElementById('inflectionTable');
-  table.innerHTML = '';
 
   const prefix = word.slice(0,-2);
   const stem = word.slice(-2,-1);
