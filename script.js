@@ -53,6 +53,7 @@ const inflFuncs = {
 }
 function dummy() {return null;}
 function setLang(selectedLang) {
+  lang = selectedLang;
   if (document.body.classList.contains('dic')) {
     document.getElementById('title').textContent = dichead[lang];
   } else {
