@@ -314,7 +314,7 @@ function estmPos(qualis) {
     return 'noun';
   } else if (qualis.includes('実心')) {
     return 'verb';
-  } else if (qualis.includes('飾定')) {
+  } else if (qualis.includes('飾定') || qualis.includes('連格')) {
     return 'adj';
   } else if (qualis.includes('助動')) {
     return 'axlv';
@@ -495,7 +495,7 @@ function calcInflYjVerb(word,toi) {
     '連格形':   [['j','','f'],['j','l','f']],
     '連象形':   [['j','','r'],['j','l','r']]
     };
-    noun = ['f','l','k'];
+    noun = ['f','j','t'];
     prefix = word.slice(0,-2);
     stem = word;
   } else if (toi === 'jj') {
@@ -504,7 +504,7 @@ function calcInflYjVerb(word,toi) {
     '連格形':   [['f','','f'],['f','l','f']],
     '連象形':   [['f','','r'],['f','l','r']]
     };
-    noun = ['f','l','k'];
+    noun = ['f','j','k'];
     prefix = word.slice(0,-2);
     stem = word;
   } else if (toi === 'lj') {
@@ -513,7 +513,7 @@ function calcInflYjVerb(word,toi) {
     '連格形':   [['r','','f'],['r','l','f']],
     '連象形':   [['r','','r'],['r','l','r']]
     };
-    noun = ['r','l','k'];
+    noun = ['r','j','k'];
     prefix = word.slice(0,-2);
     stem = word;
   } else if (toi === 'rj') {
@@ -522,7 +522,7 @@ function calcInflYjVerb(word,toi) {
     '連格形':   [['i','','f'],['i','l','f']],
     '連象形':   [['i','','r'],['i','l','r']]
     };
-    noun = ['i','l','k'];
+    noun = ['i','j','t'];
     prefix = word.slice(0,-2);
     stem = word;
   } else if (toi === 'fC') {
@@ -547,7 +547,7 @@ function calcInflYjVerb(word,toi) {
     forms = {
     '実心形':   [['l','',''],['lf','','']],
     '連格形':   [['r','l','f'],['rlf','','f']],
-    '連象形':   [['f','l','r'],['flf','','r']]
+    '連象形':   [['r','l','r'],['rlf','','r']]
     };
     noun = ['ilj','','k'];
     prefix = word.slice(0,-2);
@@ -765,4 +765,335 @@ function shareWord () {
     .catch(err => {
       alert("コピーに失敗しました: " + err);
     });
+}
+function analyze(sentence) {
+  const result = document.getElementById('analyzed');
+  const analysis = document.getElementById('analysis');
+  const headers = ['単語','辞書形','意味','属性','値'];
+  analysis.innerHTML = '';
+  const row = document.createElement('tr');
+  headers.forEach(head => {
+    const thead = document.createElement('th');
+    thead.textContent = head;
+    row.appendChild(thead);
+  });
+  analysis.appendChild(row);
+  const words = sentence.trim().split(/\s+/);
+  words.forEach(word => {
+    
+    const th = document.createElement('th');
+    th.textContent = word;
+
+    const dicForm = document.createElement('td');
+    const meanCell = document.createElement('td');
+    const qualisCell = document.createElement('td');
+    const valueCell = document.createElement('td');
+
+    const matches = dicData.filter(entry => entry.word === word);
+    const reverses = inflFuncs[lang](word);
+
+    if (matches.length === 1 && !reverses) {
+      dicForm.textContent = matches[0].word;
+      meanCell.textContent = matches[0].mean;
+      qualisCell.textContent = matches[0].qualis;
+      valueCell.textContent = '-';
+      const tr = document.createElement('tr');
+      analysis.appendChild(tr);
+      tr.appendChild(th);
+      tr.appendChild(dicForm);
+      tr.appendChild(meanCell);
+      tr.appendChild(qualisCell);
+      tr.appendChild(valueCell);
+    } else if (Array.isArray(reverses) && reverses.length > 1) {
+      for (let i = 0; i < reverses.length; i++) {
+        const tr = document.createElement('tr');
+        if (i === 0) {
+          th.rowSpan = reverses.length;
+          tr.appendChild(th);
+        }
+        const subDicForm = document.createElement('td');
+        const subMeanCell = document.createElement('td');
+        const subQualisCell = document.createElement('td');
+        const subValueCell = document.createElement('td');
+
+        subDicForm.textContent = reverses[i].word;
+        subMeanCell.textContent = reverses[i].mean;
+        subQualisCell.textContent = reverses[i].qualis;
+        subValueCell.textContent = reverses[i].value;
+        analysis.appendChild(tr);
+        tr.appendChild(subDicForm);
+        tr.appendChild(subMeanCell);
+        tr.appendChild(subQualisCell);
+        tr.appendChild(subValueCell);
+      };
+    } else if (reverses) {
+      dicForm.textContent = reverses.word;
+      meanCell.textContent = reverses.mean;
+      qualisCell.textContent = reverses.qualis;
+      valueCell.textContent = reverses.value;
+      const tr = document.createElement('tr');
+      analysis.appendChild(tr);
+      tr.appendChild(th);
+      tr.appendChild(dicForm);
+      tr.appendChild(meanCell);
+      tr.appendChild(qualisCell);
+      tr.appendChild(valueCell);
+    } else if (matches.length > 1) {
+      matches.forEach((match,index) => {
+        const tr = document.createElement('tr');
+        if (index === 0) {
+          th.rowSpan = matches.length;
+          tr.appendChild(th);
+        }
+        const subDicForm = document.createElement('td');
+        const subMeanCell = document.createElement('td');
+        const subQualisCell = document.createElement('td');
+        const subValueCell = document.createElement('td');
+
+        subDicForm.textContent = word;
+        subMeanCell.textContent = match.mean;
+        subQualisCell.textContent = match.qualis;
+        subValueCell.textContent = '-';
+        analysis.appendChild(tr);
+        tr.appendChild(subDicForm);
+        tr.appendChild(subMeanCell);
+        tr.appendChild(subQualisCell);
+        tr.appendChild(subValueCell);
+      });
+    } else {
+      const nonMatchCell = document.createElement('td');
+      nonMatchCell.textContent = '見つかりませんでした。';
+      nonMatchCell.colSpan = 4;
+      const tr = document.createElement('tr');
+      analysis.appendChild(tr);
+      tr.appendChild(th);
+      tr.appendChild(nonMatchCell);
+    }
+  });
+  result.appendChild(analysis);
+}
+function reverseInflFg(word) {
+  const results = [];
+  const verbs = dicData.filter(entry => entry.word === word.slice(0,-1)+'u');
+  const adj = dicData.find(entry => entry.word === word.slice(0,-1)+'i');
+  const adj1 = dicData.find(entry => entry.word === word.slice(0,-2)+'i');
+  let pos = null;
+  let infl = null;
+  if (verbs.length > 0) {
+    const verb = verbs[0];
+    pos = estmPos(verb.qualis);
+    infl = estmInfl(verb.word,pos);
+  }
+  if (adj) {
+    pos = estmPos(adj.qualis);
+    infl = estmInfl(adj.word,pos);
+  }
+  if (adj1) {
+    if (word.endsWith('o')) {
+      pos = estmPos(adj1.qualis);
+      infl = estmInfl(adj1.word,pos);
+    }
+  }
+  if ((word.endsWith('u') ||  word.endsWith('i') || word.endsWith('a')) && verbs && infl === '三段') {
+    verbs.forEach(verb => {
+      if (word.endsWith('u')) {
+        results.push({...verb, value:'基本形'});
+      } else if (word.endsWith('i')) {
+        results.push({...verb, value:'連用形'});
+      } else if (word.endsWith('a')) {
+        results.push({...verb, value:'命令形'});
+      }
+    });
+    return results.length === 1 ? results[0] : results;
+  } else if (word.endsWith('i') && (infl === '三段' || infl === '二段')) {
+    if (infl === '三段') {
+      return {...verb, value:'連用形'};
+    } else if (infl === '二段') {
+      return {...adj, value:'基本形'};
+    }
+  } else if (word.endsWith('a') && (infl === '三段' || infl === '二段')) {
+    if (infl === '三段') {
+      return {...verb, value:'命令形'};
+    } else if (infl === '二段') {
+      return {...adj, value:'連用形'};
+    }
+  } else if (word.endsWith('do') && adj1) {
+    return {...adj1, value:'程度格体形'};
+  } else return null;
+}
+function reverseInflYj(word) {
+
+  const pron = calcPronYj(word);
+  const match = pron.match(/(?<=\/).+(?=\/)/);
+  const phoneme = match ? match[0] : '';
+  const vowels = ['æ', 'ɑ', 'e', 'i', 'u'];
+  let Vplace1 = 0;
+  let Vplace2 = 0;
+  let Vplace3 = 0;
+  for (let i = phoneme.length -1; i >= 0; i--) {
+    if (vowels.includes(phoneme[i])) {
+      if (Vplace1 === 0) {
+        Vplace1 = phoneme.length - i;
+      } else if (Vplace2 === 0) {
+        Vplace2 = phoneme.length - i;
+      } else if (Vplace3 === 0) {
+        Vplace3 = phoneme.length - i;
+        break;
+      }
+    }
+  }
+  const stem = word.slice(0, -Vplace1);
+  const end = word.slice(-Vplace1+1);
+
+  const rules = [
+    { last: ['j','l','v','z']},
+    { end: ['f','j','l','r','v','z'], value: '現在'},
+    { end: ['lj','jl'], value: '過去'},
+    { end: ['fv','fz'], cond: ['l','r'], value: '過去'},
+    { end: ['rv','rz'], cond: ['f','j'], value: '過去'},
+    { inffix: ['lfl','irl','rjl','fll','jfj','irj','fjj','rlj','lfv','rjv','rlv','jrv','lfz','rjz','rlz','jrz']},
+    { inffix: ['lvf','rvj','rvl','jvr','lzf','rzj','rzl','jzr']},
+    { inffix: ['lflt','irlt','rjlk','fllk','jfjt','fjjk','rljk','iljt','lfvt','ijvk','ilvk','jrvt','lfzt','ijzk','ilzk','jrzt']},
+    { i:'限定形・主格',l:'限定形 , 限定形・対格'},
+    { f:'非限定形・主格',j:'非限定形',r:'非限定形・対格'},
+    { f: {vowelA:'j',vowelB:'j',value:'非限定形・連格'},
+      s: {vowelA:'i',vowelB:'f',value:'補連象'},
+      x: {vowelA:'l',vowelB:'r',value:'限定形・連格'}
+    }
+  ];
+  
+  if (word.length === 2 && (word.endsWith('i') || word.endsWith('l')) && dicData.find(entry => entry.word === word.slice(0,-1)+'l')) {
+    const nounValue = rules[8][word.slice(-1)];
+    return {...dicData.find(entry => entry.word === word.slice(0,-1)+'l'), value:nounValue};
+  } else if (word.length === 3 && word.slice(-2) === 'ix' && dicData.find(entry => entry.word === word.slice(0,-2)+'l')) {
+    return {...dicData.find(entry => entry.word === word.slice(0,-2)+'l'), value:'限定形・所有形'};
+
+  
+  } else if (rules[0].last.includes(word.slice(-1))) {
+    let verbVowel = word.slice(-Vplace1,-Vplace1+1);
+    let verbStem = stem;
+    let verbEnd = end;
+    let tense = '';
+    let modality = '';
+    if (word.slice(-Vplace1,-1) === 'i') {
+      verbVowel = word.slice(-Vplace2,-Vplace2+1);
+      verbStem = word.slice(0,-Vplace2);
+      verbEnd = verbForm.slice(-Vplace2+3);
+      if (word.slice(-Vplace1-1,-Vplace1) === 'v') {modality = '・意志';}
+    }
+    for (let rule of rules) {
+      if (rule.end && rule.end.includes(verbEnd) && (!rule.cond || rule.cond.includes(verbVowel))) {
+        tense = rule.value;
+        break;
+      }
+    }
+    if (tense) {
+      const form = dicData.find(entry => entry.word === verbStem+verbVowel+word.slice(-1));
+      if (form) {return {...form, value:`${tense}${modality}`};}
+    }
+  } else if (word.endsWith('f') || word.endsWith('r')) {
+    let vowel = word.slice(-Vplace1-1,-Vplace1);
+    let verbStem = word.slice(0,-Vplace2);
+    let verbEnd = word.slice(-Vplace1,-1);
+    let inffix = word.slice(-Vplace1-2,-Vplace1)+verbEnd.slice(-1);
+    let tense = '';
+    let modality = '';
+    let qualis = '';
+    if (word.slice(-Vplace1,-1) === 'i') {
+      vowel = word.slice(-Vplace2-1,-Vplace2);
+      verbStem = word.slice(0,-Vplace3);
+      verbEnd = word.slice(-Vplace2,-3);
+      inffix = word.slice(-Vplace2-2,-Vplace2)+verbEnd.slice(-1);
+      if (word.slice(-Vplace1-1,-Vplace1) === 'v') {modality = '・意志';}
+    }
+    if (word.endsWith('f')) {qualis = '・連格';}
+    else if (word.endsWith('r')) {qualis = '・連象';}
+    for (let rule of rules) {
+      if (rule.end && rule.end.includes(verbEnd) && (!rule.cond || rule.cond.includes(vowel))) {
+        tense = rule.value;
+        break;
+      }
+    }
+    if (tense && (rules[5].inffix.includes(inffix) || rules[6].inffix.includes(inffix))) {
+      let form = dicData.find(entry => entry.word === verbStem+vowel+verbEnd.slice(-1));
+      if (rules[6].inffix.includes(inffix) && tense === '現在') {form = dicData.find(entry => entry.word === verbStem+verbEnd+vowel);}
+      if (form) {return {...form, value:`${tense}${qualis}${modality}`};}
+    }
+
+
+  } else if ((word.endsWith('t') || word.endsWith('k')) && (dicData.find(entry => entry.word === stem+'j'+end) || dicData.find(entry => entry.word === word.slice(0,-Vplace2)+word.slice(-Vplace2+1,-Vplace2+2)+word.slice(-Vplace1+1,-Vplace1+2)) || dicData.find(entry => entry.word === word.slice(0,-Vplace3)+word.slice(-Vplace3+1,-Vplace3+2)+word.slice(-Vplace2+1,-Vplace2+2)))) {
+    let verbForm = '';
+    let modality = '';
+    let inffix = word.slice(-Vplace1-2,-Vplace1)+word.slice(-Vplace1+1);
+    let verbEnd = word.slice(-Vplace1,-1);
+    let vowel = word[word.length-Vplace1];
+    const modalyVerb = dicData.find(entry => entry.word === word.slice(0,-Vplace3)+word.slice(-Vplace3+1,-Vplace3+2)+word.slice(-Vplace2+1,-Vplace2+2));
+    if (word.slice(-Vplace1,-1) === 'i' && modalyVerb) {
+      inffix = word.slice(-Vplace2-2,-Vplace2)+word.slice(-Vplace2+1,-Vplace2+2)+word.slice(-1);
+      vowel = word.slice(-Vplace2,-4);
+      if (word.slice(-Vplace1-1,-Vplace1) === 'v') {modality = '・意志';}
+    }
+    const nounValue = rules[8][vowel] || rules[9][vowel];
+    const nounForm = dicData.find(entry => entry.word === stem+'j'+end);
+    if (modality && !nounForm) {verbForm = modalyVerb;}
+    else if (!nounForm) {verbForm = dicData.find(entry => entry.word === word.slice(0,-Vplace2)+word.slice(-Vplace2+1,-Vplace2+2)+word.slice(-Vplace1+1,-Vplace1+2));}
+    if (nounForm) {return {...nounForm, value:nounValue};}
+    else if (verbForm && rules[7].inffix.includes(inffix)) {
+      return {...verbForm, value:`格体形・${nounValue}${modality}`};
+    }
+  } else if (word.endsWith('x') && (dicData.find(entry => entry.word === stem+'j'+end.slice(-2,-1)) || dicData.find(entry => entry.word === word.slice(0,-Vplace2)+word.slice(-Vplace2+1,-Vplace2+2)+word.slice(-Vplace1+1,-Vplace1+2)) || dicData.find(entry => entry.word === word.slice(0,-Vplace3)+word.slice(-Vplace3+1,-Vplace3+2)+word.slice(-Vplace2+1,-Vplace2+2)))) {
+    let nounValue = '';
+    let verbForm = '';
+    let modality = '';
+    let inffix = word.slice(-Vplace1-2,-Vplace1)+word.slice(-Vplace1+1,-1);
+    let vowel = word[word.length-Vplace1];
+    const modalyVerb = dicData.find(entry => entry.word === word.slice(0,-Vplace3)+word.slice(-Vplace3+1,-Vplace3+2)+word.slice(-Vplace2+1,-Vplace2+2));
+    if (word.slice(-Vplace1,-1) === 'i' && modalyVerb) {
+      inffix = word.slice(-Vplace2-2,-Vplace2)+word.slice(-Vplace2+1,-Vplace2+2)+word.slice(-Vplace1-2,-Vplace1-1);
+      vowel = word.slice(-Vplace2,-5);
+      if (word.slice(-Vplace1-1,-Vplace1) === 'v') {modality = '・意志';}
+    }
+    if (vowel === 'i') {nounValue = '限定形';}
+    else if (vowel ==='f') {nounValue = '非限定形';}
+    else {return;}
+    const nounForm = dicData.find(entry => entry.word === stem+'j'+end.slice(-2,-1));
+    if (modality && !nounForm) {verbForm = modalyVerb;}
+    else if (!nounForm) {verbForm = dicData.find(entry => entry.word === word.slice(0,-Vplace2)+word.slice(-Vplace2+1,-Vplace2+2)+word.slice(-Vplace1+1,-Vplace1+2));}
+    if (nounForm) {return {...nounForm, value:`${nounValue}・所有形`};}
+    else if (verbForm && rules[7].inffix.includes(inffix)) {
+      return {...verbForm, value:`格体形・${nounValue}・所有形${modality}`};
+    }
+    
+    
+  } if (rules[10][word.slice(-1)]) {
+    const adjEnd = word.slice(-1);
+    const rule = rules[10][adjEnd];
+    const vowel1 = word[word.length-Vplace1];
+    const vowel2 = word[word.length-Vplace2];
+    if (dicData.find(entry => entry.word === word.slice(0,-1)+'f')) {
+      const orgValue = rule.value;
+      return {...dicData.find(entry => entry.word === word.slice(0,-1)+'f'), value:orgValue};
+    }
+    if (dicData.find(entry => entry.word === stem+end.slice(0,-1)+'f')) {
+      if (vowel1 === rule.vowelA) {
+        const cmprValue = rule.value;
+        return {...dicData.find(entry => entry.word === stem+end.slice(0,1)+'f'), value:`比較級・${cmprValue}`};
+      }
+    }
+    if (dicData.find(entry => entry.word === word.slice(0,-Vplace2)+word.slice(-Vplace2+1,-Vplace1)+'f')) {
+      let advValue = '';
+      if (vowel1 === rule.vowelA && vowel2 === rule.vowelB && word.slice(-2,-1) === 'k') {
+        const advValue = rule.value;
+        return {...dicData.find(entry => entry.word === word.slice(0,-Vplace2) + word.slice(-Vplace2+1,-Vplace1) + 'f'), value:`最上級・${advValue}`};
+      }
+    }
+
+
+  } else if (word.endsWith('r')) {
+    if ((word[word.length-Vplace2] === 'f' && word[word.length-Vplace1] === 'i' && word[word.length-Vplace1+1] === 'f')) {
+      return {...dicData.find(entry => entry.word === word.slice(0,-Vplace2) + word.slice(-Vplace2+1,-Vplace1) + 'f'), value:'最上級'};
+    }
+    
+    
+  } else return null;
 }
