@@ -27,11 +27,17 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-const head = {
+const dichead = {
   fg: '穂語辞書',
   yj: '裕語辞書',
   kl: '嘉語辞書',
   pp: '唇語辞書'
+}
+const anahead = {
+  fg: '穂語文解析',
+  yj: '裕語文解析',
+  kl: '嘉語文解析',
+  pp: '唇語文解析'
 }
 const pronFuncs = {
   fg: calcPronFg,
@@ -39,9 +45,19 @@ const pronFuncs = {
   kl: calcPronKl,
   pp: calcPronPp
 }
+const inflFuncs = {
+  fg: reverseInflFg,
+  yj: reverseInflYj,
+  kl: dummy,
+  pp: dummy
+}
+function dummy() {return null;}
 function setLang(selectedLang) {
-  lang = selectedLang;
-document.getElementById('title').textContent = head[lang];
+  if (document.body.classList.contains('dic')) {
+    document.getElementById('title').textContent = dichead[lang];
+  } else {
+  document.getElementById('title1').textContent = anahead[lang];
+  }
   return loadDic();
 }
 function showDetail(item) {
