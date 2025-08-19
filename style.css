@@ -5,6 +5,7 @@
 }
 body {background-color: #fff5f5;
       white-space: nowrap;
+      font-family: "Arial", "メイリオ";
 }
 h1 {font-size: 7rem;
     position: relative;
