@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-body {background-color: #fff5f5;
+body {background-color: #faf0f0;
       white-space: nowrap;
       font-family: "Arial", "メイリオ";
 }
@@ -17,6 +17,7 @@ h1 {font-size: 7rem;
 h2 {font-size: 6rem;
     font-style: italic;
     position: relative;
+    left: 20px;
     top: 55%;
 }
 h3 {font-size: 4rem;
@@ -78,8 +79,8 @@ h3 {font-size: 4rem;
     margin: 0 auto;
 }
 .box p {font-size: 2.5rem;
-        position: absolute;
-        bottom: 5%;
+        position: relative;
+        top: 55%;
 }
 #box1 {animation: fadeInUp 0.5s ease-out forwards;
        background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(textbook_image.png) no-repeat;
@@ -90,7 +91,7 @@ h3 {font-size: 4rem;
        background-size: 100% 100%, 100% 70%;
 }
 #box3 {animation: fadeInUp 1.5s ease-out forwards;
-       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url() no-repeat;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(analysis_image.png) no-repeat;
        background-size: 100% 100%, 100% 70%;
 }
 @keyframes fadeInUp {
