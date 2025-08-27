@@ -795,7 +795,10 @@ function analyze(sentence) {
     row.appendChild(thead);
   });
   analysis.appendChild(row);
-  const words = sentence.trim().split(/\s+/);
+  const words = sentence
+    .toLowerCase()
+    .trim()
+    .match(/[a-z]+|[^a-z\s]/gi);
   words.forEach(word => {
     
     const th = document.createElement('th');
@@ -809,7 +812,14 @@ function analyze(sentence) {
     const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
     const reverses = inflFuncs[lang](word);
 
-    if (matches.length === 1 && !reverses) {
+    if (matches.length === 0 && !/^[a-z]+$/.test(word)) {
+      const tokenCell = document.createElement('th');
+      tokenCell.colSpan = 4;
+      const tr = document.createElement('tr');
+      analysis.appendChild(tr);
+      tr.appendChild(th);
+      tr.appendChild(tokenCell);
+    } else if (matches.length === 1 && !reverses) {
       dicForm.textContent = matches[0].word;
       meanCell.textContent = matches[0].mean;
       qualisCell.textContent = matches[0].qualis;
