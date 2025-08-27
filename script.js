@@ -77,7 +77,7 @@ function showDetail(item) {
   spell.textContent = `${item.word}`;
   mean.textContent = `意味: ${item.mean}`;
   qualis.textContent = `属性: ${item.qualis}`;
-  const pronounce = pronFuncs[lang](item.word);
+  const pronounce = pronFuncs[lang](item.word.toLowerCase());
   pron.textContent = `発音: ${pronounce}`;
   const toi = estmInfl(item.word,estmPos(item.qualis));
   if (toi) {
@@ -744,7 +744,7 @@ function loadDic() {
         suggest.innerHTML = '';
         const query = search.value.toLowerCase();
 
-        const filtered = data.filter(item => item.word.includes(query) || item.mean.includes(query));
+        const filtered = data.filter(item => item.word.toLowerCase().includes(query) || item.mean.includes(query));
 
         filtered.forEach(item => {
           const result = document.createElement('div');
@@ -806,7 +806,7 @@ function analyze(sentence) {
     const qualisCell = document.createElement('td');
     const valueCell = document.createElement('td');
 
-    const matches = dicData.filter(entry => entry.word === word);
+    const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
     const reverses = inflFuncs[lang](word);
 
     if (matches.length === 1 && !reverses) {
