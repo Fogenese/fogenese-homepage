@@ -314,25 +314,26 @@ button {
     font-size: 60px;
 }
 #origin, #usage, #relation {font-size:25px;}
-#inflectiontable {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+#inflectionTable {
+    position: relative;
     font-size: 30px;
+    display: none;
 }
-#inflectiontable th, td {
+#inflectionTable th, td {
     padding: 15px;
 }
 .info a {
-    text-decoration: none;
+    text-decoration: underline dotted #f40;
     color: #000;
 }
 #shareWord {
     width: 250px;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 10%;
+}
+#langInfo p {
+   font-size: 40px;
 }
 #analyze {
     width: 600px;
