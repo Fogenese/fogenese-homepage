@@ -1,11 +1,11 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang=ja>
 <head>
   <meta charset="UTF-8">
   <meta property="og:title" content="ふぉげにーず辞書">
   <meta property="og:description" content="ふぉげにーずが制作した各人工言語の辞書です。">
   <meta property="og:type" content="website">
-  <title>辞書</title>
+  <title>ふぉげにーず辞書</title>
   <link rel=stylesheet href="style.css">
 </head>
 <body class="dic">
@@ -19,6 +19,7 @@
   </div>
   <div id="dicboxes">
     <div class="container" id="wordbox">
+      <div id="langInfo"></div>
       <div id="detail">
         <div class="info" id="spell"></div>
         <div class="info" id="mean"></div>
@@ -28,9 +29,9 @@
         <div class="info" id="origin"></div>
         <div class="info" id="usage"></div>
         <div class="info" id="relation"></div>
-        <table id="inflectionTable"></table>
-        <button id="shareWord" onclick="shareWord()">単語を共有</button>
       </div>
+      <table id="inflectionTable"></table>
+      <button id="shareWord" onclick="shareWord()">単語を共有</button>
     </div>
     <div class="container" id="suggestbox">
       <input type="text" id="search" placeholder="単語を検索" />
