@@ -756,14 +756,19 @@ function loadDic() {
     window.dicData = data;
     const search = document.getElementById('search');
     const suggest = document.getElementById('suggest');
-    const word = document.getElementById('word');
     const detail = document.getElementById('detail');
+    const table = document.getElementById('inflectionTable');
+    const share = document.getElementById('shareWord');
+    const langInfo = document.getElementById('langInfo');
     const count = document.createElement('p');
     count.textContent = `現在の見出し語数: ${data.length}`;
 
     search.value = '';
     suggest.innerHTML = '';
     detail.style.display = 'none';
+    table.style.display = 'none';
+    share.style.display = 'none';
+    calcCharFreq();
     suggest.appendChild(count);
 
     search.addEventListener('keydown',(event) => {
