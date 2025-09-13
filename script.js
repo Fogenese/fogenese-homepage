@@ -62,6 +62,7 @@ function setLang(selectedLang) {
   return loadDic();
 }
 function showDetail(item) {
+  langInfo.innerHTML = '';
   const detail = document.getElementById('detail');
   detail.style.display = 'block';
   const spell = document.getElementById('spell');
@@ -73,6 +74,8 @@ function showDetail(item) {
   const usage = document.getElementById('usage');
   const relation = document.getElementById('relation');
   const table = document.getElementById('inflectionTable');
+  const share = document.getElementById('shareWord');
+  share.style.display = 'block';
 
   spell.textContent = `${item.word}`;
   mean.textContent = `意味: ${item.mean}`;
@@ -721,6 +724,30 @@ function parseCont(meaningText,data) {
     }
   });
   return container;
+}
+function calcCharFreq () {
+  const langInfo = document.getElementById('langInfo');
+  langInfo.innerHTML = '';
+  const freq = {};
+  let sum = 0;
+  dicData.forEach(entry => {
+    const word = entry.word.toLowerCase();
+    for(let char of word) {
+      if (freq[char]) {
+        freq[char]++;
+      } else {
+        freq[char] = 1;
+      }
+      sum += 1;
+    }
+  });
+  const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+  sorted.forEach(([char,count]) => {
+    const ratio = Math.round(count / sum * 1000) / 10;
+    const p = document.createElement("p");
+    p.textContent = `${char}: ${count} (${ratio}%)`
+    langInfo.appendChild(p);
+  });
 }
 function loadDic() {
   return fetch(`dic_${lang}.json`)
