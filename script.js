@@ -1037,7 +1037,7 @@ function reverseInflYj(word) {
     if (word.slice(-Vplace1,-1) === 'i') {
       verbVowel = word.slice(-Vplace2,-Vplace2+1);
       verbStem = word.slice(0,-Vplace2);
-      verbEnd = verbForm.slice(-Vplace2+3);
+      verbEnd = word.slice(-Vplace2+3);
       if (word.slice(-Vplace1-1,-Vplace1) === 'v') {modality = '・意志';}
     }
     for (let rule of rules) {
