@@ -94,6 +94,10 @@ h3 {font-size: 4rem;
        background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(analysis_image.png) no-repeat;
        background-size: 100% 100%, 100% 70%;
 }
+#box4 {animation: fadeInUp 2.0s ease-out forwards;
+       background: linear-gradient(to bottom, transparent 50%, #a0ddff 50%), url(lang_game_image.png) no-repeat;
+       background-size: 100% 100%, 100% 70%;
+      }
 @keyframes fadeInUp {
     0% {
         opacity: 0;
