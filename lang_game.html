@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+  <meta charset="UTF-8">
+  <title>単語学習ゲーム</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel=stylesheet href="style.css">
+</head>
+<body>
+  <h1 id="title2"></h1>
+  <div id="line">a</div>
+  <div class="buttons">
+    <button class="buttons" onclick="setLang('fg')">穂語</button>
+    <button class="buttons" onclick="setLang('yj')">裕語</button>
+    <button class="buttons" onclick="setLang('kl')">嘉語</button>
+    <button class="buttons" onclick="setLang('pp')">唇語</button>
+    <button class="buttons" onclick="setLang('sb')">澄語</button>
+    <button class="buttons" onclick="setLang('cq')">楪語</button>
+  </div>
+  <div class="container">
+    <div class="buttons" id="container">
+      <button onclick="game = wordGame()">スタート</button>
+    </div>
+    <p id="correction"></p>
+    <div id="question"></div>
+    <div class="buttons">
+      <button class="answer" id="answer0" onclick="game.checkAnswer(0)"><p>ー</p></button>
+      <button class="answer" id="answer1" onclick="game.checkAnswer(1)"><p>ー</p></button>
+    </div>
+    <div class="buttons">
+      <button class="answer" id="answer2" onclick="game.checkAnswer(2)"><p>ー</p></button>
+      <button class="answer" id="answer3" onclick="game.checkAnswer(3)"><p>ー</p></button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
