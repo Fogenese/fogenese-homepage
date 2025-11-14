@@ -278,17 +278,19 @@ th:last-child, td:last-child {border-right: none;}
 .xfic {color: #8d8d8d;}
 .cml {color: #f59500;}
 button {
-    width: 120px;
+    width: auto;
     height: 50px;
     font-size: 40px;
     background: #ffe7b0;
     border-radius: 5px;
     align-items: center;
+    padding: 0 30px;
 }
 .buttons {
-    width: auto;
-    height: 50px;
+    height: auto;
     display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
     justify-content: center;
     gap: 30px;
 }
@@ -360,8 +362,6 @@ button {
     margin: 10px auto;
 }
 #analyzer {
-    width: auto;
-    padding: 2px;
     marigin: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -369,4 +369,21 @@ button {
 }
 #analysis {
     font-size: 25px !important;
+}
+.answer {
+    width: 350px;
+    overflow: hidden;
+}
+#question {
+    text-align: center;
+    font-size: 70px;
+    margin: 30%;
+}
+#correction {
+    font-size: 400px;
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30%;
 }
