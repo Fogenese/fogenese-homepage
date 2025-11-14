@@ -39,6 +39,14 @@ const anahead = {
   kl: '嘉語文解析',
   pp: '唇語文解析'
 }
+const gamhead = {
+  fg: '穂語単語学習',
+  yj: '裕語単語学習',
+  kl: '嘉語単語学習',
+  pp: '唇語単語学習',
+  sb: '澄語単語学習',
+  cq: '楪語単語学習'
+}
 const pronFuncs = {
   fg: calcPronFg,
   yj: calcPronYj,
@@ -56,8 +64,10 @@ function setLang(selectedLang) {
   lang = selectedLang;
   if (document.body.classList.contains('dic')) {
     document.getElementById('title').textContent = dichead[lang];
+  } else if (document.body.classList.contains('ana')) {
+    document.getElementById('title1').textContent = anahead[lang];
   } else {
-  document.getElementById('title1').textContent = anahead[lang];
+    document.getElementById('title2').textContent = gamhead[lang];
   }
   return loadDic();
 }
@@ -775,8 +785,16 @@ function loadDic() {
       if (event.key === 'Enter') {
         suggest.innerHTML = '';
         const query = search.value.toLowerCase();
-
-        const filtered = data.filter(item => item.word.toLowerCase().includes(query) || item.mean.includes(query));
+        let filtered = [];
+        if (query.startsWith('#')) {
+          filtered = data.filter(item => 'qualis' in item && item.qualis.match(query.slice(1)));
+        } else if (query.startsWith('¥')) {
+          filtered = data.filter(item => 'qualis' in item && item.qualis === query.slice(1));
+        } else if (query.startsWith('/')) {
+          filtered = data.filter(item => 'origin' in item && item.origin.includes(query.slice(1)));
+        } else {
+          filtered = data.filter(item => item.word.toLowerCase().includes(query) || item.mean.includes(query));
+        }
 
         filtered.forEach(item => {
           const result = document.createElement('div');
@@ -1146,13 +1164,102 @@ function reverseInflYj(word) {
         return {...dicData.find(entry => entry.word === word.slice(0,-Vplace2) + word.slice(-Vplace2+1,-Vplace1) + 'f'), value:`最上級・${advValue}`};
       }
     }
-
-
+    
   } else if (word.endsWith('r')) {
     if ((word[word.length-Vplace2] === 'f' && word[word.length-Vplace1] === 'i' && word[word.length-Vplace1+1] === 'f')) {
       return {...dicData.find(entry => entry.word === word.slice(0,-Vplace2) + word.slice(-Vplace2+1,-Vplace1) + 'f'), value:'最上級'};
     }
-    
-    
   } else return null;
+}
+
+let game = null;
+function wordGame() {
+  const container = document.getElementById('container');
+  const correctionMark = document.getElementById('correction');
+  const answers =
+  [
+    document.getElementById('answer0'),
+    document.getElementById('answer1'),
+    document.getElementById('answer2'),
+    document.getElementById('answer3')
+  ];
+  const questionText = document.getElementById('question');
+  let answerFlag = false;
+  let incorrections = [];
+  let r1 = [];
+  let r2 = 0;
+  let r4 = 0;
+  let requestionFlag = false;
+  function nextQuestion() {
+    answers.forEach(answer => {answer.style.backgroundColor = '#ffe7b0';});
+    correctionMark.style.opacity = '0';
+    answerFlag = false;
+    requestionFlag = false;
+    if (incorrections.length === 1 && incorrections[0] === '') {incorrections = [];}
+    r1 = [];
+    r2 = Math.floor(Math.random() * 4);
+    const r3 = Math.floor(Math.random() * 10);
+    r4 = Math.floor(Math.random() * (incorrections.length - 1));
+    let k = 0;
+    while (k < 4) {
+      if (incorrections.length > 1 && r3 < 5 && k === 0) {
+        r1.push(incorrections[r4]);
+        requestionFlag = true;
+        k++;
+      } else {
+        const r5 = Math.floor(Math.random() * dicData.length);
+        if (!r1.includes(r5)) {
+          r1.push(r5);
+          k++;
+        }
+      }
+    }
+    [r1[0],r1[r4] = r1[r4],r1[0]];
+    const question = dicData[r1[r2]];
+    questionText.textContent = question.word;
+    answers[r2].textContent = question.mean;
+    const others = [0,1,2,3].filter(i => i !== r2);
+    others.forEach(i => {
+      answers[i].textContent = dicData[r1[i]].mean;
+    });
+  }
+  nextQuestion();
+  
+  function checkAnswer(index) {
+    if (answerFlag) {return;}
+    answerFlag = true;
+    if (index === r2) {
+      correctionMark.style.opacity = '50%';
+      correctionMark.style.color = '#0f0';
+      correctionMark.textContent = '〇';
+      if (incorrections.length > 0 && incorrections[incorrections.length-1] !== '') {
+        incorrections.push('');
+      }
+      if (requestionFlag) {
+        incorrections.splice(r4,1);
+      }
+    } else {
+      correctionMark.style.opacity = '50%';
+      correctionMark.style.color = '#f00';
+      correctionMark.textContent = '✕';
+      answers[index].style.backgroundColor = '#f00';
+      if (incorrections[incorrections.length-1] === '') {
+        incorrections.pop()
+      }
+      if (!incorrections.includes(r1[r2])) {
+        incorrections.push(r1[r2]);
+      }
+    }
+    answers[r2].style.backgroundColor = '#0f0';
+    container.innerHTML = '';
+    const restart = document.createElement('button');
+    restart.textContent = 'リスタート';
+    restart.addEventListener('click', () => {game = wordGame();});
+    const next = document.createElement('button');
+    next.textContent = '次へ';
+    next.addEventListener('click', () => {game.nextQuestion();});
+    container.appendChild(restart);
+    container.appendChild(next);
+  }
+  return {nextQuestion,checkAnswer};
 }
