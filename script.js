@@ -89,7 +89,12 @@ function showDetail(item) {
 
   spell.textContent = `${item.word}`;
   mean.textContent = `意味: ${item.mean}`;
-  qualis.textContent = `属性: ${item.qualis}`;
+  qualis.textContent = '';
+  qualisElm.textContent = `属性: ${estmPosCq(item.qualis,'qualis')}`;
+  posElm.textContent = `品詞: ${estmPosCq(item.qualis,'pos')}`;
+  qualis.appendChild(qualisElm);
+  qualis.appendChild(document.createElement('br'));
+  qualis.appendChild(posElm);
   const pronounce = pronFuncs[lang](item.word.toLowerCase());
   pron.textContent = `発音: ${pronounce}`;
   const toi = estmInfl(item.word,estmPos(item.qualis));
@@ -339,24 +344,49 @@ function calcPronPp(word) {
     .join('');
   return `[${phonetic}]`
 }
-function estmPos(qualis) {
-  if (qualis.includes('格体')) {
-    return 'noun';
-  } else if (qualis.includes('実心')) {
-    return 'verb';
-  } else if (qualis.includes('飾定') || qualis.includes('連格')) {
-    return 'adj';
-  } else if (qualis.includes('助動')) {
-    return 'axlv';
-  } else if (qualis.includes('着')) {
-    return 'nfx';
-  } else if (qualis.includes('離')) {
-    return 'dfx';
-  } else if (qualis.includes('非能')) {
-    return 'xfic';
-  } else if (qualis.includes('連象')) {
-    return 'cml';
-  }
+function estmPos(codeText,flag) {
+  const codes = codeText.split(',');
+  const rules = [
+    [['名詞','格体'],['動詞','実心'],['形容詞','飾定'],['verb','心子'],['adj','連格'],['副詞','連象'],['接続詞','連包'],['間投詞','非能']],
+    {
+      '05fg':['前置詞',''],
+      '05':['格助詞','格潒'],
+      '11':['助動詞','実実'],
+      '21':['助動詞','飾実'],
+      '35':['接続助詞','心潒'],
+      '37':['終助詞','心非'],
+      '55':['副助詞','潒潒'],
+      'e':['着'],
+      'f':['離'],
+      'g':['頭辞'],
+      'h':['尾辞']
+    },
+    {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
+  ];
+  let pos = [];
+  let qualis = [];
+  codes.forEach(code => {
+    if (code.length < 3) {
+      pos.push(rules[0][parseInt(code.slice(-1))][0]);
+      qualis.push(rules[0][parseInt(code.slice(-1))][1]);
+      if (code.length > 1) {
+        pos[0] = rules[2][code.slice(0,1)][0] + pos[0];
+        qualis[0] = rules[2][code.slice(0,1)][rules[2][code.slice(0,1)].length - 1] + qualis[0];
+      }
+    }
+    else {
+      qualis.push('');
+      Object.keys(rules[1]).forEach(function (key) {
+        if (code.includes(key)) {
+          pos.push(rules[1][key][0]);
+          qualis[qualis.length - 1] += (rules[1][key][rules[1][key].length - 1]);
+        }
+      });
+    }
+  });
+  if (pos.length < 1) {pos = null;}
+  if (flag === 'pos') {return pos[0];}
+  else if (flag === 'qualis') {return qualis;}
 }
 function estmInfl(word,pos) {
   if (lang === 'fg') {
@@ -804,7 +834,7 @@ function loadDic() {
           const wordElm = document.createElement('span');
           wordElm.classList.add('word');
           wordElm.textContent = item.word;
-          wordElm.classList.add(estmPos(item.qualis))
+          wordElm.classList.add(estmPos(item.qualis,'pos'));
 
           const meanElm = document.createElement('span');
           meanElm.classList.add('mean')
@@ -836,7 +866,7 @@ function shareWord () {
 function analyze(sentence) {
   const result = document.getElementById('analyzed');
   const analysis = document.getElementById('analysis');
-  const headers = ['単語','辞書形','意味','属性','値'];
+  const headers = ['単語','辞書形','意味','属性','品詞','値'];
   analysis.innerHTML = '';
   const row = document.createElement('tr');
   headers.forEach(head => {
@@ -857,6 +887,7 @@ function analyze(sentence) {
     const dicForm = document.createElement('td');
     const meanCell = document.createElement('td');
     const qualisCell = document.createElement('td');
+    const posCell = document.createElement('td');
     const valueCell = document.createElement('td');
 
     const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
@@ -872,7 +903,8 @@ function analyze(sentence) {
     } else if (matches.length === 1 && !reverses) {
       dicForm.textContent = matches[0].word;
       meanCell.textContent = matches[0].mean;
-      qualisCell.textContent = matches[0].qualis;
+      qualisCell.textContent = estmPos(matches[0].qualis,'qualis');
+      posCell.textContent = estmPos(matches[0].qualis,'pos');
       valueCell.textContent = '-';
       const tr = document.createElement('tr');
       analysis.appendChild(tr);
@@ -880,6 +912,7 @@ function analyze(sentence) {
       tr.appendChild(dicForm);
       tr.appendChild(meanCell);
       tr.appendChild(qualisCell);
+      tr.appendChild(posCell);
       tr.appendChild(valueCell);
     } else if (Array.isArray(reverses) && reverses.length > 1) {
       for (let i = 0; i < reverses.length; i++) {
@@ -891,22 +924,26 @@ function analyze(sentence) {
         const subDicForm = document.createElement('td');
         const subMeanCell = document.createElement('td');
         const subQualisCell = document.createElement('td');
+        const subPosCell = document.createElement('td');
         const subValueCell = document.createElement('td');
 
         subDicForm.textContent = reverses[i].word;
         subMeanCell.textContent = reverses[i].mean;
-        subQualisCell.textContent = reverses[i].qualis;
+        subQualisCell.textContent = estmPos(reverses[i].qualis,'qualis');
+        subPosCell.textContent = estmPos(reverses[i].qualis,'pos');
         subValueCell.textContent = reverses[i].value;
         analysis.appendChild(tr);
         tr.appendChild(subDicForm);
         tr.appendChild(subMeanCell);
         tr.appendChild(subQualisCell);
+        tr.appendChild(subPosCell);
         tr.appendChild(subValueCell);
       };
     } else if (reverses) {
       dicForm.textContent = reverses.word;
       meanCell.textContent = reverses.mean;
-      qualisCell.textContent = reverses.qualis;
+      qualisCell.textContent = estmPos(reverses.qualis,'qualis');
+      posCell.textContent = estmPos(reverses.qualis,'pos');
       valueCell.textContent = reverses.value;
       const tr = document.createElement('tr');
       analysis.appendChild(tr);
@@ -914,6 +951,7 @@ function analyze(sentence) {
       tr.appendChild(dicForm);
       tr.appendChild(meanCell);
       tr.appendChild(qualisCell);
+      tr.appendChild(posCell);
       tr.appendChild(valueCell);
     } else if (matches.length > 1) {
       matches.forEach((match,index) => {
@@ -925,16 +963,19 @@ function analyze(sentence) {
         const subDicForm = document.createElement('td');
         const subMeanCell = document.createElement('td');
         const subQualisCell = document.createElement('td');
+        const subPosCell = document.createElement('td');
         const subValueCell = document.createElement('td');
 
         subDicForm.textContent = word;
         subMeanCell.textContent = match.mean;
-        subQualisCell.textContent = match.qualis;
+        subQualisCell.textContent = estmPos(match.qualis,'qualis');
+        subPosCell.textContent = estmPos(match.qualis,'pos');
         subValueCell.textContent = '-';
         analysis.appendChild(tr);
         tr.appendChild(subDicForm);
         tr.appendChild(subMeanCell);
         tr.appendChild(subQualisCell);
+        tr.appendChild(subPosCell);
         tr.appendChild(subValueCell);
       });
     } else {
@@ -958,16 +999,16 @@ function reverseInflFg(word) {
   let infl = null;
   if (verbs.length > 0) {
     const verb = verbs[0];
-    pos = estmPos(verb.qualis);
+    pos = estmPos(verb.qualis,'pos');
     infl = estmInfl(verb.word,pos);
   }
   if (adj) {
-    pos = estmPos(adj.qualis);
+    pos = estmPos(adj.qualis,'pos');
     infl = estmInfl(adj.word,pos);
   }
   if (adj1) {
     if (word.endsWith('o')) {
-      pos = estmPos(adj1.qualis);
+      pos = estmPos(adj1.qualis,'pos');
       infl = estmInfl(adj1.word,pos);
     }
   }
