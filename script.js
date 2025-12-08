@@ -78,6 +78,8 @@ function showDetail(item) {
   const spell = document.getElementById('spell');
   const mean = document.getElementById('mean');
   const qualis = document.getElementById('qualis');
+  const qualisElm = document.createElement('span');
+  const posElm = document.createElement('span');
   const pron = document.getElementById('pron');
   const infl = document.getElementById('infl');
   const origin = document.getElementById('origin');
@@ -90,8 +92,8 @@ function showDetail(item) {
   spell.textContent = `${item.word}`;
   mean.textContent = `意味: ${item.mean}`;
   qualis.textContent = '';
-  qualisElm.textContent = `属性: ${estmPosCq(item.qualis,'qualis')}`;
-  posElm.textContent = `品詞: ${estmPosCq(item.qualis,'pos')}`;
+  qualisElm.textContent = `属性: ${estmPos(item.qualis,'qualis')}`;
+  posElm.textContent = `品詞: ${estmPos(item.qualis,'pos')}`;
   qualis.appendChild(qualisElm);
   qualis.appendChild(document.createElement('br'));
   qualis.appendChild(posElm);
