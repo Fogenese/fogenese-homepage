@@ -99,7 +99,7 @@ function showDetail(item) {
   qualis.appendChild(posElm);
   const pronounce = pronFuncs[lang](item.word.toLowerCase());
   pron.textContent = `発音: ${pronounce}`;
-  const toi = estmInfl(item.word,estmPos(item.qualis));
+  const toi = estmInfl(item.word,estmPos(item.qualis,'pos'));
   if (toi) {
     infl.style.display = 'block';
     infl.textContent = `屈折型: ${toi}型`;
@@ -392,15 +392,15 @@ function estmPos(codeText,flag) {
 }
 function estmInfl(word,pos) {
   if (lang === 'fg') {
-    if (pos === 'verb' || (pos === 'axlv' && word.slice(-1) === 'u')) {
+    if (pos.includes('動詞') || (pos === '助動詞' && word.slice(-1) === 'u')) {
       return '三段';
-    } else if (pos === 'adj' || (pos === 'axlv' && word.slice(-1) === 'i')) {
+    } else if (pos === '形容詞' || (pos === '助動詞' && word.slice(-1) === 'i')) {
       return '二段';
     }
   } else if (lang === 'yj') {
-    if (pos === 'noun') {
+    if (pos.includes('名詞')) {
       return '格体';
-    } else if (pos === 'adj') {
+    } else if (pos === '形容詞') {
       return '飾定';
     } else if (pos === 'verb') {
       if (word.slice(-1) === 'l' || word.slice(-1) === 'j') {
