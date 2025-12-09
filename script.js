@@ -392,15 +392,15 @@ function estmPos(codeText,flag) {
   else if (flag === 'qualis') {return qualis;}
 }
 function estmInfl(item) {
-  const word = item.word
+  const word = item.word;
   const pos = estmPos(item.qualis,'pos');
   if (lang === 'fg') {
     if (pos.includes('動詞') || (pos === '助動詞' && word.slice(-1) === 'u')) {
-      return '三段型';
+      return '三段';
     } else if (pos === '形容詞') {
-      return '二段型';
+      return '二段';
     } else if (pos === '助動詞' && word.slice(-1) === 'i') {
-      return '助動詞二段型';
+      return '助動詞二段';
     }
   } else if (lang === 'yj') {
     if (pos.includes('名詞')) {
@@ -905,7 +905,7 @@ function analyze(sentence) {
       analysis.appendChild(tr);
       tr.appendChild(th);
       tr.appendChild(tokenCell);
-    } else if (reverses.length > 1) {
+    } else if (reverses.length > 0) {
       for (let i = 0; i < reverses.length; i++) {
         const tr = document.createElement('tr');
         if (i === 0) {
@@ -957,7 +957,7 @@ function reverseInflFg(word) {
     verbs.forEach(verb => {
       const value = rules[0][word.slice(-1)];
       infl = estmInfl(verb);
-      if (value !== undefined && infl === '三段型') {
+      if (value !== undefined && infl === '三段') {
         results.push({ ...verb, value: value});
       }
     });
@@ -966,7 +966,7 @@ function reverseInflFg(word) {
     adjs.forEach(adj => {
       const value = rules[1][word.replace(adj.word.slice(0, -1),'')];
       infl = estmInfl(adj);
-      if (value !== undefined && (infl === '二段型' || (infl === '助動詞二段型' && value !== '程度形'))) {
+      if (value !== undefined && (infl === '二段' || (infl === '助動詞二段' && value !== '程度形'))) {
         results.push({ ...adj, value: value});
       }
     });
