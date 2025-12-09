@@ -945,10 +945,8 @@ function analyze(sentence) {
 function reverseInflFg(word) {
   const results = [];
   const verbs = dicData.filter(entry => entry.word === word.slice(0,-1)+'u');
-  const adjs1 = dicData.find(entry => entry.word === word.slice(0,-1)+'i');
-  const adjs2 = dicData.find(entry => entry.word === word.slice(0,-2)+'i');
-  alert(adjs1);
-  alert(adjs2);
+  const adjs1 = dicData.filter(entry => entry.word === word.slice(0,-1)+'i');
+  const adjs2 = dicData.filter(entry => entry.word === word.slice(0,-2)+'i');
   const adjs = [...adjs1,...adjs2];
   let infl = null;
   const rules = [
