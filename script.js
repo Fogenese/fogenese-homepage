@@ -72,6 +72,7 @@ function setLang(selectedLang) {
   return loadDic();
 }
 function showDetail(item) {
+  const langInfo = document.getElementById('langInfo');
   langInfo.innerHTML = '';
   const detail = document.getElementById('detail');
   detail.style.display = 'block';
@@ -958,6 +959,7 @@ function reverseInflFg(word) {
       infl = estmInfl(verb);
       if (value !== undefined && infl === '三段型') {
         results.push({ ...verb, value: value});
+      }
     });
   }
   if (adjs.length > 0) {
@@ -966,6 +968,7 @@ function reverseInflFg(word) {
       infl = estmInfl(adj);
       if (value !== undefined && (infl === '二段型' || (infl === '助動詞二段型' && value !== '程度形'))) {
         results.push({ ...adj, value: value});
+      }
     });
   }
   return results;
@@ -1184,7 +1187,7 @@ function wordGame() {
         }
       }
     }
-    [r1[0],r1[r4] = r1[r4],r1[0]];
+    [r1[0],r1[r4]] = [r1[r4],r1[0]];
     const question = dicData[r1[r2]];
     questionText.textContent = question.word;
     answers[r2].textContent = question.mean;
