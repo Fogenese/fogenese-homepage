@@ -425,11 +425,11 @@ function calcInflFg(word,toi) {
     {'基本形': 'i', '連用形': 'a'}
   ];
   let inflect = {};
-  if (toi === '三段型') {
+  if (toi === '三段') {
     inflect = inflects[0];
-  } else if (toi === '二段型') {
+  } else if (toi === '二') {
     inflect = inflects[1];
-  } else if (toi === '助動詞二段型') {
+  } else if (toi === '助動詞二段') {
     inflect = inflects[2];
   } else {
     table.style.display = 'none';
@@ -947,6 +947,8 @@ function reverseInflFg(word) {
   const verbs = dicData.filter(entry => entry.word === word.slice(0,-1)+'u');
   const adjs1 = dicData.find(entry => entry.word === word.slice(0,-1)+'i');
   const adjs2 = dicData.find(entry => entry.word === word.slice(0,-2)+'i');
+  alert(adjs1);
+  alert(adjs2);
   const adjs = [...adjs1,...adjs2];
   let infl = null;
   const rules = [
