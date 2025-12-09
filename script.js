@@ -900,7 +900,7 @@ function analyze(sentence) {
     }
     if (reverses.length === 0 && !/^[a-z]+$/.test(word)) {
       const tokenCell = document.createElement('th');
-      tokenCell.colSpan = 4;
+      tokenCell.colSpan = 5;
       const tr = document.createElement('tr');
       analysis.appendChild(tr);
       tr.appendChild(th);
@@ -933,7 +933,7 @@ function analyze(sentence) {
     } else {
       const nonMatchCell = document.createElement('td');
       nonMatchCell.textContent = '見つかりませんでした。';
-      nonMatchCell.colSpan = 4;
+      nonMatchCell.colSpan = 5;
       const tr = document.createElement('tr');
       analysis.appendChild(tr);
       tr.appendChild(th);
