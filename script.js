@@ -390,8 +390,9 @@ function estmPos(codeText,flag) {
   if (flag === 'pos') {return pos[0];}
   else if (flag === 'qualis') {return qualis;}
 }
-function estmInfl(word) {
-  const pos = estmPos(word);
+function estmInfl(item) {
+  const word = item.word
+  const pos = estmPos(item.qualis,'pos');
   if (lang === 'fg') {
     if (pos.includes('動詞') || (pos === '助動詞' && word.slice(-1) === 'u')) {
       return '三段型';
@@ -896,14 +897,14 @@ function analyze(sentence) {
         reverses.push({...match, value:'-'});
       });
     }
-    if (matches.length === 0 && !/^[a-z]+$/.test(word)) {
+    if (reverses.length === 0 && !/^[a-z]+$/.test(word)) {
       const tokenCell = document.createElement('th');
       tokenCell.colSpan = 4;
       const tr = document.createElement('tr');
       analysis.appendChild(tr);
       tr.appendChild(th);
       tr.appendChild(tokenCell);
-    } else if (Array.isArray(reverses) && reverses.length > 1) {
+    } else if (reverses.length > 1) {
       for (let i = 0; i < reverses.length; i++) {
         const tr = document.createElement('tr');
         if (i === 0) {
