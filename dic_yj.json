@@ -4,7 +4,7 @@
   { "word": "cjt", "mean": "4,四", "qualis": "0" },
   { "word": "cjl", "mean": "行く,行かせる", "qualis": "n1" },
   { "word": "crl", "mean": "歩く,歩かせる", "qualis": "n1" },
-  { "word": "crljt", "mean": "足", "qualis": "p", "origin": "「crl(歩く)」+格体化着尾辞「-jt」" },
+  { "word": "crljt", "mean": "足", "qualis": "0", "origin": "「crl(歩く)」+格体化着尾辞「-jt」" },
   { "word": "fitjjk", "mean": "明日,翌日", "qualis": "0", "origin": "「fi-(次の)」+「tjjkjt(日付)」" },
   { "word": "fjk", "mean": "女性,女,メス", "qualis": "0" },
   { "word": "fjl", "mean": "〜と考えられる,考える,〜と感じられる,感じる", "qualis": "m1", "origin": "英語「feel(感じる)」" },
