@@ -90,7 +90,7 @@
   { "word": "cu", "mean": "〜れる,〜られる", "qualis": "11eh", "usage": "実心の連用形に後接し、受動態にする。" },
   { "word": "culu", "mean": "吸い込む,啜る", "qualis": "c1", "origin": "擬声語「チュルチュル」" },
   { "word": "cura", "mean": "顔,面", "qualis": "0", "origin": "日本語「面(ツラ)」" },
-  { "word": "curawu", "mean": "会う,対面する,直面する", "qualis": "内向実心", "origin": "「cura(顔)」+「wu(〜する)」" },
+  { "word": "curawu", "mean": "会う,対面する,直面する", "qualis": "b1", "origin": "「cura(顔)」+「wu(〜する)」" },
   { "word": "cuti", "mean": "春", "qualis": "0", "origin": "中国語「春天(Chūntiān)」" },
   { "word": "cuze", "mean": "縦", "qualis": "0", "origin": "中国語「垂直(Chuízhí)」" },
   { "word": "dago", "mean": "単語", "qualis": "0", "origin": "中国語「单(Dān)」" },
