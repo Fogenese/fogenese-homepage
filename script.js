@@ -154,15 +154,17 @@ function showDetail(item) {
   }
   table.innerHTML = '';
   table.style.display = 'table';
+  const pos = estmPos(item.qualis,'pos');
   if (lang === 'fg') {
     calcInflFg(item.word,toi);
-  } else if (lang === 'yj' && estmPos(item.qualis) === 'noun') {
-    table.innerHTML = '';
-    calcInflYjNoun(item.word,toi);
-  } else if (lang === 'yj' && estmPos(item.qualis) === 'verb') {
-    calcInflYjVerb(item.word,toi);
-  } else if (lang === 'yj' && estmPos(item.qualis) === 'adj') {
-    calcInflYjAdj(item.word,toi);
+  } else if (lang === 'yj') {
+    if (pos.includes('名詞')){
+      calcInflYjNoun(item.word,toi);
+    } else if (pos.includes('動詞')) {
+      calcInflYjVerb(item.word,toi);
+    } else if (pos.includes('形容詞')) {
+      calcInflYjAdj(item.word);
+    }
   } else {
     table.style.display = 'none';
   }
