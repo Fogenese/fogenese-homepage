@@ -397,12 +397,12 @@ function estmInfl(item) {
   const word = item.word;
   const pos = estmPos(item.qualis,'pos');
   if (lang === 'fg') {
-    if (pos.includes('動詞') || (pos === '助動詞' && word.slice(-1) === 'u')) {
-      return '三段';
+    if (pos === '助動詞' && word.slice(-1) === 'i') {
+      return '助動詞二段';
     } else if (pos === '形容詞') {
       return '二段';
-    } else if (pos === '助動詞' && word.slice(-1) === 'i') {
-      return '助動詞二段';
+    } else if (pos.includes('動詞') || (pos === '助動詞' && word.slice(-1) === 'u')) {
+      return '三段';
     }
   } else if (lang === 'yj') {
     if (pos.includes('名詞')) {
@@ -429,7 +429,7 @@ function calcInflFg(word,toi) {
   let inflect = {};
   if (toi === '三段') {
     inflect = inflects[0];
-  } else if (toi === '二') {
+  } else if (toi === '二段') {
     inflect = inflects[1];
   } else if (toi === '助動詞二段') {
     inflect = inflects[2];
