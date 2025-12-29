@@ -409,7 +409,7 @@ function estmInfl(item) {
       return '格体';
     } else if (pos === '形容詞') {
       return '飾定';
-    } else if (pos === 'verb') {
+    } else if (pos.includes('動詞')) {
       if (word.slice(-1) === 'l' || word.slice(-1) === 'j') {
         return word.slice(-2);
       } else {
