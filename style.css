@@ -273,16 +273,17 @@ th:last-child, td:last-child {border-right: none;}
     overflow: auto;
 }
 .word {font-size: 60px;}
-.名詞, .代名詞 {color: #f05fdf;}
-.動詞, .自動詞, .他動詞, .両向動詞, .結び動詞, .解き動詞 {color: #25a6e5;}
-.形容詞 {color: #17ab39;}
-.助動詞 {color: #95a53a;}
-.終助詞 {color: #ef7d31;}
+.noun {color: #f05fdf;}
+.verb {color: #25a6e5;}
+.adj {color: #17ab39;}
+.adv {color: #f59500;}
+.conj{color: #aa88ee;}
+.aux {color: #95a53a;}
+.nfx {color: #ef7d31;}
 .dfx {color: #70ad47;}
-.間投詞 {color: #8d8d8d;}
-.副詞 {color: #f59500;}
-.格助詞{color: #cc7777;}
-.副助詞, .接続助詞{color: #aa88ee;}
+.int {color: #8d8d8d;}
+.prep{color: #ca8684;}
+.part{color: #cc7777;}
 button {
     width: auto;
     height: 50px;
