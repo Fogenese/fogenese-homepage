@@ -396,7 +396,7 @@ function estmPos(codeText,flag) {
   if (pos.length < 1) {pos = null;}
   if (flag === 'pos') {return pos[0];}
   else if (flag === 'qualis') {return qualis;}
-  else if (flag === 'color') {return color;}
+  else if (flag === 'color') {return color[0];}
 }
 function estmInfl(item) {
   const word = item.word;
