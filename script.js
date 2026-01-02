@@ -352,8 +352,8 @@ function calcPronPp(word) {
 function estmPos(codeText,flag) {
   const codes = codeText.split(',');
   const rules = [
-    [['名詞','格体'],['動詞','実心'],['形容詞','飾定'],['verb','心子'],['adj','連格'],['副詞','連象'],['接続詞','連包'],['間投詞','非能']],
-    { '0':'格','1':'実','2':'飾','3':'心','4':'洛','5':'潒','6':'泡','7':'非','e':'着','f':'離','g':'頭','h':'尾','i':'入','j':'合','k':'周','l':'通'},
+    [['名詞','格体'],['動詞','実心'],['形容詞','飾定'],['述語','心子'],['連体詞','連格'],['副詞','連象'],['接続詞','連包'],['間投詞','非能']],
+    { '0':'格','1':'実','2':'飾','3':'心','4':'洛','5':'潒','6':'泡','7':'非','e':'着','f':'離','g':'頭辞','h':'尾辞','i':'入辞','j':'合辞','k':'周辞','l':'通辞'},
     {
       '05fg':'前置詞',
       '05':'格助詞',
@@ -381,10 +381,8 @@ function estmPos(codeText,flag) {
     }
     else {
       qualis.push('');
-      Object.keys(rules[1]).forEach(function (key) {
-        if (code.includes(key)) {
-          qualis[qualis.length - 1] += (rules[1][key][rules[1][key].length - 1]);
-        }
+      code.split('').forEach(char => {
+        qualis[qualis.length - 1] += (rules[1][key][rules[1][key].length - 1]);
       });
       Object.keys(rules[2]).forEach(function (key) {
         if (code.includes(key)) {
