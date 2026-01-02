@@ -352,28 +352,29 @@ function calcPronPp(word) {
 function estmPos(codeText,flag) {
   const codes = codeText.split(',');
   const rules = [
-    [['名詞','格体'],['動詞','実心'],['形容詞','飾定'],['述語','心子'],['連体詞','連格'],['副詞','連象'],['接続詞','連包'],['間投詞','非能']],
+    [['名詞','格体','noun'],['動詞','実心','verb'],['形容詞','飾定','adj'],['述語','心子','verb'],['連体詞','連格','adj'],['副詞','連象','adv'],['接続詞','連包','conj'],['間投詞','非能','int']],
     { '0':'格','1':'実','2':'飾','3':'心','4':'洛','5':'潒','6':'泡','7':'非','e':'着','f':'離','g':'頭辞','h':'尾辞','i':'入辞','j':'合辞','k':'周辞','l':'通辞'},
     {
-      '05fg':'前置詞',
-      '05':'格助詞',
-      '00':'名詞接尾辞',
-      '11':'助動詞',
-      '12':'助動詞',
-      '13':'終助詞',
-      '21':'助動詞',
-      '22':'助動詞',
-      '33':'終助詞',
-      '55':'副助詞'
+      '05fg':['前置詞','prep'],
+      '05':['格助詞','adv'],
+      '00':['名詞接尾辞','noun'],
+      '11':['助動詞','aux'],
+      '12':['助動詞','aux'],
+      '13':['終助詞','part']
+      '15':['接続助詞','conj'],
+      '55':['副助詞','conj']
     },
     {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
   ];
   let pos = [];
   let qualis = [];
+  let color = [];
   codes.forEach(code => {
     if (code.length < 3) {
-      pos.push(rules[0][parseInt(code.slice(-1))][0]);
-      qualis.push(rules[0][parseInt(code.slice(-1))][1]);
+      const rule0 = rules[0][parseInt(code.slice(-1))];
+      pos.push(rule0[0]);
+      qualis.push(rule0[1]);
+      color.push(rule0[2]);
       if (code.length > 1) {
         pos[0] = rules[3][code.slice(0,1)][0] + pos[0];
         qualis[qualis.length - 1] = rules[3][code.slice(0,1)][rules[3][code.slice(0,1)].length - 1] + qualis[qualis.length - 1];
@@ -386,7 +387,8 @@ function estmPos(codeText,flag) {
       });
       Object.keys(rules[2]).forEach(function (key) {
         if (code.includes(key)) {
-          pos.push(rules[2][key]);
+          pos.push(rules[2][key][0]);
+          color.push(rules[2][key][1]);
         }
       });
     }
@@ -394,6 +396,7 @@ function estmPos(codeText,flag) {
   if (pos.length < 1) {pos = null;}
   if (flag === 'pos') {return pos[0];}
   else if (flag === 'qualis') {return qualis;}
+  else if (flag === 'color') {return color;}
 }
 function estmInfl(item) {
   const word = item.word;
@@ -845,7 +848,7 @@ function loadDic() {
           const wordElm = document.createElement('span');
           wordElm.classList.add('word');
           wordElm.textContent = item.word;
-          wordElm.classList.add(estmPos(item.qualis,'pos'));
+          wordElm.classList.add(estmPos(item.qualis,'color'));
 
           const meanElm = document.createElement('span');
           meanElm.classList.add('mean')
