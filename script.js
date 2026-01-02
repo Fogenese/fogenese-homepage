@@ -349,7 +349,7 @@ function calcPronPp(word) {
     .join('');
   return `[${phonetic}]`
 }
-function estmPosCq(codeText,flag) {
+function estmPos(codeText,flag) {
   const codes = codeText.split(',');
   const rules = [
     [['名詞','格体'],['動詞','実心'],['形容詞','飾定'],['verb','心子'],['adj','連格'],['副詞','連象'],['接続詞','連包'],['間投詞','非能']],
