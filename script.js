@@ -382,7 +382,7 @@ function estmPos(codeText,flag) {
     else {
       qualis.push('');
       code.split('').forEach(char => {
-        qualis[qualis.length - 1] += (rules[1][key][rules[1][key].length - 1]);
+        qualis[qualis.length - 1] += (rules[1][char]);
       });
       Object.keys(rules[2]).forEach(function (key) {
         if (code.includes(key)) {
