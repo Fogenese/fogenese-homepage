@@ -349,22 +349,22 @@ function calcPronPp(word) {
     .join('');
   return `[${phonetic}]`
 }
-function estmPos(codeText,flag) {
+function estmPosCq(codeText,flag) {
   const codes = codeText.split(',');
   const rules = [
     [['名詞','格体'],['動詞','実心'],['形容詞','飾定'],['verb','心子'],['adj','連格'],['副詞','連象'],['接続詞','連包'],['間投詞','非能']],
+    { '0':'格','1':'実','2':'飾','3':'心','4':'洛','5':'潒','6':'泡','7':'非','e':'着','f':'離','g':'頭','h':'尾','i':'入','j':'合','k':'周','l':'通'},
     {
-      '05fg':['前置詞',''],
-      '05':['格助詞','格潒'],
-      '11':['助動詞','実実'],
-      '21':['助動詞','飾実'],
-      '35':['接続助詞','心潒'],
-      '37':['終助詞','心非'],
-      '55':['副助詞','潒潒'],
-      'e':['着'],
-      'f':['離'],
-      'g':['頭辞'],
-      'h':['尾辞']
+      '05fg':'前置詞',
+      '05':'格助詞',
+      '00':'名詞接尾辞',
+      '11':'助動詞',
+      '12':'助動詞',
+      '13':'終助詞',
+      '21':'助動詞',
+      '22':'助動詞',
+      '33':'終助詞',
+      '55':'副助詞'
     },
     {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
   ];
@@ -375,16 +375,20 @@ function estmPos(codeText,flag) {
       pos.push(rules[0][parseInt(code.slice(-1))][0]);
       qualis.push(rules[0][parseInt(code.slice(-1))][1]);
       if (code.length > 1) {
-        pos[0] = rules[2][code.slice(0,1)][0] + pos[0];
-        qualis[0] = rules[2][code.slice(0,1)][rules[2][code.slice(0,1)].length - 1] + qualis[0];
+        pos[0] = rules[3][code.slice(0,1)][0] + pos[0];
+        qualis[qualis.length - 1] = rules[3][code.slice(0,1)][rules[3][code.slice(0,1)].length - 1] + qualis[qualis.length - 1];
       }
     }
     else {
       qualis.push('');
       Object.keys(rules[1]).forEach(function (key) {
         if (code.includes(key)) {
-          pos.push(rules[1][key][0]);
           qualis[qualis.length - 1] += (rules[1][key][rules[1][key].length - 1]);
+        }
+      });
+      Object.keys(rules[2]).forEach(function (key) {
+        if (code.includes(key)) {
+          pos.push(rules[2][key]);
         }
       });
     }
