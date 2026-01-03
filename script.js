@@ -1182,19 +1182,18 @@ function wordGame() {
     r4 = Math.floor(Math.random() * (incorrections.length - 1));
     let k = 0;
     while (k < 4) {
-      if (incorrections.length > 1 && r3 < 5 && k === 0) {
+      if (incorrections.length > 1 && r3 < 5 && k === r2) {
         r1.push(incorrections[r4]);
         requestionFlag = true;
         k++;
       } else {
         const r5 = Math.floor(Math.random() * dicData.length);
-        if (!r1.includes(r5)) {
+        if (!r1.includes(r5) || r5 !== incorrections[r4]) {
           r1.push(r5);
           k++;
         }
       }
     }
-    [r1[0],r1[r4]] = [r1[r4],r1[0]];
     const question = dicData[r1[r2]];
     questionText.textContent = question.word;
     answers[r2].textContent = question.mean;
