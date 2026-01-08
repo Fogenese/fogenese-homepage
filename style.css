@@ -273,17 +273,34 @@ th:last-child, td:last-child {border-right: none;}
     overflow: auto;
 }
 .word {font-size: 60px;}
-.noun {color: #f05fdf;}
-.verb {color: #25a6e5;}
-.adj {color: #17ab39;}
-.adv {color: #f59500;}
-.conj{color: #aa88ee;}
-.aux {color: #95a53a;}
-.nfx {color: #ef7d31;}
-.dfx {color: #70ad47;}
-.int {color: #8d8d8d;}
-.prep{color: #ca8684;}
-.part{color: #cc7777;}
+.noun {
+    color: #f05fdf;
+    text-decoration: underline var(--line, none) #f05fdf;
+}
+.verb {
+    color: #25a6e5;
+    text-decoration: underline var(--line, none) #25a6e5;
+}
+.adj {
+    color: #17ab39;
+    text-decoration: underline var(--line, none) #17ab39;
+}
+.adv {
+    color: #f59500;
+    text-decoration: underline var(--line, none) #f59500;
+}
+.conj {
+    color: #aa88ee;
+    text-decoration: underline var(--line, none) #aa88ee;
+}
+.int {
+    color: #8d8d8d;
+    text-decoration: underline var(--line, none) #8d8d8d;
+}
+.prenef {color: #7788dd;}
+.predef {color: #ca8684;}
+.subnef {color: #57b5b8;}
+.subdef {color: #77aa77;}
 button {
     width: auto;
     height: 50px;
@@ -317,7 +334,7 @@ button {
     overflow: auto;
 }
 #spell {
-    background-color: #ffd060;
+    background-color: #ffe8b3;
     border-bottom: 5px solid #fff;
     text-align: center;
     font-size: 60px;
