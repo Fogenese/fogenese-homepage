@@ -90,7 +90,13 @@ function showDetail(item) {
   const share = document.getElementById('shareWord');
   share.style.display = 'block';
 
-  spell.textContent = `${item.word}`;
+  spell.innerHTML = '';
+  const spellText = document.createElement('span');
+  spellText.textContent = item.word;
+  const mark = applyTextStyle(item, spellText);
+  if (mark[1] === 'sub') {spell.appendChild(mark[0]);}
+  spell.appendChild(spellText);
+  if (mark[1] === 'pre') {spell.appendChild(mark[0]);}
   mean.textContent = `意味: ${item.mean}`;
   qualis.textContent = '';
   qualisElm.textContent = `属性: ${estmPos(item.qualis,'qualis')}`;
@@ -353,16 +359,16 @@ function estmPos(codeText,flag) {
   const codes = codeText.split(',');
   const rules = [
     [['名詞','格体','noun'],['動詞','実心','verb'],['形容詞','飾定','adj'],['述語','心子','verb'],['連体詞','連格','adj'],['副詞','連象','adv'],['接続詞','連包','conj'],['間投詞','非能','int']],
-    { '0':'格','1':'実','2':'飾','3':'心','4':'洛','5':'潒','6':'泡','7':'非','e':'着','f':'離','g':'頭辞','h':'尾辞','i':'入辞','j':'合辞','k':'周辞','l':'通辞'},
+    { '0':['格','-noun'],'1':['実','-verb'],'2':['飾','-adj'],'3':['心','.verb'],'4':['洛','.adj'],'5':['潒','.adv'],'6':['泡','.conj'],'7':['非','.int'],'e':['着','nef'],'f':['離','def'],'g':['頭辞','pre'],'h':['尾辞','sub'],'i':['入辞',''],'j':['合辞',''],'k':['周辞',''],'l':['通辞','']},
     {
-      '05fg':['前置詞','prep'],
-      '05':['格助詞','adv'],
-      '00':['名詞接尾辞','noun'],
-      '11':['助動詞','aux'],
-      '12':['助動詞','aux'],
-      '13':['終助詞','part'],
-      '15':['接続助詞','conj'],
-      '55':['副助詞','conj']
+      '05fg':'前置詞',
+      '05':'格助詞',
+      '00':'名詞接尾辞',
+      '11':'助動詞',
+      '12':'助動詞',
+      '13':'終助詞',
+      '15':'接続助詞',
+      '55':'副助詞'
     },
     {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
   ];
@@ -382,13 +388,15 @@ function estmPos(codeText,flag) {
     }
     else {
       qualis.push('');
+      let affix = [];
       code.split('').forEach(char => {
-        qualis[qualis.length - 1] += rules[1][char];
+        qualis[qualis.length - 1] += rules[1][char][0];
+        affix.push(rules[1][char][1]);
       });
+      color.push(affix);
       Object.keys(rules[2]).forEach(function (key) {
         if (code.includes(key)) {
-          pos.push(rules[2][key][0]);
-          color.push(rules[2][key][1]);
+          pos.push(rules[2][key]);
         }
       });
     }
@@ -397,6 +405,20 @@ function estmPos(codeText,flag) {
   if (flag === 'pos') {return pos[0];}
   else if (flag === 'qualis') {return qualis;}
   else if (flag === 'color') {return color[0];}
+}
+function applyTextStyle(item, span) {
+  let color = estmPos(item.qualis,'color');
+  const mark = document.createElement('span');
+  if (color[0].length > 1) {
+    mark.textContent = color[2] === 'nef' ? color[0].slice(0,1) : color[0].slice(0,1) + color[0].slice(0,1);
+    mark.classList.add(color[0].slice(1));
+    span.classList.add(color[1].slice(1));
+    const lineStyle = color[1].slice(0,1) === '-' ? 'solid' : 'dotted';
+    span.style.setProperty('--line', lineStyle);
+    color = color[3] + color[2];
+  }
+  span.classList.add(color);
+  return [mark, color.slice(0,3)];
 }
 function estmInfl(item) {
   const word = item.word;
@@ -848,7 +870,8 @@ function loadDic() {
           const wordElm = document.createElement('span');
           wordElm.classList.add('word');
           wordElm.textContent = item.word;
-          wordElm.classList.add(estmPos(item.qualis,'color'));
+          const mark = applyTextStyle(item, wordElm);
+          mark[0].classList.add('word');
 
           const meanElm = document.createElement('span');
           meanElm.classList.add('mean')
@@ -858,7 +881,9 @@ function loadDic() {
             showDetail(item);
           });
           suggest.appendChild(result);
+          if (mark[1] === 'sub') {result.appendChild(mark[0]);}
           result.appendChild(wordElm);
+          if (mark[1] === 'pre') {result.appendChild(mark[0]);}
           result.appendChild(document.createElement('br'));
           result.appendChild(meanElm);
         });
@@ -919,23 +944,28 @@ function analyze(sentence) {
           th.rowSpan = reverses.length;
           tr.appendChild(th);
         }
-        const DicForm = document.createElement('td');
-        const MeanCell = document.createElement('td');
-        const QualisCell = document.createElement('td');
-        const PosCell = document.createElement('td');
-        const ValueCell = document.createElement('td');
+        const dicForm = document.createElement('td');
+        const formElm = document.createElement('span');
+        const meanCell = document.createElement('td');
+        const posCell = document.createElement('td');
+        const qualisCell = document.createElement('td');
+        const valueCell = document.createElement('td');
 
-        DicForm.textContent = reverses[i].word;
-        MeanCell.textContent = reverses[i].mean;
-        QualisCell.textContent = estmPos(reverses[i].qualis,'qualis');
-        PosCell.textContent = estmPos(reverses[i].qualis,'pos');
-        ValueCell.textContent = reverses[i].value;
+        const mark = applyTextStyle(reverses[i], formElm);
+        formElm.textContent = reverses[i].word;
+        if (mark[1] === 'sub') {dicForm.appendChild(mark[0]);}
+        dicForm.appendChild(formElm);
+        if (mark[1] === 'pre') {dicForm.appendChild(mark[0]);}
+        meanCell.textContent = reverses[i].mean;
+        posCell.textContent = estmPos(reverses[i].qualis,'pos');
+        qualisCell.textContent = estmPos(reverses[i].qualis,'qualis');
+        valueCell.textContent = reverses[i].value;
         analysis.appendChild(tr);
-        tr.appendChild(DicForm);
-        tr.appendChild(MeanCell);
-        tr.appendChild(QualisCell);
-        tr.appendChild(PosCell);
-        tr.appendChild(ValueCell);
+        tr.appendChild(dicForm);
+        tr.appendChild(meanCell);
+        tr.appendChild(posCell);
+        tr.appendChild(qualisCell);
+        tr.appendChild(valueCell);
       };
     } else {
       const nonMatchCell = document.createElement('td');
