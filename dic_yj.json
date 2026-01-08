@@ -105,7 +105,7 @@
   { "word": "vjl", "mean": "聞こえる,聞く", "qualis": "m1", "origin": "英語「bell(鐘)」" },
   { "word": "vjljk", "mean": "耳,マイク", "qualis": "0", "origin": "「vjl(見る)」+「-jk(〜するもの)」" },
   { "word": "vjt", "mean": "これ", "qualis": "a0", "origin": "「v-(この〜)」+「-jt(〜もの)」" },
-  { "word": "vrj", "mean": "〜しなければならない,〜するに違いない", "qualis": "結び実心", "usage": "補連象項を取って内向実心では義務の意味、外向実心では強い断定の意味を加える。" },
+  { "word": "vrj", "mean": "〜しなければならない,〜するに違いない", "qualis": "m1", "usage": "補連象項を取って内向実心では義務の意味、外向実心では強い断定の意味を加える。" },
   { "word": "vrl", "mean": "生まれる,産む", "qualis": "n1", "origin": "英語「verse」" },
   { "word": "vrlrf", "mean": "ここの", "qualis": "2", "origin": "「v-(この〜)」+「-rlrf(〜場所の)」" },
   { "word": "vrvljk", "mean": "犬", "qualis": "0", "origin": "英語圏での鳴き声「bowwow」+「-jk(〜もの)」" },
