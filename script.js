@@ -94,9 +94,9 @@ function showDetail(item) {
   const spellText = document.createElement('span');
   spellText.textContent = item.word;
   const mark = applyTextStyle(item, spellText);
-  if (mark[1] === 'sub') {spell.appendChild(mark[0]);}
+  if (mark[1] !== 'pre') {spell.appendChild(mark[0]);}
   spell.appendChild(spellText);
-  if (mark[1] === 'pre') {spell.appendChild(mark[0]);}
+  if (mark[1] !== 'sub') {spell.appendChild(mark[0]);}
   mean.textContent = `意味: ${item.mean}`;
   qualis.textContent = '';
   qualisElm.textContent = `属性: ${estmPos(item.qualis,'qualis')}`;
@@ -368,6 +368,7 @@ function estmPos(codeText,flag) {
       '12':'助動詞',
       '13':'終助詞',
       '15':'接続助詞',
+      '52':'助動詞',
       '55':'副助詞'
     },
     {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
@@ -881,9 +882,9 @@ function loadDic() {
             showDetail(item);
           });
           suggest.appendChild(result);
-          if (mark[1] === 'sub') {result.appendChild(mark[0]);}
+          if (mark[1] !== 'pre') {result.appendChild(mark[0]);}
           result.appendChild(wordElm);
-          if (mark[1] === 'pre') {result.appendChild(mark[0]);}
+          if (mark[1] !== 'sub') {result.appendChild(mark[0]);}
           result.appendChild(document.createElement('br'));
           result.appendChild(meanElm);
         });
@@ -905,7 +906,7 @@ function shareWord () {
 function analyze(sentence) {
   const result = document.getElementById('analyzed');
   const analysis = document.getElementById('analysis');
-  const headers = ['単語','辞書形','意味','属性','品詞','値'];
+  const headers = ['単語','辞書形','意味','品詞','属性','値'];
   analysis.innerHTML = '';
   const row = document.createElement('tr');
   headers.forEach(head => {
@@ -953,9 +954,9 @@ function analyze(sentence) {
 
         const mark = applyTextStyle(reverses[i], formElm);
         formElm.textContent = reverses[i].word;
-        if (mark[1] === 'sub') {dicForm.appendChild(mark[0]);}
+        if (mark[1] !== 'pre') {dicForm.appendChild(mark[0]);}
         dicForm.appendChild(formElm);
-        if (mark[1] === 'pre') {dicForm.appendChild(mark[0]);}
+        if (mark[1] !== 'sub') {dicForm.appendChild(mark[0]);}
         meanCell.textContent = reverses[i].mean;
         posCell.textContent = estmPos(reverses[i].qualis,'pos');
         qualisCell.textContent = estmPos(reverses[i].qualis,'qualis');
