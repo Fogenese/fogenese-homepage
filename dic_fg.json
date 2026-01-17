@@ -583,7 +583,7 @@
   { "word": "uwo", "mean": "魚,魚類", "qualis": "0", "origin": "日本語「魚(ウヲ)」" },
   { "word": "vaa", "mean": "8", "qualis": "0", "origin": "中国語「八(Bā)」" },
   { "word": "ve", "mean": "〜と〜", "qualis": "00ej", "usage": "格体と格体を合体させて並列をさせた格体を作る。" },
-  { "word": "vi", "mean": "〜の", "qualis": "55eh", "usage": "連象に後接して連格を作る。" },
+  { "word": "vi", "mean": "〜の", "qualis": "54eh", "usage": "連象に後接して連格を作る。" },
   { "word": "vo", "mean": "〜と", "qualis": "05eh", "usage": "引用格体に後接し、対件を表す。" },
   { "word": "waju", "mean": "忘れる,忘却する", "qualis": "c1", "origin": "中国語「忘记(Wàngjì)」" },
   { "word": "wako", "mean": "興味,関心", "qualis": "0", "origin": "擬声語「ワクワク」+「-o(〜もの)」" },
