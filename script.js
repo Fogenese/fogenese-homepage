@@ -369,6 +369,7 @@ function estmPos(codeText,flag) {
       '13':'終助詞',
       '15':'接続助詞',
       '52':'助動詞',
+      '54':'副助詞',
       '55':'副助詞'
     },
     {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
@@ -925,12 +926,12 @@ function analyze(sentence) {
     th.textContent = word;
 
     const reverses = inflFuncs[lang](word);
-    if (reverses.length < 1) {
-      const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
-      matches.forEach(match => {
+    const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
+    matches.forEach(match => {
+      if (reverses.filter(entry => entry.word === word).length === 0) {
         reverses.push({...match, value:'-'});
-      });
-    }
+      }
+    });
     if (reverses.length === 0 && !/^[a-z]+$/.test(word)) {
       const tokenCell = document.createElement('th');
       tokenCell.colSpan = 5;
@@ -982,15 +983,18 @@ function analyze(sentence) {
 }
 function reverseInflFg(word) {
   const results = [];
-  const verbs = dicData.filter(entry => entry.word === word.slice(0,-1)+'u');
-  const adjs1 = dicData.filter(entry => entry.word === word.slice(0,-1)+'i');
-  const adjs2 = dicData.filter(entry => entry.word === word.slice(0,-2)+'i');
-  const adjs = [...adjs1,...adjs2];
-  let infl = null;
   const rules = [
     { u: '基本形', i: '連用形', a: '命令形' },
     { i: '基本形', a: '連用形', do: '程度形' }
   ];
+  const verbs = dicData.filter(entry => entry.word === word.slice(0,-1)+'u');
+  const adjs1 = dicData.filter(entry => entry.word === word.slice(0,-1)+'i');
+  let adjs2 = [];
+  if (rules[1][word.slice(-2)] !== undefined) {
+    adjs2 = dicData.filter(entry => entry.word === word.slice(0,-2)+'i');
+  }
+  const adjs = [...adjs1,...adjs2];
+  let infl = null;
   if (verbs.length > 0) {
     verbs.forEach(verb => {
       const value = rules[0][word.slice(-1)];
