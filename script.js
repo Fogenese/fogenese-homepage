@@ -554,8 +554,8 @@ function calcInflYjVerb(word,toi) {
   if (toi === 'fl') {
     forms = {
     '実心形':   [['','',''],['','j','']],
-    '連格形':   [['l','','f'],['l','j','f']],
-    '連象形':   [['l','','r'],['l','j','r']]
+    '飾定形':   [['l','','f'],['l','j','f']],
+    '飾潒形':   [['l','','r'],['l','j','r']]
     };
     noun = ['l','j','t'];
     prefix = word.slice(0,-2);
@@ -563,8 +563,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'jl') {
     forms = {
     '実心形':   [['','',''],['','j','']],
-    '連格形':   [['r','','f'],['r','j','f']],
-    '連象形':   [['r','','r'],['r','j','r']]
+    '飾定形':   [['r','','f'],['r','j','f']],
+    '飾潒形':   [['r','','r'],['r','j','r']]
     };
     noun = ['r','j','k'];
     prefix = word.slice(0,-2);
@@ -572,8 +572,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'll') {
     forms = {
     '実心形':   [['','',''],['','j','']],
-    '連格形':   [['f','','f'],['f','j','f']],
-    '連象形':   [['f','','r'],['f','j','r']]
+    '飾定形':   [['f','','f'],['f','j','f']],
+    '飾潒形':   [['f','','r'],['f','j','r']]
     };
     noun = ['f','j','k'];
     prefix = word.slice(0,-2);
@@ -581,8 +581,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'rl') {
     forms = {
     '実心形':   [['','',''],['','j','']],
-    '連格形':   [['i','','f'],['i','j','f']],
-    '連象形':   [['i','','r'],['i','j','r']]
+    '飾定形':   [['i','','f'],['i','j','f']],
+    '飾潒形':   [['i','','r'],['i','j','r']]
     };
     noun = ['i','j','t'];
     prefix = word.slice(0,-2);
@@ -590,8 +590,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'fj') {
     forms = {
     '実心形':   [['','',''],['','l','']],
-    '連格形':   [['j','','f'],['j','l','f']],
-    '連象形':   [['j','','r'],['j','l','r']]
+    '飾定形':   [['j','','f'],['j','l','f']],
+    '飾潒形':   [['j','','r'],['j','l','r']]
     };
     noun = ['f','j','t'];
     prefix = word.slice(0,-2);
@@ -599,8 +599,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'jj') {
     forms = {
     '実心形':   [['','',''],['','l','']],
-    '連格形':   [['f','','f'],['f','l','f']],
-    '連象形':   [['f','','r'],['f','l','r']]
+    '飾定形':   [['f','','f'],['f','l','f']],
+    '飾潒形':   [['f','','r'],['f','l','r']]
     };
     noun = ['f','j','k'];
     prefix = word.slice(0,-2);
@@ -608,8 +608,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'lj') {
     forms = {
     '実心形':   [['','',''],['','l','']],
-    '連格形':   [['r','','f'],['r','l','f']],
-    '連象形':   [['r','','r'],['r','l','r']]
+    '飾定形':   [['r','','f'],['r','l','f']],
+    '飾潒形':   [['r','','r'],['r','l','r']]
     };
     noun = ['r','j','k'];
     prefix = word.slice(0,-2);
@@ -617,8 +617,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'rj') {
     forms = {
     '実心形':   [['','',''],['','l','']],
-    '連格形':   [['i','','f'],['i','l','f']],
-    '連象形':   [['i','','r'],['i','l','r']]
+    '飾定形':   [['i','','f'],['i','l','f']],
+    '飾潒形':   [['i','','r'],['i','l','r']]
     };
     noun = ['i','j','t'];
     prefix = word.slice(0,-2);
@@ -626,8 +626,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'fC') {
     forms = {
     '実心形':   [['f','',''],['fr','','']],
-    '連格形':   [['l','f','f'],['lfr','','f']],
-    '連象形':   [['l','f','r'],['lfr','','r']]
+    '飾定形':   [['l','f','f'],['lfr','','f']],
+    '飾潒形':   [['l','f','r'],['lfr','','r']]
     };
     noun = ['lfj','','t'];
     prefix = word.slice(0,-2);
@@ -635,8 +635,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'jC') {
     forms = {
     '実心形':   [['j','',''],['jr','','']],
-    '連格形':   [['r','f','f'],['rfr','','f']],
-    '連象形':   [['r','f','r'],['rfr','','r']]
+    '飾定形':   [['r','f','f'],['rfr','','f']],
+    '飾潒形':   [['r','f','r'],['rfr','','r']]
     };
     noun = ['ijj','','k'];
     prefix = word.slice(0,-2);
@@ -644,8 +644,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'lC') {
     forms = {
     '実心形':   [['l','',''],['lf','','']],
-    '連格形':   [['r','l','f'],['rlf','','f']],
-    '連象形':   [['r','l','r'],['rlf','','r']]
+    '飾定形':   [['r','l','f'],['rlf','','f']],
+    '飾潒形':   [['r','l','r'],['rlf','','r']]
     };
     noun = ['ilj','','k'];
     prefix = word.slice(0,-2);
@@ -653,8 +653,8 @@ function calcInflYjVerb(word,toi) {
   } else if (toi === 'rC') {
     forms = {
     '実心形':   [['r','',''],['rf','','']],
-    '連格形':   [['j','r','f'],['jrf','','f']],
-    '連象形':   [['j','r','r'],['jrf','','r']]
+    '飾定形':   [['j','r','f'],['jrf','','f']],
+    '飾潒形':   [['j','r','r'],['jrf','','r']]
     };
     noun = ['jrj','','t'];
     prefix = word.slice(0,-2);
@@ -947,12 +947,19 @@ function analyze(sentence) {
           tr.appendChild(th);
         }
         const dicForm = document.createElement('td');
-        const formElm = document.createElement('span');
+        const formElm = document.createElement('a');
         const meanCell = document.createElement('td');
         const posCell = document.createElement('td');
         const qualisCell = document.createElement('td');
         const valueCell = document.createElement('td');
 
+        let index = '';
+        const suggests = dicData.filter(entry => entry.word === reverses[i].word);
+        if (suggests.length > 1) {
+          index = '-' + suggests.findIndex(entry => entry.mean === reverses[i].mean && entry.qualis === reverses[i].qualis);
+        }
+        formElm.href = `https://fogenese.github.io/fogenese-homepage/dictionary.html?lang=${lang}&word=${reverses[i].word}${index}`;
+        
         const mark = applyTextStyle(reverses[i], formElm);
         formElm.textContent = reverses[i].word;
         if (mark[1] !== 'pre') {dicForm.appendChild(mark[0]);}
@@ -1102,8 +1109,8 @@ function reverseInflYj(word) {
       inffix = word.slice(-Vplace2-2,-Vplace2)+verbEnd.slice(-1);
       if (word.slice(-Vplace1-1,-Vplace1) === 'v') {modality = '・意志';}
     }
-    if (word.endsWith('f')) {qualis = '・連格';}
-    else if (word.endsWith('r')) {qualis = '・連象';}
+    if (word.endsWith('f')) {qualis = '・飾定';}
+    else if (word.endsWith('r')) {qualis = '・飾潒';}
     for (let rule of rules) {
       if (rule.end && rule.end.includes(verbEnd) && (!rule.cond || rule.cond.includes(vowel))) {
         tense = rule.value;
