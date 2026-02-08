@@ -9,12 +9,13 @@
 <body>
   <h1 id="title2"></h1>
   <div id="line">a</div>
-  <div class="buttons">
-    <button class="buttons" onclick="setLang('fg')">穂語</button>
-    <button class="buttons" onclick="setLang('yj')">裕語</button>
-    <button class="buttons" onclick="setLang('kl')">嘉語</button>
-    <button class="buttons" onclick="setLang('pp')">唇語</button>
-  </div>
+  <select id="langSelector">
+    <option value="fg">フォゲノ語</option>
+    <option value="yj">ユジャット語</option>
+    <option value="kl">クァルツェーム語</option>
+    <option value="pp">ピポプ語</option>
+    <option value="cq">チャキュピ語</option>
+  </select>
   <div class="container">
     <div class="buttons" id="container">
       <button onclick="game = wordGame()">スタート</button>
