@@ -944,10 +944,11 @@ function analyze(sentence) {
     row.appendChild(thead);
   });
   analysis.appendChild(row);
+  const chars = 'a-zâāêēëîīïôōûū';
   const words = sentence
     .toLowerCase()
     .trim()
-    .match(/[a-z]+|[^a-z\s]/gi);
+    .match(new RegExp(`[${chars}]+|[^${chars}\\s]`,'gi'));
   words.forEach(word => {
     
     const th = document.createElement('th');
@@ -960,7 +961,7 @@ function analyze(sentence) {
         reverses.push({...match, value:'-'});
       }
     });
-    if (reverses.length === 0 && !/^[a-z]+$/.test(word)) {
+    if (reverses.length === 0 && !new RegExp(`^[${chars}]+$`,'i').test(word)) {
       const tokenCell = document.createElement('th');
       tokenCell.colSpan = 5;
       const tr = document.createElement('tr');
