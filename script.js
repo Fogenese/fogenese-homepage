@@ -64,8 +64,14 @@ const inflFuncs = {
   cq: reverseInflCq
 }
 function dummy() {return [];}
+const langSelector = document.getElementById('langSelector');
+langSelector.addEventListener('change', () => {
+  const selectedValue = langSelector.value;
+  setLang(selectedValue);
+});
 function setLang(selectedLang) {
   lang = selectedLang;
+  langSelector.value = selectedLang;
   if (document.body.classList.contains('dic')) {
     document.getElementById('title').textContent = dichead[lang];
   } else if (document.body.classList.contains('ana')) {
