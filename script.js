@@ -31,13 +31,15 @@ const dichead = {
   fg: '穂語辞書',
   yj: '裕語辞書',
   kl: '嘉語辞書',
-  pp: '唇語辞書'
+  pp: '唇語辞書',
+  cq: '楪語辞書'
 }
 const anahead = {
   fg: '穂語文解析',
   yj: '裕語文解析',
   kl: '嘉語文解析',
-  pp: '唇語文解析'
+  pp: '唇語文解析',
+  cq: '楪語文解析'
 }
 const gamhead = {
   fg: '穂語単語学習',
@@ -51,13 +53,15 @@ const pronFuncs = {
   fg: calcPronFg,
   yj: calcPronYj,
   kl: calcPronKl,
-  pp: calcPronPp
+  pp: calcPronPp,
+  cq: calcPronCq
 }
 const inflFuncs = {
   fg: reverseInflFg,
   yj: reverseInflYj,
   kl: dummy,
-  pp: dummy
+  pp: dummy,
+  cq: reverseInflCq
 }
 function dummy() {return [];}
 function setLang(selectedLang) {
@@ -353,6 +357,24 @@ function calcPronPp(word) {
     .split('')
     .map(char => map[char] || '?')
     .join('');
+  return `[${phonetic}]`
+}
+function calcPronCq (word) {
+  const map1 = {
+    a:'a',ā:'aː',c:'tʃ',i:'i',ī:'iː',m:'m',n:'n',p:'p',q:'kʲ',r:'ɾ',u:'u',ū:'uː',y:'j'
+  }
+  const map2 = {
+    â:'a',î:'i',û:'u'
+  }
+  let phonetic = '';
+  for (let i = 0; i < word.length; i++) {
+    if (map2[word[i]]) {
+      phonetic += map2[word[i]] + map1[word[i + 1]] + 'ː';
+      i++;
+    } else {
+      phonetic += map1[word[i]];
+    }
+  }
   return `[${phonetic}]`
 }
 function estmPos(codeText,flag) {
@@ -1193,7 +1215,40 @@ function reverseInflYj(word) {
   }
   return results;
 }
-
+function reverseInflCq(word) {
+  const results = [];
+  const rules = [
+    {end: ['ā','ī','ū'], value: '連体形'},
+    {ā:'a', ī:'i', ū:'u'},
+    {ra:'主格', qa:'主格', mi:'対格', pû:'処格', yū:'向格', rû:'具格'},
+    {cani:'過去', mari:'進行', yapi:'推量', pami:'意志'}
+  ];
+  let vStem = word;
+  let vValue = '';
+  for(let i = 0; i >= 0; i++) {
+    if (i === 0 && rules[2][vStem.slice(0,2)]) {
+      vValue = vValue + '・' + rules[2][vStem.slice(0,2)];
+      vStem = vStem.slice(2)
+    } else if (rules[3][vStem.slice(0,4)]) {
+      vValue = vValue + '・' + rules[3][vStem.slice(0,4)];
+      vStem = vStem.slice(4);
+    } else break;
+  }
+  const vp = dicData.find(entry => entry.word === vStem.slice(0,-1) + rules[1][vStem.slice(-1)]);
+  const vam = dicData.find(entry => entry.word.slice(0,-3) === vStem.slice(2,-3));
+  const ncm = dicData.find(entry => entry.word === vStem)
+  const aam = dicData.find(entry => entry.word === word.slice(2));
+  if (rules[0].end.includes(vStem.slice(-1)) && vp && estmPos(vp.qualis,'pos').includes('動詞')) {
+    results.push({...vp, value:'述語形' + vValue});
+  } if (vStem.endsWith('ima') && vam && estmPos(vam.qualis) === 'verb') {
+    results.push({...vam, value:'連体形' + vValue});
+  } if (ncm && vValue.length < 4 && ncm.qualis !== '2') {
+    results.push({...ncm, value:vValue.slice(1)});
+  } if (aam && word.slice(0,2) === word.slice(2,4) && aam.qualis === '2') {
+    results.push({...aam, value:'連体形'});
+  }
+  return results;
+}
 let game = null;
 function wordGame() {
   const container = document.getElementById('container');
