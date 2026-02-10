@@ -409,7 +409,7 @@ button {
     left: 50%;
     transform: translateX(-50%);
     top: 262px;
-    pointer-event: none;
+    pointer-events: none;
 }
 select {
     width: auto;
