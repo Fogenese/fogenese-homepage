@@ -330,7 +330,7 @@ button {
     border-bottom: 1px solid #000;
     font-size: 40px;
     padding: 30px;
-    overflow: auto;
+    white-space: wrap;
 }
 #spell {
     background-color: #ffe8b3;
