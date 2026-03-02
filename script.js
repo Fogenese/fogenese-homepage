@@ -793,18 +793,26 @@ function parseCont(meaningText,data) {
     if (/^「[^」]+」$/.test(part)) {
       const innerText = part.slice(1,-1);
       const wordWithMeaning = innerText.split('(');
-      const wordOnly = wordWithMeaning[0].trim();
+      let wordOnly = wordWithMeaning[0].trim();
       const meaning = wordWithMeaning[1] ? wordWithMeaning[1].slice(0,-1).trim():'';
+      let index = 0;
+      if (/-[0-9]+$/.test(wordOnly)) {
+        index = wordOnly.split('-')[1];
+        wordOnly = wordOnly.split('-')[0];
+      }
 
       const link = document.createElement('a');
       link.textContent = wordOnly;
 
-      const targetItem = data.find(item => item.word === wordOnly);
+      const targetItems = data.filter(item => item.word === wordOnly);
+      const targetItem = targetItems[index];
 
       const bracket = document.createElement('span');
       bracket.textContent = '「';
       const backBracket = document.createElement('span');
       backBracket.textContent = '」';
+      const targetMeaning = document.createElement('span');
+      targetMeaning.textContent = `(${targetItem?.mean.split(',')[0]})`;
 
       if (targetItem) {
         link.href = '#';
@@ -816,13 +824,14 @@ function parseCont(meaningText,data) {
         container.appendChild(link);
       } else {
         container.appendChild(bracket);
-         container.appendChild(document.createTextNode(wordOnly));
+        container.appendChild(document.createTextNode(wordOnly));
       }
       if (meaning) {
       const meanSpan = document.createElement('span');
       meanSpan.textContent = `(${meaning})」`;
       container.appendChild(meanSpan);
       } else {
+        container.appendChild(targetMeaning);
         container.appendChild(backBracket);
       }
     } else {
