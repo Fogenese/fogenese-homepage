@@ -822,16 +822,16 @@ function parseCont(meaningText,data) {
         });
         container.appendChild(bracket);
         container.appendChild(link);
+        container.appendChild(targetMeaning);
       } else {
         container.appendChild(bracket);
         container.appendChild(document.createTextNode(wordOnly));
       }
       if (meaning) {
-      const meanSpan = document.createElement('span');
-      meanSpan.textContent = `(${meaning})」`;
-      container.appendChild(meanSpan);
+        const meanSpan = document.createElement('span');
+        meanSpan.textContent = `(${meaning})」`;
+        container.appendChild(meanSpan);
       } else {
-        container.appendChild(targetMeaning);
         container.appendChild(backBracket);
       }
     } else {
