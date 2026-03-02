@@ -1,5 +1,5 @@
 [
-  { "word": "afoi", "mean": "おはよう", "qualis": "7", "origin": "「a-(御)」+「foi(早い)」", "usage": "朝その日の初対面での挨拶として使う。" },
+  { "word": "afoi", "mean": "おはよう", "qualis": "7", "origin": "「a-(御)」+「foi」", "usage": "朝その日の初対面での挨拶として使う。" },
   { "word": "ahowidai", "mean": "おめでとう", "qualis": "7", "origin": "「a-(御)」+「howu(愛でる)」+「dai(大きい)」", "usage": "他人を祝って使う。" },
   { "word": "ai", "mean": "〜だろう", "qualis": "12eh", "usage": "実心、飾定の連用形に後接し、推量を表す。" },
   { "word": "aku", "mean": "悪", "qualis": "0", "origin": "日本語「悪」", "usage": "悪い存在を指す。悪い行為は「akui(悪い)」の連用形が指す。" },
@@ -211,6 +211,9 @@
   { "word": "giyozu", "mean": "狭める", "qualis": "c1", "origin": "「giyui(狭い)」+「zu(〜にさせる)」" },
   { "word": "giyui", "mean": "狭い", "qualis": "2", "origin": "擬声語「ギュウギュウ」" },
   { "word": "go", "mean": "事", "qualis": "0", "origin": "日本語「事(コト)」？", "usage": "実心の前接を受けて、それを行為格体化することがある。" },
+  { "word": "gocamu", "mean": "複雑化する,絡まる", "qualis": "b1", "origin": "「gocai」+「-mu(〜になる)」" },
+  { "word": "gocai", "mean": "複雑だ,絡まった,ポリ〜", "qualis": "2", "origin": "擬声語「ゴチャゴチャ」" },
+  { "word": "gocazu", "mean": "複雑化させる,絡まらせる", "qualis": "c1", "origin": "「gocai」+「zu」" },
   { "word": "goku", "mean": "飲む", "qualis": "c1", "origin": "擬声語「ゴクゴク」" },
   { "word": "goo", "mean": "5,五", "qualis": "0", "origin": "日本語「五(ゴ)」" },
   { "word": "goxu", "mean": "磨く,研磨する", "qualis": "c1", "origin": "擬声語「ゴシゴシ」" },
