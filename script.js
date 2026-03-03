@@ -143,7 +143,7 @@ function showDetail(item) {
   }
   const relatedItem = dicData.filter(entry => {
     if (entry.word === item.word) return false;
-    const pattern = new RegExp(`「${item.word}\\(`);
+    const pattern = new RegExp(`「${item.word}\\」`);
     return (entry.origin && pattern.test(entry.origin)) || (entry.usage && pattern.test(entry.usage));
   });
   if (relatedItem.length > 0) {
