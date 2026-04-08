@@ -31,23 +31,31 @@ const dichead = {
   fg: '穂語辞書',
   yj: '裕語辞書',
   kl: '嘉語辞書',
+  sb: '澄語辞書',
   pp: '唇語辞書',
-  cq: '楪語辞書'
+  cq: '楪語辞書',
+  fb: '发語辞書',
+  zl: '津語辞書'
 }
 const anahead = {
   fg: '穂語文解析',
   yj: '裕語文解析',
   kl: '嘉語文解析',
+  sb: '澄語文解析',
   pp: '唇語文解析',
-  cq: '楪語文解析'
+  cq: '楪語文解析',
+  fb: '发語文解析',
+  zl: '津語文解析'
 }
 const gamhead = {
-  fg: '穂語単語学習',
-  yj: '裕語単語学習',
-  kl: '嘉語単語学習',
-  pp: '唇語単語学習',
-  sb: '澄語単語学習',
-  cq: '楪語単語学習'
+  fg: '穂単語学習',
+  yj: '裕単語学習',
+  kl: '嘉単語学習',
+  sb: '澄単語学習',
+  pp: '唇単語学習',
+  cq: '楪単語学習',
+  fb: '发単語学習',
+  zl: '津単語学習'
 }
 const pronFuncs = {
   fg: calcPronFg,
@@ -96,7 +104,7 @@ function showDetail(item) {
   const origin = document.getElementById('origin');
   const usage = document.getElementById('usage');
   const relation = document.getElementById('relation');
-  const table = document.getElementById('inflectionTable');
+  const tableArea = document.getElementById('tableArea');
   const share = document.getElementById('shareWord');
   share.style.display = 'block';
 
@@ -109,8 +117,9 @@ function showDetail(item) {
   if (mark[1] !== 'sub') {spell.appendChild(mark[0]);}
   mean.textContent = `意味: ${item.mean}`;
   qualis.textContent = '';
+  const pos = estmPos(item.qualis,'pos');
   qualisElm.textContent = `属性: ${estmPos(item.qualis,'qualis')}`;
-  posElm.textContent = `品詞: ${estmPos(item.qualis,'pos')}`;
+  posElm.textContent = `品詞: ${pos}`;
   qualis.appendChild(qualisElm);
   qualis.appendChild(document.createElement('br'));
   qualis.appendChild(posElm);
@@ -168,22 +177,8 @@ function showDetail(item) {
   } else {
     relation.style.display = 'none';
   }
-  table.innerHTML = '';
-  table.style.display = 'table';
-  const pos = estmPos(item.qualis,'pos');
-  if (lang === 'fg') {
-    calcInflFg(item.word,toi);
-  } else if (lang === 'yj') {
-    if (pos.includes('名詞')){
-      calcInflYjNoun(item.word,toi);
-    } else if (pos.includes('動詞')) {
-      calcInflYjVerb(item.word,toi);
-    } else if (pos.includes('形容詞')) {
-      calcInflYjAdj(item.word);
-    }
-  } else {
-    table.style.display = 'none';
-  }
+  tableArea.innerHTML = '';
+  inflFuncs[lang](item.word,toi);
   shownWord = item.word;
   const matches = dicData.filter(entry => entry.word === shownWord);
   if (matches.length === 1) {
@@ -398,7 +393,9 @@ function estmPos(codeText,flag) {
       '15':'接続助詞',
       '52':'助動詞',
       '54':'副助詞',
-      '55':'副助詞'
+      '55':'副助詞',
+      'eg':'接頭辞',
+      'eh':'接尾辞'
     },
     {a:['代'],b:['自','内向'],c:['他','外向'],d:['両向'],m:['結び'],n:['解き']}
   ];
@@ -406,7 +403,7 @@ function estmPos(codeText,flag) {
   let qualis = [];
   let color = [];
   codes.forEach(code => {
-    if (code.length < 3) {
+    if (code.length < 3 && !isNaN(code.slice(-1))) {
       const rule0 = rules[0][parseInt(code.slice(-1))];
       pos.push(rule0[0]);
       qualis.push(rule0[1]);
@@ -419,6 +416,7 @@ function estmPos(codeText,flag) {
     else {
       qualis.push('');
       let affix = [];
+      if (code.length < 4) affix = ['',''];
       code.split('').forEach(char => {
         qualis[qualis.length - 1] += rules[1][char][0];
         affix.push(rules[1][char][1]);
@@ -447,6 +445,7 @@ function applyTextStyle(item, span) {
     span.style.setProperty('--line', lineStyle);
     color = color[3] + color[2];
   }
+  else if (color[2].length > 1) color = color[3] + color[2];
   span.classList.add(color);
   return [mark, color.slice(0,3)];
 }
@@ -476,7 +475,7 @@ function estmInfl(item) {
   }
 }
 function calcInflFg(word,toi) {
-  const table = document.getElementById('inflectionTable');
+  const area = document.getElementById('tableArea');
   const stem = word.slice(0, -1);
   const inflects = [
     {'基本形': 'u', '連用形': 'i', '命令形': 'a'},
@@ -495,6 +494,8 @@ function calcInflFg(word,toi) {
     return;
   }
 
+  const table = document.createElement('table');
+  table.classList.add('inflectionTable');
   for (let label in inflect) {
     const row = document.createElement('tr');
 
@@ -508,22 +509,31 @@ function calcInflFg(word,toi) {
 
     table.appendChild(row);
   }
+  area.appendChild(table);
+}
+function calcInflYj(word,toi) {
+  if (toi === '格体') calcInflYjNoun(word,toi);
+  else if (toi === '飾定') calcInflYjAdj(word);
+  else if (toi) calcInflYjVerb(word,toi);
 }
 function calcInflYjNoun(word,toi) {
-  const table =  document.getElementById('inflectionTable');
-
-  let stem = '';
-  let end = '';
-
-  if (word.length === 2 && word[word.length - 1] === 'l') {
-    stem = word.slice(0,-1);
-} else if (word.length > 2 && word[word.length - 2] !== 'j') {
-    stem = word.slice(0,-3);
-    end = word.slice(-2);
-  } else {
-    stem = word.slice(0,-2);
-    end = word.slice(-1);
+  const area = document.getElementById('tableArea');
+  
+  const pron = calcPronYj(word);
+  const match = pron.match(/(?<=\[).+(?=\])/);
+  const phonetic = match ? match[0] : '';
+  const vowels = ['æ', 'ɑ', 'e', 'i', 'ɯ'];
+  let Vplace = -1;
+  for (let i = phonetic.length -1; i >= 0; i--) {
+    if(vowels.includes(phonetic[i])) {
+      Vplace = phonetic.length - i;
+      break;
+    }
   }
+  const stem = word.slice(0, -Vplace);
+  let end = '';
+  if (Vplace === 1) {end = '';}
+  else {end = word.slice(-Vplace+1);}
 
   const forms = {
     '原形':   [`l${end}`, `j${end}`],
@@ -537,6 +547,8 @@ function calcInflYjNoun(word,toi) {
   } else {
     headers = ['格体形', '限定', '非限定'];
   }
+  const table = document.createElement('table');
+  table.classList.add('inflectionTable');
   const headerRow = document.createElement('tr');
   headers.forEach(h => {
     const th = document.createElement('th');
@@ -562,6 +574,7 @@ function calcInflYjNoun(word,toi) {
 
     table.appendChild(row);
   }
+  area.appendChild(table);
 }
 function insertAffix(word,affix) {
   const prefix = word.slice(0,word.length-2);
@@ -574,7 +587,7 @@ function insertAffix(word,affix) {
   return result;
 }
 function calcInflYjVerb(word,toi) {
-  const table =  document.getElementById('inflectionTable');
+  const area = document.getElementById('tableArea');
 
   let stem = '';
   let forms = {};
@@ -689,6 +702,8 @@ function calcInflYjVerb(word,toi) {
     stem = word.slice(-1);
   }
   
+  const table = document.createElement('table');
+  table.classList.add('inflectionTable');
   const headers = [' ', '現在', '過去'];
   const headerRow = document.createElement('tr');
   headers.forEach(h => {
@@ -719,10 +734,11 @@ function calcInflYjVerb(word,toi) {
 
     table.appendChild(row);
   }
+  area.appendChild(table);
   calcInflYjNoun(prefix+insertAffix(stem,noun),toi);
 }
 function calcInflYjAdj(word,toi) {
-  const table =  document.getElementById('inflectionTable');
+  const area = document.getElementById('tableArea');
 
   const prefix = word.slice(0,-2);
   const stem = word.slice(-2,-1);
@@ -732,7 +748,9 @@ function calcInflYjAdj(word,toi) {
     '最上級':   [['r','lk','x'],['j','jk','f'],['f','ik','s']]
     };
 
-    const topRow = document.createElement('tr');
+  const table = document.createElement('table');
+  table.classList.add('inflectionTable');
+  const topRow = document.createElement('tr');
 
   const emptyTh = document.createElement('th');
   emptyTh.rowSpan = 2;
@@ -783,6 +801,7 @@ function calcInflYjAdj(word,toi) {
 
     table.appendChild(row);
   }
+  area.appendChild(table);
 }
 function parseCont(meaningText,data) {
   const container = document.createElement('span');
@@ -872,7 +891,7 @@ function loadDic() {
     const search = document.getElementById('search');
     const suggest = document.getElementById('suggest');
     const detail = document.getElementById('detail');
-    const table = document.getElementById('inflectionTable');
+    const tableArea = document.getElementById('tableArea');
     const share = document.getElementById('shareWord');
     const langInfo = document.getElementById('langInfo');
     const count = document.createElement('p');
@@ -881,7 +900,7 @@ function loadDic() {
     search.value = '';
     suggest.innerHTML = '';
     detail.style.display = 'none';
-    table.style.display = 'none';
+    tableArea.innerHTML = '';
     share.style.display = 'none';
     calcCharFreq();
     suggest.appendChild(count);
