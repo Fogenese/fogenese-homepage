@@ -61,15 +61,31 @@ const pronFuncs = {
   fg: calcPronFg,
   yj: calcPronYj,
   kl: calcPronKl,
+  sb: calcPronSb,
   pp: calcPronPp,
-  cq: calcPronCq
+  cq: calcPronCq,
+  fb: calcPronFb,
+  zl: calcPronZl
 }
 const inflFuncs = {
+  fg: calcInflFg,
+  yj: calcInflYj,
+  kl: dummy,
+  sb: dummy,
+  pp: dummy,
+  cq: dummy,
+  fb: calcInflFb,
+  zl: dummy
+}
+const revFuncs = {
   fg: reverseInflFg,
   yj: reverseInflYj,
   kl: dummy,
+  sb: reverseInflSb,
   pp: dummy,
-  cq: reverseInflCq
+  cq: reverseInflCq,
+  fb: dummy,
+  zl: dummy
 }
 function dummy() {return [];}
 const langSelector = document.getElementById('langSelector');
@@ -350,6 +366,44 @@ function calcPronKl(word) {
   }
   return `/${phoneme}/ [${phonetic}]`
 }
+function calcPronSb(word) {
+  const map1 = {
+    a:'a',b:'w',c:'c',d:'r',f:'f',g:'ɰ',h:'h',i:'i',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',q:'j',s:'s',t:'t',α:'ɑ',θ:'θ',σ:'ʃ',φ:'ɸ',χ:'x',б:'b',в:'v',г:'g',ж:'ʒ',н:'ɴ',у:'u',ц:'ts',з:'z',э:'e'
+  }
+  const map2 = {
+    a:'a',w:'β̞',c:'ç',r:'ɹ',f:'f',ɰ:'ɰ',h:'h',i:'i',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',j:'j',s:'s',t:'t',ɑ:'ɑ',θ:'θ',ʃ:'ʃ',ɸ:'ɸ',x:'x',b:'β',v:'v',g:'ɣ',ʒ:'ʒ',ɴ:'ɴ',u:'u',ts:'t͡s',z:'z',e:'e'
+  }
+  const map3 = {
+    w:'ʷ',j:'ʲ',ɰ:'ˠ'
+  }
+  const map4 = {
+    ts:'t͡s'
+  }
+  const phoneme = word
+  .split('')
+  .map(char => map1[char] || '?')
+  .join('');
+  const figure = phoneme.split('');
+  let phonetic = '';
+  let i = 0;
+  while (i < figure.length) {
+    const current = figure[i];
+    if (map4[current + figure[i + 1]]) {
+      phonetic += map4[current + figure[i + 1]]
+      i += 2;
+    } else if (map3[current] && map2[figure[i - 1]]) {
+      phonetic += map3[current];
+      i += 1;
+    } else if (map2[current]) {
+      phonetic += map2[current];
+      i += 1;
+    } else {
+      phonetic += '?';
+      i += 1;
+    }
+  }
+  return `/${phoneme}/ [${phonetic}]`
+}
 function calcPronPp(word) {
   const map = {
     p:'p',ê:'e˥',ē:'e˩',ë:'ɘ˩',î:'i˥',ī:'i˩',ï:'ɨ˩',ô:'o˥',ō:'o˩',û:'u˥',ū:'u˩'
@@ -377,6 +431,35 @@ function calcPronCq (word) {
     }
   }
   return `[${phonetic}]`
+}
+function calcPronFb(word) {
+  const map1 = {
+    a:'a',å:'ɛ',e:'e',i:'i',p:'p',b:'b',f:'pʰ',v:'bʰ',m:'m','-':''
+  }
+  const map2 = {
+    a:'a',å:'ɛ',e:'e',i:'i',p:'p',b:'b',f:'ɸ',v:'β̞',m:'m','-':''
+  }
+  const map3 = {
+    b:'m',v:'','-':''
+  }
+  let phoneme = '';
+  for (let i = 0; i < word.length; i++) {
+    phoneme += map1[word[i]];
+  }
+  let phonetic = '';
+  for (let i = 0; i < word.length; i++) {
+    if (i === word.length - 1 && word[i] in map3) {
+      phonetic += map3[word[i]];
+    } else {
+      phonetic += map2[word[i]];
+    }
+  }
+  return `/${phoneme}/ [${phonetic}]`;
+}
+function calcPronZl(word) {
+  let phoneme = '';
+  let phonetic = '';
+  return `/${phoneme}/ [${phonetic}]`;
 }
 function estmPos(codeText,flag) {
   const codes = codeText.split(',');
@@ -803,6 +886,11 @@ function calcInflYjAdj(word,toi) {
   }
   area.appendChild(table);
 }
+function calcInflFb(word,toi) {
+  if (toi === '格体') calcInflFbNoun(word);
+  else if (toi === '実心') calcInflFbVerb(word);
+  else if (toi === '飾定') calcInflFbAdj(word);
+}
 function parseCont(meaningText,data) {
   const container = document.createElement('span');
 
@@ -982,7 +1070,7 @@ function analyze(sentence) {
     const th = document.createElement('th');
     th.textContent = word;
 
-    const reverses = inflFuncs[lang](word);
+    const reverses = revFuncs[lang](word);
     const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
     matches.forEach(match => {
       if (reverses.filter(entry => entry.word === word).length === 0) {
@@ -1249,6 +1337,9 @@ function reverseInflYj(word) {
     }
   }
   return results;
+}
+function reverseInflSb(word) {
+  return [];
 }
 function reverseInflCq(word) {
   const results = [];
