@@ -342,7 +342,6 @@ button {
 #inflectionTable {
     position: relative;
     font-size: 30px;
-    display: none;
 }
 #inflectionTable th, td {
     padding: 15px;
