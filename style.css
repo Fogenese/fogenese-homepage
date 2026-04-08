@@ -339,11 +339,11 @@ button {
     font-size: 60px;
 }
 #origin, #usage, #relation {font-size:25px;}
-#inflectionTable {
+.inflectionTable {
     position: relative;
     font-size: 30px;
 }
-#inflectionTable th, td {
+.inflectionTable th, td {
     padding: 15px;
 }
 .info a {
