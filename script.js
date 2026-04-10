@@ -889,7 +889,321 @@ function calcInflYjAdj(word,toi) {
 function calcInflFb(word,toi) {
   if (toi === '格体') calcInflFbNoun(word);
   else if (toi === '実心') calcInflFbVerb(word);
-  else if (toi === '飾定') calcInflFbAdj(word);
+  else if (toi === '飾定') calcInflFbAdj(word, '');
+}
+function calcInflFbNoun(word) {
+  const area = document.getElementById('tableArea');
+  const definites = {
+    '非限定':'',
+    '限定':'ap'
+  };
+  const compensates = {
+    '非補語':'',
+    '補語':'pe'
+  };
+  const cases = ['活格','緩格','与格'];
+  const relaxive = {
+    i:'a',a:'åi'
+  }
+  const dAgrees = {
+    '非限定一致':'b',
+    '限定一致':''
+  };
+  const cAgrees = {
+    '活格一致':'i',
+    '緩格一致':'ie',
+    '与格一致':'ia'
+  };
+  const tableA = document.createElement('table');
+  tableA.classList.add('inflectionTable');
+  const head1 = document.createElement('tr');
+  const head2 = document.createElement('tr');
+  const cornerA = document.createElement('th');
+  cornerA.rowSpan = 2;
+  head1.appendChild(cornerA);
+  for (let definite in definites) {
+    const definiteTh = document.createElement('th');
+    definiteTh.textContent = definite;
+    definiteTh.colSpan = 2;
+    head1.appendChild(definiteTh);
+    for (let compensate in compensates) {
+      const compensateTh = document.createElement('th');
+      compensateTh.textContent = compensate;
+      head2.appendChild(compensateTh);
+    }
+  }
+  tableA.appendChild(head1);
+  tableA.appendChild(head2);
+  cases.forEach((caseName, index) => {
+    const row = document.createElement('tr');
+    const caseTh = document.createElement('th');
+    caseTh.textContent = caseName;
+    row.appendChild(caseTh);
+    for (let definite in definites) {
+      for (let compensate in compensates) {
+        const td = document.createElement('td');
+        let form = word;
+        if (index === 1) form = word.slice(0,-2) + relaxive[word.slice(-2,-1)] + word.slice(-1);
+        else if (index === 2) form = soundChangeFb(word, 'ef');
+        form = soundChangeFb(form, definites[definite]);
+        form = soundChangeFb(form, compensates[compensate]);
+        td.textContent = form;
+        row.appendChild(td);
+      }
+    }
+    tableA.appendChild(row);
+  });
+  const tableB = document.createElement('table');
+  tableB.classList.add('inflectionTable');
+  const head3 = document.createElement('tr');
+  const cornerB = document.createElement('th');
+  cornerB.textContent = '所有形';
+  head3.appendChild(cornerB);
+  for (let cAgree in cAgrees) {
+    const cAgreeTh = document.createElement('th');
+    cAgreeTh.textContent = cAgree;
+    head3.appendChild(cAgreeTh);
+  }
+  tableB.appendChild(head3);
+  for (let dAgree in dAgrees) {
+    const row = document.createElement('tr');
+    const dAgreeTh = document.createElement('th');
+    dAgreeTh.textContent = dAgree;
+    row.appendChild(dAgreeTh);
+    for (let cAgree in cAgrees) {
+      const td = document.createElement('td');
+      let form = word;
+      form = soundChangeFb(form, dAgrees[dAgree] + cAgrees[cAgree]);
+      td.textContent = form;
+      row.appendChild(td);
+    }
+    tableB.appendChild(row);
+  }
+  area.appendChild(tableA);
+  area.appendChild(tableB);
+}
+function calcInflFbVerb(word) {
+  const area = document.getElementById('tableArea');
+  const tenses = {
+    '過去時制': 'am.',
+    '現在時制': '',
+    '未来時制': 'ip.'
+  }
+  const aspects = {
+    '完結相': '',
+    '進行相': 'evm',
+    '既済相': 'imp',
+    '未済相': 'eb'
+  }
+  const moods = {
+    '叙述法': '',
+    '命令法': 'mipa',
+    '疑問法': 'vebå'
+  }
+  const aspectColor = {
+    '完結相': '#fdd',
+    '進行相': '#ffc',
+    '既済相': '#aee',
+    '未済相': '#aea'
+  }
+  const table = document.createElement('table');
+  table.classList.add('inflectionTable');
+  const head = document.createElement('tr');
+  const cornerA = document.createElement('th')
+  cornerA.colSpan = 2;
+  head.appendChild(cornerA);
+  for (let tense in tenses) {
+    const tenseTh = document.createElement('th');
+    tenseTh.textContent = tense;
+    head.appendChild(tenseTh);
+  }
+  table.appendChild(head);
+  
+  for (let aspect in aspects) {
+    const aspectTh = document.createElement('th');
+    aspectTh.textContent = aspect;
+    aspectTh.rowSpan = 3;
+    aspectTh.style.writingMode = 'vertical-rl';
+    for (let mood in moods) {
+      const row = document.createElement('tr');
+      if (mood === '叙述法') row.appendChild(aspectTh);
+      const moodTh = document.createElement('th');
+      moodTh.textContent = mood;
+      row.appendChild(moodTh);
+      for (let tense in tenses) {
+        const td = document.createElement('td');
+        td.style.backgroundColor = aspectColor[aspect];
+        let form = word;
+        form = soundChangeFb(form, tenses[tense]);
+        form = soundChangeFb(form, aspects[aspect]);
+        form = soundChangeFb(form, moods[mood]);
+        td.textContent = form;
+        row.appendChild(td);
+      }
+      table.appendChild(row);
+    }
+  }
+  area.appendChild(table);
+  for (let aspect in aspects) {
+    for (tense in tenses) {
+      let form = word;
+      form = soundChangeFb(form, tenses[tense]);
+      form = soundChangeFb(form, aspects[aspect]);
+      calcInflFbAdj(form, tense.slice(0,-2)+aspect.slice(0,-1));
+    }
+  }
+}
+function calcInflFbAdj(word, verb) {
+  const area = document.getElementById('tableArea');
+  const degrees = {
+    '原級': '',
+    '比較級': 'fe',
+    '最上級': 'piv'
+  }
+  const dAgrees = {
+    '非限定一致':'b',
+    '限定一致':''
+  };
+  const cAgrees = {
+    '活格一致':'i',
+    '緩格一致':'ie',
+    '与格一致':'ia'
+  };
+  const compensates = {
+    '非補語':'',
+    '補語':'pe'
+  };
+  const relativities = ['活格関係','緩格関係','与格関係'];
+  const relaxive = {
+    i:'a',e:'å',å:'ea',a:'åi'
+  }
+  const dAgreeColor = {
+    '非限定一致': '#fdd',
+    '限定一致': '#ffc'
+  };
+  const compColor = {
+    '非補語': '#aee',
+    '補語': '#aea'
+  }
+  const table = document.createElement('table');
+  table.classList.add('inflectionTable');
+  const head = document.createElement('tr');
+  const corner = document.createElement('th');
+  corner.colSpan = 2;
+  if (verb.length > 0) corner.textContent = verb;
+  head.appendChild(corner);
+  if (verb.length < 1) {
+    for (let degree in degrees) {
+      const degreeTh = document.createElement('th');
+      degreeTh.textContent = degree;
+      head.appendChild(degreeTh);
+    }
+  } else {
+    relativities.forEach(relativity => {
+      const relativityTh = document.createElement('th');
+      relativityTh.textContent = relativity;
+      head.appendChild(relativityTh);
+    });
+  }
+  table.appendChild(head);
+  
+  for (let dAgree in dAgrees) {
+    const dAgreeTh = document.createElement('th');
+    dAgreeTh.textContent = dAgree;
+    dAgreeTh.rowSpan = 3;
+    for (let cAgree in cAgrees) {
+      const row = document.createElement('tr');
+      if (cAgree === '活格一致') row.appendChild(dAgreeTh);
+      const cAgreeTh = document.createElement('th');
+      cAgreeTh.textContent = cAgree;
+      row.appendChild(cAgreeTh);
+      if (verb.length < 1) {
+        for (let degree in degrees) {
+          const td = document.createElement('td');
+          td.style.backgroundColor = dAgreeColor[dAgree];
+          let form = word;
+          form = soundChangeFb(form, degrees[degree]);
+          form = soundChangeFb(form, dAgrees[dAgree] + cAgrees[cAgree]);
+          td.textContent = form;
+          row.appendChild(td);
+        }
+      } else {
+        relativities.forEach((relativity, index) => {
+          const td = document.createElement('td');
+          td.style.backgroundColor = dAgreeColor[dAgree];
+          let form = word;
+          if (index === 1) {
+            if (relaxive[word.slice(-2,-1)]) form = word.slice(0,-2) + relaxive[word.slice(-2,-1)] + word.slice(-1);
+            else form = word.slice(0,-3) + relaxive[word.slice(-3,-2)] + word.slice(-2);
+          }
+          else if (index === 2) form = soundChangeFb(word, 'ef');
+          form = soundChangeFb(form, dAgrees[dAgree] + cAgrees[cAgree]);
+          td.textContent = form;
+          row.appendChild(td);
+        });
+      }
+      table.appendChild(row);
+    }
+  }
+  if (verb.length > 0) {
+    area.appendChild(table);
+    return;
+  }
+  for (let compensate in compensates) {
+    const row = document.createElement('tr');
+    const compensateTh = document.createElement('th');
+    compensateTh.textContent = compensate;
+    compensateTh.colSpan = 2;
+    row.appendChild(compensateTh);
+    for (let degree in degrees) {
+      const td = document.createElement('td');
+      td.style.backgroundColor = compColor[compensate];
+      let form = word;
+      form = soundChangeFb(form, degrees[degree]);
+      form = soundChangeFb(form, compensates[compensate]);
+      td.textContent = form;
+      row.appendChild(td);
+    }
+    table.appendChild(row);
+  }
+  area.appendChild(table);
+}
+function soundChangeFb(word1, word2) {
+  const colliquation = {
+    p:{p:'pp',b:'bb',f:'pf',v:'bv',m:'bm'},
+    b:{p:'pp',b:'bb',f:'bif',v:'bv',m:'bm'},
+    f:{p:'fip',b:'fm',f:'pf',v:'fm',m:'bm'},
+    v:{p:'vip',b:'vb',f:'pf',v:'bv',m:'vm'},
+    m:{p:'mp',b:'mb',f:'mf',v:'mv',m:'mm'}
+  };
+  const cGradation = {
+    p:{a:'ba',å:'på',e:'pe',i:'fi'},
+    b:{a:'va',å:'bå',e:'be',i:'pi'},
+    f:{a:'va',å:'få',e:'fe',i:'fi'},
+    v:{a:'va',å:'vå',e:'ve',i:'mi'},
+    m:{a:'ba',å:'må',e:'me',i:'mi'}
+  }
+  const cons = 'pbfvm';
+  let last = word1.slice(-1);
+  let initial = word2.slice(0,1) || null;
+  if ((word1.endsWith('am.') || word1.endsWith('ip.'))) {
+    if (cons.includes(initial) || word2 === 'evm') {
+      word1 = word1.slice(0,-2);
+      last = word1.slice(-1);
+      if (word2 === 'evm') {
+        word2 = 'vm';
+        initial = word2.slice(0,1);
+      }
+    } else {
+      word1 = word1.slice(0,-1);
+      last = word1.slice(-1);
+    }
+  }
+  if (word2 === '') return word1;
+  if (cons.includes(last)) {
+    if (cons.includes(initial)) return word1.slice(0,-1) + colliquation[last][initial] + word2.slice(1);
+    else return word1.slice(0,-1) + cGradation[last][initial] + word2.slice(1);
+  } else return word1 + word2;
 }
 function parseCont(meaningText,data) {
   const container = document.createElement('span');
