@@ -543,17 +543,19 @@ function estmInfl(item) {
     } else if (pos.includes('動詞') || (pos === '助動詞' && word.slice(-1) === 'u')) {
       return '三段';
     }
-  } else if (lang === 'yj') {
+  } else if (lang === 'yj' || lang === 'fb') {
     if (pos.includes('名詞')) {
       return '格体';
     } else if (pos === '形容詞') {
       return '飾定';
     } else if (pos.includes('動詞')) {
-      if (word.slice(-1) === 'l' || word.slice(-1) === 'j') {
-        return word.slice(-2);
-      } else {
-        return word.slice(-2,-1) + 'C';
-      }
+      if (lang === 'yj') {
+        if (word.slice(-1) === 'l' || word.slice(-1) === 'j') {
+          return word.slice(-2);
+        } else {
+          return word.slice(-2,-1) + 'C';
+        }
+      } else return '実心';
     }
   }
 }
