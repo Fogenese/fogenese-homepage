@@ -1311,7 +1311,7 @@ function loadDic() {
     search.addEventListener('keydown',(event) => {
       if (event.key === 'Enter') {
         suggest.innerHTML = '';
-        const query = search.value.toLowerCase();
+        const query = search.value;
         let filtered = [];
         if (query.startsWith('#')) {
           filtered = data.filter(item => 'qualis' in item && item.qualis.match(query.slice(1)));
@@ -1320,7 +1320,7 @@ function loadDic() {
         } else if (query.startsWith('/')) {
           filtered = data.filter(item => 'origin' in item && item.origin.includes(query.slice(1)));
         } else {
-          filtered = data.filter(item => item.word.toLowerCase().includes(query) || item.mean.includes(query));
+          filtered = data.filter(item => item.word.toLowerCase().includes(query.toLowerCase()) || item.mean.includes(query.toLowerCase()));
         }
 
         filtered.forEach(item => {
