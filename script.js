@@ -475,6 +475,7 @@ function estmPos(codeText,flag) {
       'vV':'終助詞',
       'vD':'接続助詞',
       'Da':'副助動詞',
+      'DA':'連体助詞',
       'DD':'副助詞',
       'np':'接頭辞',
       'ns':'接尾辞'
