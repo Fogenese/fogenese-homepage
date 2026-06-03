@@ -325,46 +325,37 @@ function calcPronYj(word) {
 }
 function calcPronKl(word) {
   const map1 = {
-    a:'a',b:'b',c:'ts',d:'d',e:'e',f:'f',g:'g',h:'h',i:'i',j:'zw',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',q:'kw',s:'s',t:'t',u:'u',v:'v',w:'w',x:'ʃ',y:'j',z:'z'
+    a:'a',b:'b',c:'τ',d:'d',e:'e',f:'f',g:'g',h:'h',i:'i',j:'ζ',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',q:'κ',s:'s',t:'t',u:'u',v:'v',w:'w',x:'x',y:'j',z:'z',by:'β',dz:'δ',gw:'γ',py:'π',sw:'σ',ah:'aː',eh:'eː',ih:'iː',oh:'oː',uh:'uː'
   }
   const map2 = {
-    ts:'t͡s',dz:'d͡z',pj:'pʲ',bj:'bʲ',sw:'sʷ',zw:'zʷ',kw:'kʷ',gw:'gʷ',ei:'eɪ',al:'ɑɫ'
+    a:'a',b:'b',d:'d',e:'e',f:'f',g:'ɡ',h:'h',i:'i',j:'j',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',s:'s',t:'t',u:'u',v:'v',w:'w',ʃ:'ʃ',z:'z',β:'bʲ',γ:'gʷ',δ:'d͡z',ζ:'zʷ',κ:'kʷ',π:'pʲ',σ:'sʷ',τ:'t͡s',ei:'eɪ',al:'ɑɫ',ː:'ː'
   }
-  const map3 = {
-    a:'a',b:'b',d:'d',e:'e',f:'f',g:'ɡ',h:'h',i:'i',j:'j',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',s:'s',t:'t',u:'u',v:'v',w:'w',ʃ:'ʃ',z:'z',ː:'ː'
-  }
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
-  const phonemeArr = [];
-  const chars = word.split('');
-  for (let j = 0; j < chars.length; j++) {
-    const current = chars[j];
-    const prev = chars[j - 1];
-    if (current === 'h' && vowels.includes(prev)) {
-      phonemeArr.push('ː');
+  let phoneme = '';
+  for (let i = 0; i < word.length;) {
+    const curr = word[i];
+    const pair = curr + (word[i + 1] || '');
+    if (map1[pair]) {
+      phoneme += map1[pair];
+      i += 2;
     } else {
-      phonemeArr.push(map1[current] || '?');
+      phoneme += map1[curr] || '?';
+      i += 1;
     }
   }
-  const phoneme = phonemeArr.join('');
-  const figure = phoneme.split('');
   let phonetic = '';
   let i = 0;
-
-  while (i < figure.length) {
-    const pair = figure[i] + (figure[i + 1] || '');
-
+  while (i < phoneme.length) {
+    const curr = phoneme[i];
+    const pair = curr + (phoneme[i + 1] || '');
     if (map2[pair]) {
       phonetic += map2[pair];
       i += 2;
-    } else if (map3[figure[i]]) {
-      phonetic += map3[figure[i]];
-      i += 1;
     } else {
-      phonetic += '?!';
+      phonetic += map2[curr] || '!';
       i += 1;
     }
   }
-  return `/${phoneme}/ [${phonetic}]`
+  return `/${phoneme}/ [${phonetic}]`;
 }
 function calcPronSb(word) {
   const map1 = {
