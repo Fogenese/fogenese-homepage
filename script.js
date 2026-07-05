@@ -87,6 +87,9 @@ const revFuncs = {
   fb: dummy,
   zl: dummy
 }
+const klFonts = {
+  kl:'a',cq:'a',zl:'a'
+}
 function dummy() {return [];}
 const langSelector = document.getElementById('langSelector');
 langSelector.addEventListener('change', () => {
@@ -116,6 +119,7 @@ function showDetail(item) {
   const qualisElm = document.createElement('span');
   const posElm = document.createElement('span');
   const pron = document.getElementById('pron');
+  const font = document.getElementById('font');
   const infl = document.getElementById('infl');
   const origin = document.getElementById('origin');
   const usage = document.getElementById('usage');
@@ -127,21 +131,29 @@ function showDetail(item) {
   spell.innerHTML = '';
   const spellText = document.createElement('span');
   spellText.textContent = item.word;
-  const mark = applyTextStyle(item, spellText);
+  const pos = estmPos(item.qualis);
+  const mark = applyTextStyle(item, spellText, pos.color);
   if (mark[1] !== 'pre') {spell.appendChild(mark[0]);}
   spell.appendChild(spellText);
   if (mark[1] !== 'sub') {spell.appendChild(mark[0]);}
   mean.textContent = `意味: ${item.mean}`;
   qualis.textContent = '';
-  const pos = estmPos(item.qualis,'pos');
-  qualisElm.textContent = `属性: ${estmPos(item.qualis,'qualis')}`;
-  posElm.textContent = `品詞: ${pos}`;
+  qualisElm.textContent = `属性: ${pos.qualis}`;
+  posElm.textContent = `品詞: ${pos.pos}`;
   qualis.appendChild(qualisElm);
   qualis.appendChild(document.createElement('br'));
   qualis.appendChild(posElm);
   const pronounce = pronFuncs[lang](item.word.toLowerCase());
   pron.textContent = `発音: ${pronounce}`;
-  const toi = estmInfl(item);
+  font.innerHTML = '';
+  if (klFonts[lang]) {
+    const fontP = document.createElement('p');
+    fontP.textContent = `文字: ${pronounce.split('/')[1]}`;
+    fontP.classList.add('klFont');
+    font.appendChild(fontP);
+    font.style.display = 'block';
+  } else font.style.display = 'none';
+  const toi = estmInfl(item, pos.pos);
   if (toi) {
     infl.style.display = 'block';
     infl.textContent = `屈折型: ${toi}型`;
@@ -452,7 +464,7 @@ function calcPronZl(word) {
   let phonetic = '';
   return `/${phoneme}/ [${phonetic}]`;
 }
-function estmPos(codeText,flag) {
+function estmPos(codeText) {
   const codes = codeText.split(',');
   const rules = [
     { 'n':['名詞','格体','noun'],'v':['動詞','実心','verb'],'a':['形容詞','飾定','adj'],'V':['述語','心子','verb'],'A':['連体詞','連格','adj'],'D':['副詞','連象','adv'],'J':['接続詞','連包','conj'],'X':['間投詞','非能','int']},
@@ -468,26 +480,16 @@ function estmPos(codeText,flag) {
       'Da':'副助動詞',
       'DA':'連体助詞',
       'DD':'副助詞',
-      'np':'接頭辞',
-      'ns':'接尾辞'
+      'hp':'接頭辞',
+      'hs':'接尾辞'
     },
-    {r:['代'],i:['自','内向'],o:['他','外向'],e:['両向','能格'],l:['結び'],s:['解き']}
+    {r:['代'],i:['自','内向'],o:['他','外向'],e:['能格','両向'],l:['結び'],s:['解き']}
   ];
   let pos = [];
   let qualis = [];
   let color = [];
   codes.forEach(code => {
-    if (code.length < 3) {
-      const rule0 = rules[0][code.slice(-1)];
-      pos.push(rule0[0]);
-      qualis.push(rule0[1]);
-      color.push(rule0[2]);
-      if (code.length > 1) {
-        pos[0] = rules[3][code.slice(0,1)][0] + pos[0];
-        qualis[qualis.length - 1] = rules[3][code.slice(0,1)][rules[3][code.slice(0,1)].length - 1] + qualis[qualis.length - 1];
-      }
-    }
-    else {
+    if (code.length > 3 || code.includes('h') || code.includes('d')) {
       qualis.push('');
       let affix = [];
       if (code.length < 4) affix = ['',''];
@@ -502,14 +504,22 @@ function estmPos(codeText,flag) {
         }
       });
     }
+    else {
+      const rule0 = rules[0][code.slice(-1)];
+      pos.push(rule0[0]);
+      qualis.push(rule0[1]);
+      color.push(rule0[2]);
+      if (code.length > 1) {
+        pos[0] = rules[3][code.slice(0,1)][0] + pos[0];
+        qualis[qualis.length - 1] = rules[3][code.slice(0,1)][rules[3][code.slice(0,1)].length - 1] + qualis[qualis.length - 1];
+      }
+    }
   });
   if (pos.length < 1) {pos = null;}
-  if (flag === 'pos') {return pos[0];}
-  else if (flag === 'qualis') {return qualis;}
-  else if (flag === 'color') {return color[0];}
+  return {'pos': pos[0], 'qualis': qualis, 'color': color[0]};
 }
-function applyTextStyle(item, span) {
-  let color = estmPos(item.qualis,'color');
+function applyTextStyle(item, span, color) {
+  if (!color) color = estmPos(item.qualis).color;
   const mark = document.createElement('span');
   if (color[0].length > 1) {
     mark.textContent = color[2] === 'nef' ? color[0].slice(0,1) : color[0].slice(0,1) + color[0].slice(0,1);
@@ -523,11 +533,11 @@ function applyTextStyle(item, span) {
   span.classList.add(color);
   return [mark, color.slice(0,3)];
 }
-function estmInfl(item) {
+function estmInfl(item, pos) {
   const word = item.word;
-  const pos = estmPos(item.qualis,'pos');
+  if (!pos) pos = estmPos(item.qualis).pos;
   if (lang === 'fg') {
-    if (pos === '助動詞' && word.slice(-1) === 'i') {
+    if (pos.includes('助動詞') && word.slice(-1) === 'i') {
       return '助動詞二段';
     } else if (pos === '形容詞') {
       return '二段';
@@ -553,18 +563,14 @@ function estmInfl(item) {
 function calcInflFg(word,toi) {
   const area = document.getElementById('tableArea');
   const stem = word.slice(0, -1);
-  const inflects = [
-    {'基本形': 'u', '連用形': 'i', '命令形': 'a'},
-    {'基本形': 'i', '連用形': 'a', '程度形': 'do'},
-    {'基本形': 'i', '連用形': 'a'}
-  ];
+  const inflects = {
+    '三段': {'基本形': 'u', '連用形': 'i', '命令形': 'a'},
+    '二段': {'基本形': 'i', '連用形': 'a', '程度形': 'do'},
+    '助動詞二段': {'基本形': 'i', '連用形': 'a'}
+  };
   let inflect = {};
-  if (toi === '三段') {
-    inflect = inflects[0];
-  } else if (toi === '二段') {
-    inflect = inflects[1];
-  } else if (toi === '助動詞二段') {
-    inflect = inflects[2];
+  if (inflects[toi]) {
+    inflect = inflects[toi];
   } else {
     table.style.display = 'none';
     return;
