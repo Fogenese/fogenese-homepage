@@ -420,3 +420,10 @@ select {
     display: block;
     margin: auto;
 }
+@font-face {
+  font-family: "Qalcehm";
+  src: url("Qalcehm-Regular.ttf");
+}
+.klFont {
+  font-family: "Qalcehm";
+}
