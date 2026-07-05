@@ -1417,15 +1417,16 @@ function analyze(sentence) {
           index = '-' + suggests.findIndex(entry => entry.mean === reverses[i].mean && entry.qualis === reverses[i].qualis);
         }
         formElm.href = `https://fogenese.github.io/fogenese-homepage/dictionary.html?lang=${lang}&word=${reverses[i].word}${index}`;
-        
-        const mark = applyTextStyle(reverses[i], formElm);
+
+        const pos = estmPos(reverses[i].qualis);
+        const mark = applyTextStyle(reverses[i], formElm, pos.color);
         formElm.textContent = reverses[i].word;
         if (mark[1] !== 'pre') {dicForm.appendChild(mark[0]);}
         dicForm.appendChild(formElm);
         if (mark[1] !== 'sub') {dicForm.appendChild(mark[0]);}
         meanCell.textContent = reverses[i].mean;
-        posCell.textContent = estmPos(reverses[i].qualis,'pos');
-        qualisCell.textContent = estmPos(reverses[i].qualis,'qualis');
+        posCell.textContent = pos.pos
+        qualisCell.textContent = pos.qualis;
         valueCell.textContent = reverses[i].value;
         analysis.appendChild(tr);
         tr.appendChild(dicForm);
