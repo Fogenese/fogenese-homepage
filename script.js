@@ -1312,10 +1312,10 @@ function loadDic() {
         const query = search.value;
         let filtered = [];
         if (query.startsWith('#')) {
-          filtered = data.filter(item => 'qualis' in item && item.qualis.match(query.slice(1)));
+          filtered = data.filter(item => 'tag' in item && item.tag.includes(query.slice(1)));
+        } else if (query.startsWith('@')) {
+          filtered = data.filter(item => 'qualis' in item && item.qualis.includes(query.slice(1)));
         } else if (query.startsWith('¥')) {
-          filtered = data.filter(item => 'qualis' in item && item.qualis === query.slice(1));
-        } else if (query.startsWith('/')) {
           filtered = data.filter(item => 'origin' in item && item.origin.includes(query.slice(1)));
         } else {
           filtered = data.filter(item => item.word.toLowerCase().includes(query.toLowerCase()) || item.mean.includes(query.toLowerCase()));
