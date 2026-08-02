@@ -4,7 +4,7 @@
     box-sizing: border-box;
     line-height: 1;
 }
-body {background-color: #faf0f0;
+body {background-color: #f5f1f1;
       white-space: nowrap;
       font-family: "Arial", "メイリオ";
 }
@@ -203,7 +203,7 @@ table {
     width: auto;
     border-spacing: 0;
     font-size: 35px;
-    border: 5px solid #fff;
+    border: 5px solid #adcad9;
     border-radius: 20px;
     margin: 30px auto;
     overflow: hidden;
@@ -216,12 +216,12 @@ th, td {
 }
 th {
     border: 2px solid #000;
-    background-color: #a0ddff;
+    background-color: #c2e2f2;
     font-weight: bold;
 }
 td {
     border: 1px solid #000;
-    background-color: #cfeeff;
+    background-color: #f0f5f7;
 }
 tr:first-child th, tr:first-child td {border-top: none;}
 tr:last-child th, tr:last-child td {border-bottom: none;}
@@ -232,6 +232,7 @@ th:last-child, td:last-child {border-right: none;}
 }
 .container {
     border: 5px solid #ffdddd;
+    border-radius: 20px;
     overflow: auto;
 }
 #suggest p {
@@ -326,7 +327,7 @@ button {
 }
 .info {
     width: 100%;
-    background-color: #cfeeff;
+    background-color: #f0f5f7;
     border-bottom: 1px solid #000;
     font-size: 40px;
     padding: 30px;
