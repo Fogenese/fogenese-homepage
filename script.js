@@ -121,6 +121,7 @@ function showDetail(item) {
   const pron = document.getElementById('pron');
   const font = document.getElementById('font');
   const infl = document.getElementById('infl');
+  const tag = document.getElementById('tag');
   const origin = document.getElementById('origin');
   const usage = document.getElementById('usage');
   const relation = document.getElementById('relation');
@@ -160,6 +161,11 @@ function showDetail(item) {
   } else {
     infl.style.display = 'none';
   }
+  if (item.tag) {
+    tag.style.display = 'block';
+    tag.innerHTML = '';
+    tag.textContent = `タグ: ${item.tag}`;
+  } else tag.style.display = 'none';
   if (item.origin) {
     origin.style.display = 'block';
     origin.innerHTML = '';
