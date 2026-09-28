@@ -1393,11 +1393,9 @@ function analyze(sentence) {
 
     const reverses = revFuncs[lang](word);
     const matches = dicData.filter(entry => entry.word.toLowerCase() === word);
-    matches.forEach(match => {
-      if (reverses.filter(entry => entry.word === word).length === 0) {
-        reverses.push({...match, value:'-'});
-      }
-    });
+    const applies = matches.filter(match => reverses.filter(e => e.word === match.word).length < 1);
+    applies.forEach(apply => reverses.push({...apply, value: '-'}));
+
     if (reverses.length === 0 && !new RegExp(`^[${chars}]+$`,'i').test(word)) {
       const tokenCell = document.createElement('th');
       tokenCell.colSpan = 5;
