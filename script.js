@@ -61,6 +61,7 @@ const pronFuncs = {
   fg: calcPronFg,
   yj: calcPronYj,
   kl: calcPronKl,
+  fc: calcPronFc,
   sb: calcPronSb,
   pp: calcPronPp,
   cq: calcPronCq,
@@ -71,6 +72,7 @@ const inflFuncs = {
   fg: calcInflFg,
   yj: calcInflYj,
   kl: dummy,
+  fc: dummy,
   sb: dummy,
   pp: dummy,
   cq: dummy,
@@ -375,6 +377,71 @@ function calcPronKl(word) {
   }
   return `/${phoneme}/ [${phonetic}]`;
 }
+function calcPronFc(word) {
+  const map1 = {
+    c:'c',f:'f',i:'i',j:'ç',k:'k',l:'l',r:'r',s:'s',t:'t',v:'w',x:'ʃ',z:'θ'
+  }
+  const map2 = {
+    c:'c',k:'k',s:'s',t:'t',x:'ʃ',z:'z'
+  }
+  const map3 = {
+    v:'a',f:'ɛ',i:'i',j:'e',l:'u',r:'o'
+  }
+  const map4 = {
+    c:'t͡ɕ',k:'k',r:'ɾ',t:'t',w:'ɸ'
+  }
+  const map5 = {
+    ç:'ɕ'
+  }
+  const map6 = {
+    c:'',k:'',r:'',t:'',w:''
+  }
+  const map7 = {
+    a:'a',o:'o',ɛ:'ɛ',e:'e',c:'ɕ',f:'f',i:'i',ç:'ç',k:'x',l:'l',r:'ɾ',s:'s',t:'t',u:'ɯ',w:'β̞',ʃ:'ɕ',θ:'θ'
+  }
+  const chars = word.split('');
+  let phoneme = '';
+  let phonetic = '';
+  let i = 0;
+  let preWasCons = false;
+
+  while (i < chars.length) {
+    const current = chars[i];
+    if (preWasCons) {
+      if (map2[current]) {
+        phoneme += map2[current] || '?';
+        preWasCons = true;
+        i += 1;
+      } else {
+        phoneme += map3[current] || '?';
+        preWasCons = false;
+        i += 1;
+      }
+    } else {
+      if (i === 0 && (map2[chars[i + 1]] || current === 'i')) {
+        if (map3[current]) {
+          phoneme += map3[current] || '?!';
+        } else {
+          phoneme += map2[current] || '♪';
+        }
+          i += 1;
+      } else {
+        phoneme += map1[current] || '?';
+        preWasCons = true;
+        i += 1;
+      }
+    }
+  }
+  const figure = phoneme.split('');
+  for (let j = 0; j < figure.length; j++) {
+    const cur = figure[j];
+    if (j === 0 && map4[cur]) phonetic += map4[cur];
+    else if (j === figure.length - 1 && map6[cur] === '') phonetic += map6[cur];
+    else if (map5[cur] && figure[j+1] === 'i') phonetic += map5[cur];
+    else phonetic += map7[cur];
+  }
+  return `/${phoneme}/ [${phonetic}]`
+}
 function calcPronSb(word) {
   const map1 = {
     a:'a',b:'w',c:'c',d:'r',f:'f',g:'ɰ',h:'h',i:'i',k:'k',l:'l',m:'m',n:'n',o:'o',p:'p',q:'j',s:'s',t:'t',α:'ɑ',θ:'θ',σ:'ʃ',φ:'ɸ',χ:'x',б:'b',в:'v',г:'g',ж:'ʒ',н:'ɴ',у:'u',ц:'ts',з:'z',э:'e'
@@ -466,9 +533,28 @@ function calcPronFb(word) {
   return `/${phoneme}/ [${phonetic}]`;
 }
 function calcPronZl(word) {
-  let phoneme = '';
+  const map1 = {
+    g:'ɡ',x:'ʃ',j:'ʒ',y:'j'
+  }
+  const map2 = {
+    pd:'pɾ',pg:'pʒ',pz:'pt͡s',pn:'bn',sb:'sv',sg:'zɡ',sd:'sɾ',sz:'st͡s',dl:'tl',zl:'t͡sl'
+  }
   let phonetic = '';
-  return `/${phoneme}/ [${phonetic}]`;
+  let i = 0;
+  while (i < word.length) {
+    const pair = word[i] + (word[i+1] || '');
+    if (map2[pair]) {
+      phonetic += map2[pair];
+      i += 2;
+    } else if (map1[word[i]]) {
+      phonetic += map1[word[i]];
+      i++;
+    } else {
+      phonetic += word[i];
+      i++;
+    }
+  }
+  return `[${phonetic}]`;
 }
 function estmPos(codeText) {
   const codes = codeText.split(',');
@@ -489,7 +575,8 @@ function estmPos(codeText) {
       'DD':'副助詞',
       'hp':'接頭辞',
       'hs':'接尾辞',
-      'dj':'前置詞'
+      'dj':'前置詞',
+      'VXds':'文末詞'
     },
     {r:['代'],i:['自','内向'],o:['他','外向'],e:['能格','両向'],l:['結び'],s:['解き']}
   ];
@@ -1307,7 +1394,7 @@ function loadDic() {
     count.textContent = `現在の見出し語数: ${data.length}`;
 
     search.value = '';
-    suggest.innerHTML = '';
+    suggest.innerHTML = '<p>「#」でタグ検索<br>「@」で属性検索<br>「¥」で語源検索</p>';
     detail.style.display = 'none';
     tableArea.innerHTML = '';
     share.style.display = 'none';
